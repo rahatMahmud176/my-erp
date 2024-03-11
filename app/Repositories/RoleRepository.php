@@ -15,4 +15,8 @@ class RoleRepository implements RoleInterface
     {
         Role::create($request);
     }
+    public function update($request,$role)
+    {
+        Role::updateRole($request,$role);
+    }
 }

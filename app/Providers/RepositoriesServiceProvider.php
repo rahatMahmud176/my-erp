@@ -21,13 +21,23 @@ class RepositoriesServiceProvider extends ServiceProvider
     {
         $this->app->bind(
             'App\Contracts\RoleInterface',
-            'App\Repositories\RoleRepository', 
-            
+            'App\Repositories\RoleRepository',  
         );
         $this->app->bind(
             'App\Contracts\ModuleInterface',
-            'App\Repositories\ModuleRepository'
-            
+            'App\Repositories\ModuleRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\UserInterface',
+            'App\Repositories\UserRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\CategoryInterface',
+            'App\Repositories\CategoryRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\subCategoryInterface',
+            'App\Repositories\SubCategoryRepository' 
         );
     }
 }

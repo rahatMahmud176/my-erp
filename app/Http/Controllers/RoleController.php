@@ -75,11 +75,12 @@ class RoleController extends Controller
      */
     public function update(Request $request, Role $role)
     { 
+        Gate::authorize('role.edit');
+
         $this->validate($request,[
             'name'  => 'required | max:30',
         ]);
-        Gate::authorize('role.edit');
-        Role::updateRole($request,$role);
+        $this->role->update($request,$role);
         notify()->success('Update Successfully','Updated');
         return back();
     }

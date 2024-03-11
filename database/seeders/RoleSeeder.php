@@ -23,9 +23,17 @@ class RoleSeeder extends Seeder
         ])->permissions()->sync($superAdminPermissions->pluck('id'));
 
         Role::updateOrCreate([
+            'name'      => 'Admin',
+            'slug'      => 'admin',
+            'deletable' =>  false,
+        ])->permissions()->sync($superAdminPermissions->pluck('id'));
+
+
+
+        Role::updateOrCreate([
                     'name'      => 'User',
                     'slug'      => 'user',
-                    'deletable' =>  true,
+                    'deletable' =>  false,
                 ]); 
     }
 }

@@ -1,5 +1,8 @@
 <?php
 
+use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
@@ -28,6 +31,9 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){ 
     Route::resource('roles', RoleController::class);
+    Route::resource('users', UserController::class);
+    Route::resource('categories', CategoryController::class);
+    Route::resource('subCategories', SubCategoryController::class);
 });
 
 
