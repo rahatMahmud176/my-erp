@@ -5,8 +5,9 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\CategoryInterface;
 use App\Contracts\subCategoryInterface;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\SubCategory;
+use App\Models\Backend\SubCategory; 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SubCategoryController extends Controller
 {
@@ -23,6 +24,9 @@ class SubCategoryController extends Controller
 
     public function index()
     {
+
+        Gate::authorize('sub-category.index');
+
         $subCategories = $this->subCategory->all();  
         $categories = $this->category->all();  
         return view('backend.sub-category.index', compact('subCategories','categories'));
@@ -41,6 +45,8 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('sub-category.index');
+
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -62,8 +68,11 @@ class SubCategoryController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(SubCategory $subCategory)
-    {
-        //
+    { 
+        Gate::authorize('sub-category.edit');
+
+        $categories = $this->category->all(); 
+        return view('backend.sub-category.form', compact('subCategory','categories'));
     }
 
     /**
@@ -71,7 +80,14 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, SubCategory $subCategory)
     {
-        //
+        Gate::authorize('sub-category.edit');
+        $this->validate($request,[
+            'name'  => 'required'
+        ]);
+
+        $this->subCategory->update($request,$subCategory);
+        notify('updated successfully','success');
+        return redirect('admin/sub-categories');
     }
 
     /**
@@ -79,6 +95,12 @@ class SubCategoryController extends Controller
      */
     public function destroy(SubCategory $subCategory)
     {
-        //
+        Gate::authorize('sub-category.delete');
+        if($subCategory->deletable == 1){
+            $subCategory->delete();
+            notify()->success('delete Successfully','Success');
+        }else{
+        }
+        return back();
     }
 }

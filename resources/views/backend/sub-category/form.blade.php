@@ -9,18 +9,28 @@
              
             <div class="mt-3 clearfix">
                 <h3 class="float-start">#SubCategory Edit</h3>
-                <a href="{{ route('admin.categories.index') }}" class="btn btn-sm btn-danger  float-end">
+                <a href="{{ route('admin.sub-categories.index') }}" class="btn btn-sm btn-danger float-end">
                      Cancel</a>
             </div>
 
             <div class="row">
                 <div class="col-md-6 mx-auto">
-                    <form action="{{ route('admin.categories.update',$category->id) }}" method="post">
+                    <form action="{{ route('admin.sub-categories.update',$subCategory->id) }}" method="post">
                         @csrf
-                        @method('PUT')
+                        @method('PUT') 
+
                         <div class="form-group">
-                          <label for=""></label>
-                          <input type="text" name="name" id="" class="form-control" value="{{ $category->name }}">
+                          <label for="" class="mb-2">Category</label>
+                          <select class="form-control" name="cat" id="">
+                              @foreach ($categories as $category)
+                                <option {{ $category->id ==  $subCategory->category->id ?'selected':'' }}  value="{{ $category->id }}">{{ $category->name }}</option>
+                              @endforeach 
+                          </select>
+                      </div>
+
+                        <div class="form-group mt-3">
+                          <label for="">Sub Category</label>
+                          <input type="text" name="name" id="" class="form-control" value="{{ $subCategory->name }}">
                          </div>
 
                          <div class="form-group"> 

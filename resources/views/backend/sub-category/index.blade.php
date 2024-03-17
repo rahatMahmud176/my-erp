@@ -9,7 +9,7 @@
 
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Categoris</h3>
-                    <a href="{{ route('admin.subCategories.index') }}" class="btn btn-sm btn-secondary  float-end">
+                    <a href="{{ route('admin.sub-categories.index') }}" class="btn btn-sm btn-secondary  float-end">
                         <i class="bi bi-plus-circle"></i>
                         Add SubCategory</a>
                 </div>
@@ -30,7 +30,7 @@
                         @endif
 
 
-                        <form action="{{ route('admin.subCategories.store') }}" method="post">
+                        <form action="{{ route('admin.sub-categories.store') }}" method="post">
                             @csrf
 
                             <div class="form-group">
@@ -72,7 +72,7 @@
                                         <th scope="row">{{ $key + 1 }}</th>
                                         <td>{{ $subCategory->name }}</td>
                                         <td>
-                                            <a href="{{ route('admin.subCategories.edit', $subCategory) }}"
+                                            <a href="{{ route('admin.sub-categories.edit', $subCategory) }}"
                                                 class="btn btn-sm btn-secondary">
                                                 <i class="bi bi-pencil-square"></i>
                                                 Edit
@@ -84,7 +84,7 @@
                                                     Delete</a>
 
                                                 <form id="deleteSubCategoryForm{{ $subCategory->id }}"
-                                                    action="{{ route('admin.subCategories.destroy', $subCategory) }}"
+                                                    action="{{ route('admin.sub-categories.destroy', $subCategory) }}"
                                                     method="post">
                                                     @method('DELETE')
                                                     @csrf

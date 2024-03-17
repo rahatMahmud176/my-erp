@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('slug');
             $table->foreignId('category_id')->constrained('categories')->onDelete('cascade');
             $table->integer('click_count')->default(0);
+            $table->boolean('deletable')->default(true);
             $table->timestamps();
         });
     }

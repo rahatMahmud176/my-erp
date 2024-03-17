@@ -6,6 +6,7 @@ use App\Contracts\CategoryInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class CategoryController extends Controller
 {
@@ -20,6 +21,8 @@ class CategoryController extends Controller
 
     public function index()
     {
+        Gate::authorize('category.index');
+
        $categories = $this->categories->all();  
        return view('backend.category.index', compact('categories'));
     }
@@ -37,6 +40,8 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('category.create');
+
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -60,6 +65,9 @@ class CategoryController extends Controller
      */
     public function edit(Category $category)
     {
+
+        Gate::authorize('category.edit');
+
         $category = $category;
         return view('backend.category.form', compact('category'));
     }
@@ -69,6 +77,8 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
+        Gate::authorize('category.edit');
+
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -83,6 +93,8 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
+        Gate::authorize('category.delete');
+
         if($category->deletable == 1){
             $category->delete();
             notify()->success('delete Successfully','Success');

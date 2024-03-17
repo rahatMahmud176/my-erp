@@ -42,5 +42,11 @@ class Category extends Model
 
 
 
+   public function subCategories()
+   {
+        return $this->belongsToMany(SubCategory::class);
+   } 
+
+
 
 }

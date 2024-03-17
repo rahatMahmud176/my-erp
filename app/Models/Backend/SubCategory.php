@@ -32,12 +32,19 @@ protected $guarded = ['id'];
         ]); 
     }   
 
-    public static function catUpdate($request,$subCategory)
+    public static function subCatUpdate($request,$subCategory)
     {
         $subCategory->update([
             'name'  => $request->name,
             'category_id'  => $request->cat,
         ]);
+    }
+
+
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
 

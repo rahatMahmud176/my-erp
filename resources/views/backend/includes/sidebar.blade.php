@@ -40,7 +40,7 @@
             </li> 
            
             <li>
-              <a href="{{ route('admin.subCategories.index') }}">
+              <a href="{{ route('admin.sub-categories.index') }}">
                 <i class="bi bi-circle"></i><span>SubCategory Manage</span>
               </a>
             </li> 

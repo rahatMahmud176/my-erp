@@ -17,6 +17,6 @@ class SubCategoryRepository implements subCategoryInterface
     }
     public function update($request,$subCategory)
     {
-        SubCategory::catUpdate($request,$subCategory);
+        SubCategory::subCatUpdate($request,$subCategory);
     }
 }

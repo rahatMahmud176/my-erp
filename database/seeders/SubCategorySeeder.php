@@ -17,6 +17,7 @@ class SubCategorySeeder extends Seeder
             'name'  => 'No SubCategory',
             'slug'  => 'no-sub-category',
             'category_id'   => 1,
+            'deletable'   => false,
         ]);
     }
 }

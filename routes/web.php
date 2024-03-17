@@ -33,7 +33,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('roles', RoleController::class);
     Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);
-    Route::resource('subCategories', SubCategoryController::class);
+    Route::resource('sub-categories', SubCategoryController::class);
 });
 
 
