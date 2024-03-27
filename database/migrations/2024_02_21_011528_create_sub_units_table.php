@@ -16,6 +16,7 @@ return new class extends Migration
             $table->string('name');
             // $table->foreignId('unit_id')->constrained('units')->onDelete('cascade');
             $table->integer('click_count')->default(0);
+            $table->boolean('deletable')->default(true);
             $table->timestamps();
         });
     }

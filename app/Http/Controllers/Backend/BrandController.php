@@ -56,7 +56,8 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
-        //
+        $brand = $brand;
+        return view('backend.brand.form', compact('brand'));
     }
 
     /**
@@ -64,7 +65,13 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
-        //
+        $this->validate($request,[
+            'name'  => 'required'
+        ]);
+
+        $this->brands->update($request,$brand);
+        notify('updated successfully','success');
+        return redirect('admin/brands');
     }
 
     /**

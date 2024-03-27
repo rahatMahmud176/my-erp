@@ -2,7 +2,12 @@
 
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
+use App\Http\Controllers\Backend\ColorController;
+use App\Http\Controllers\Backend\CountryVariantController;
+use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\SubCategoryController;
+use App\Http\Controllers\Backend\SubUnitController;
+use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\ProfileController;
@@ -36,6 +41,11 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('categories', CategoryController::class);
     Route::resource('sub-categories', SubCategoryController::class);
     Route::resource('brands', BrandController::class);
+    Route::resource('colors', ColorController::class);
+    Route::resource('sizes', SizeController::class);
+    Route::resource('country_variants', CountryVariantController::class);
+    Route::resource('units', UnitController::class);
+    Route::resource('sub_units', SubUnitController::class);
 });
 
 

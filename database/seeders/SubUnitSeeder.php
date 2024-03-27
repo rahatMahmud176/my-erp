@@ -21,6 +21,7 @@ class SubUnitSeeder extends Seeder
         foreach ($subUnits as $key => $subUnit) {
             SubUnit::updateOrCreate([
                 'name'  => $subUnit,
+                'deletable' => false
             ]);
         }
     }

@@ -21,6 +21,7 @@ class UnitSeeder extends Seeder
         foreach ($units as $key => $unit) {
             Unit::updateOrCreate([
                 'name'  => $unit,
+                'deletable' => false
             ]);
         } 
     }

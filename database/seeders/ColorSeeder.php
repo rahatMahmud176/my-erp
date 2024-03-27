@@ -14,7 +14,8 @@ class ColorSeeder extends Seeder
     public function run(): void
     {
         Color::updateOrCreate([
-            'name'  => 'Any Color'
+            'name'  => 'Any Color',
+            'deletable'  => false
         ]);
     }
 }

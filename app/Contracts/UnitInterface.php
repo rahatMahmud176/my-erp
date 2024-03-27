@@ -2,9 +2,9 @@
 
 namespace App\Contracts;
 
-interface BrandInterface 
+interface UnitInterface 
 {
     public function all();
     public function store($request);
-    public function update($request,$brand);
+    public function update($request,$unit);
 }

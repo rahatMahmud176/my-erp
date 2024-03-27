@@ -19,6 +19,7 @@ class CountryVariantSeeder extends Seeder
         foreach ($countries as $key => $country) {
             CountryVariant::updateOrCreate([
                 'name'  => $country,
+                'deletable' => false
             ]);
         }
         

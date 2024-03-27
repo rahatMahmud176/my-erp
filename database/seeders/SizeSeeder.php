@@ -14,7 +14,8 @@ class SizeSeeder extends Seeder
     public function run(): void
     {
         Size::updateOrCreate([
-            'name'  => 'Any Size'
+            'name'  => 'Any Size',
+            'deletable' => false
         ]);
     }
 }

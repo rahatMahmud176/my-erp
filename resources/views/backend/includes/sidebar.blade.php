@@ -50,30 +50,30 @@
                     </li>
 
                     <li>
-                        <a href="components-tooltips.html">
+                        <a href="{{ route('admin.colors.index') }}">
                             <i class="bi bi-circle"></i><span>Color Manage</span>
                         </a>
                     </li>
                     <li>
-                        <a href="components-tooltips.html">
+                        <a href="{{ route('admin.sizes.index') }}">
                             <i class="bi bi-circle"></i><span>Size Manage</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="components-tooltips.html">
+                        <a href="{{ route('admin.country_variants.index') }}">
                             <i class="bi bi-circle"></i><span>Country Variant Manage</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="components-tooltips.html">
+                        <a href="{{ route('admin.units.index') }}">
                             <i class="bi bi-circle"></i><span>Base Unit Manage</span>
                         </a>
                     </li>
 
                     <li>
-                        <a href="components-tooltips.html">
+                        <a href="{{ route('admin.sub_units.index') }}">
                             <i class="bi bi-circle"></i><span>Sub Unit Manage</span>
                         </a>
                     </li>
@@ -95,7 +95,7 @@
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                 <li>
-                    <a href="components-tooltips.html">
+                    <a href="">
                         <i class="bi bi-circle"></i><span>Tooltips</span>
                     </a>
                 </li>

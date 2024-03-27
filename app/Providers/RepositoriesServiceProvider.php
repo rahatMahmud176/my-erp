@@ -43,5 +43,25 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\Contracts\BrandInterface',
             'App\Repositories\BrandRepository' 
         );
+        $this->app->bind(
+            'App\Contracts\ColorInterface',
+            'App\Repositories\ColorRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\SizeInterface',
+            'App\Repositories\SizeRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\CountryVariantInterface',
+            'App\Repositories\CountryVariantRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\UnitInterface',
+            'App\Repositories\UnitRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\SubUnitInterface',
+            'App\Repositories\SubUnitRepository' 
+        );
     }
 }

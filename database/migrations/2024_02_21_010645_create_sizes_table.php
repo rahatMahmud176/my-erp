@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->integer('click_count')->default(0);
+            $table->boolean('deletable')->default(true);
             $table->timestamps();
         });
     }
