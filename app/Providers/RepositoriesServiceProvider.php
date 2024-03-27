@@ -39,5 +39,9 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\Contracts\subCategoryInterface',
             'App\Repositories\SubCategoryRepository' 
         );
+        $this->app->bind(
+            'App\Contracts\BrandInterface',
+            'App\Repositories\BrandRepository' 
+        );
     }
 }

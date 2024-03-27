@@ -14,7 +14,9 @@ return new class extends Migration
         Schema::create('brands', function (Blueprint $table) {
             $table->id();
             $table->string('name');
+            $table->string('slug');
             $table->integer('click_count')->default(0);
+            $table->boolean('deletable')->default(true);
             $table->timestamps();
         });
     }

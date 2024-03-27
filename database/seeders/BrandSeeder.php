@@ -14,7 +14,9 @@ class BrandSeeder extends Seeder
     public function run(): void
     {
         Brand::updateOrCreate([
-            'name'  => 'Any Brand'
+            'name'  => 'Any Brand',
+            'slug'  => 'any-brand',
+            'deletable'  => false
         ]);
     }
 }

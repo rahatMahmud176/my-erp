@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\UserController;
@@ -34,6 +35,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('users', UserController::class);
     Route::resource('categories', CategoryController::class);
     Route::resource('sub-categories', SubCategoryController::class);
+    Route::resource('brands', BrandController::class);
 });
 
 
