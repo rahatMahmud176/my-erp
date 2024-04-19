@@ -6,6 +6,7 @@ use App\Contracts\SizeInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Size;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SizeController extends Controller
 {
@@ -21,7 +22,7 @@ class SizeController extends Controller
      */
     public function index()
     {
-        
+        Gate::authorize('utility.index'); 
        $sizes = $this->sizes->all();  
        return view('backend.size.index', compact('sizes'));
     }
@@ -39,6 +40,7 @@ class SizeController extends Controller
      */
     public function store(Request $request)
     { 
+        Gate::authorize('utility.index');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -62,6 +64,7 @@ class SizeController extends Controller
      */
     public function edit(Size $size)
     { 
+        Gate::authorize('utility.edit');
         $size = $size;
         return view('backend.size.form', compact('size'));
     }
@@ -71,6 +74,7 @@ class SizeController extends Controller
      */
     public function update(Request $request, Size $size)
     { 
+        Gate::authorize('utility.edit');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -85,6 +89,7 @@ class SizeController extends Controller
      */
     public function destroy(Size $size)
     { 
+        Gate::authorize('utility.delete');
         if($size->deletable == 1){
             $size->delete();
             notify()->success('delete Successfully','Success');

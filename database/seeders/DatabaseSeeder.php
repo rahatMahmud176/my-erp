@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             $this->call(CountryVariantSeeder::class);
             $this->call(UnitSeeder::class);
             $this->call(SubUnitSeeder::class);
+            $this->call(ItemSeeder::class);
 
     }
 }

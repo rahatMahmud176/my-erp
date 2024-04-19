@@ -33,7 +33,7 @@
                 <ul id="utility-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                     <li>
-                        <a href="{{ route('admin.categories.index') }}">
+                        <a href="{{ route('admin.categories.index') }}" class="{{ Request::is('admin/categories*') ? 'active' : '' }}">
                             <i class="bi bi-circle"></i><span>Category Manage</span>
                         </a>
                     </li>
@@ -90,13 +90,18 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Components</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-menu-button-wide"></i><span>Item Stocks</span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
                 <li>
-                    <a href="">
-                        <i class="bi bi-circle"></i><span>Tooltips</span>
+                    <a href="{{ route('admin.items.index') }}">
+                        <i class="bi bi-circle"></i><span>Registered Items </span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.items.create') }}">
+                        <i class="bi bi-circle"></i><span>Add Items</span>
                     </a>
                 </li>
 

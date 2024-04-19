@@ -6,6 +6,7 @@ use App\Contracts\SubUnitInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\SubUnit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class SubUnitController extends Controller
 {
@@ -21,7 +22,7 @@ class SubUnitController extends Controller
      */
     public function index()
     {
-        
+        Gate::authorize('utility.index');
        $subUnits = $this->subUnits->all();  
        return view('backend.sub-unit.index', compact('subUnits'));
     }
@@ -39,6 +40,7 @@ class SubUnitController extends Controller
      */
     public function store(Request $request)
     { 
+        Gate::authorize('utility.index');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -62,6 +64,7 @@ class SubUnitController extends Controller
      */
     public function edit(SubUnit $subUnit)
     { 
+        Gate::authorize('utility.edit');
         $subUnit = $subUnit;
         return view('backend.sub-unit.form', compact('subUnit'));
     }
@@ -71,6 +74,7 @@ class SubUnitController extends Controller
      */
     public function update(Request $request, SubUnit $subUnit)
     { 
+        Gate::authorize('utility.edit');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -85,6 +89,7 @@ class SubUnitController extends Controller
      */
     public function destroy(SubUnit $subUnit)
     { 
+        Gate::authorize('utility.delete');
         if($subUnit->deletable == 1){
             $subUnit->delete();
             notify()->success('delete Successfully','Success');

@@ -47,6 +47,11 @@ class Category extends Model
         return $this->belongsToMany(SubCategory::class);
    } 
 
+   public function items()
+   {
+        return $this->belongsToMany(Item::class);
+   } 
+
 
 
 }

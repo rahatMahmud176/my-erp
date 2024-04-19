@@ -10,6 +10,7 @@ use App\Http\Controllers\Backend\SubUnitController;
 use App\Http\Controllers\Backend\UnitController;
 use App\Http\Controllers\Backend\UserController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Backend\ItemController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use Illuminate\Support\Facades\Route;
@@ -46,6 +47,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('country_variants', CountryVariantController::class);
     Route::resource('units', UnitController::class);
     Route::resource('sub_units', SubUnitController::class);
+    Route::resource('items', ItemController::class);
 });
 
 

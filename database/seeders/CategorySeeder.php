@@ -18,5 +18,10 @@ class CategorySeeder extends Seeder
             'slug'  => 'uncategorised',
             'deletable'  => false,
         ]);
+        Category::updateOrCreate([
+            'name'  => 'one',
+            'slug'  => 'one',
+            'deletable'  => true,
+        ]);
     }
 }

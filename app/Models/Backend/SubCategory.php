@@ -47,6 +47,11 @@ protected $guarded = ['id'];
         return $this->belongsTo(Category::class);
     }
 
+    public function items()
+    {
+        return $this->belongsToMany(Item::class);
+    }
+
 
 
 

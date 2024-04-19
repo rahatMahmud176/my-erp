@@ -6,6 +6,7 @@ use App\Contracts\BrandInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Brand;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class BrandController extends Controller
 {
@@ -17,6 +18,7 @@ class BrandController extends Controller
 
     public function index()
     {
+        Gate::authorize('utility.index');
         $brands =$this->brands->all();
         return view('backend.brand.index', compact('brands'));
     }
@@ -34,6 +36,7 @@ class BrandController extends Controller
      */
     public function store(Request $request)
     {
+        Gate::authorize('utility.index');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -56,6 +59,7 @@ class BrandController extends Controller
      */
     public function edit(Brand $brand)
     {
+        Gate::authorize('utility.edit');
         $brand = $brand;
         return view('backend.brand.form', compact('brand'));
     }
@@ -65,6 +69,7 @@ class BrandController extends Controller
      */
     public function update(Request $request, Brand $brand)
     {
+        Gate::authorize('utility.edit');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -78,9 +83,8 @@ class BrandController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Brand $brand)
-    {
-     
-        
+    { 
+        Gate::authorize('utility.delete');
         if($brand->deletable == true){
             $brand->delete();
             notify()->success('delete Successfully','Success');

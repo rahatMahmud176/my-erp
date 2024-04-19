@@ -27,5 +27,12 @@ class CountryVariant extends Model
             'name'  => $request->name,
         ]);
     }
+
+
+    public function items()
+   {
+        return $this->belongsToMany(Item::class);
+   } 
+
     
 }

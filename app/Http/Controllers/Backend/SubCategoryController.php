@@ -25,7 +25,7 @@ class SubCategoryController extends Controller
     public function index()
     {
 
-        Gate::authorize('sub-category.index');
+        Gate::authorize('utility.index');
 
         $subCategories = $this->subCategory->all();  
         $categories = $this->category->all();  
@@ -45,7 +45,7 @@ class SubCategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('sub-category.index');
+        Gate::authorize('utility.index');
 
         $this->validate($request,[
             'name'  => 'required'
@@ -69,7 +69,7 @@ class SubCategoryController extends Controller
      */
     public function edit(SubCategory $subCategory)
     { 
-        Gate::authorize('sub-category.edit');
+        Gate::authorize('utility.edit');
 
         $categories = $this->category->all(); 
         return view('backend.sub-category.form', compact('subCategory','categories'));
@@ -80,7 +80,7 @@ class SubCategoryController extends Controller
      */
     public function update(Request $request, SubCategory $subCategory)
     {
-        Gate::authorize('sub-category.edit');
+        Gate::authorize('utility.edit');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -95,7 +95,7 @@ class SubCategoryController extends Controller
      */
     public function destroy(SubCategory $subCategory)
     {
-        Gate::authorize('sub-category.delete');
+        Gate::authorize('utility.delete');
         if($subCategory->deletable == 1){
             $subCategory->delete();
             notify()->success('delete Successfully','Success');

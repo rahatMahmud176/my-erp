@@ -21,7 +21,7 @@ class CategoryController extends Controller
 
     public function index()
     {
-        Gate::authorize('category.index');
+        Gate::authorize('utility.index');
 
        $categories = $this->categories->all();  
        return view('backend.category.index', compact('categories'));
@@ -40,7 +40,7 @@ class CategoryController extends Controller
      */
     public function store(Request $request)
     {
-        Gate::authorize('category.create');
+        Gate::authorize('utility.create');
 
         $this->validate($request,[
             'name'  => 'required'
@@ -66,7 +66,7 @@ class CategoryController extends Controller
     public function edit(Category $category)
     {
 
-        Gate::authorize('category.edit');
+        Gate::authorize('utility.edit');
 
         $category = $category;
         return view('backend.category.form', compact('category'));
@@ -77,7 +77,7 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        Gate::authorize('category.edit');
+        Gate::authorize('utility.edit');
 
         $this->validate($request,[
             'name'  => 'required'
@@ -93,7 +93,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Gate::authorize('category.delete');
+        Gate::authorize('utility.delete');
 
         if($category->deletable == 1){
             $category->delete();

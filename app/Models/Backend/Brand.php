@@ -5,6 +5,7 @@ namespace App\Models\Backend;
 use Cviebrock\EloquentSluggable\Sluggable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Brand extends Model
 { 
@@ -41,5 +42,14 @@ class Brand extends Model
             'name'  => $request->name,
         ]);
     }
+
+
+public function item()
+{
+    return $this->belongsToMany(Item::class);
+}
+
+
+
 
 }

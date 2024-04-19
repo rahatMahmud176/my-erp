@@ -6,6 +6,7 @@ use App\Contracts\ColorInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Color;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class ColorController extends Controller
 {
@@ -22,7 +23,7 @@ class ColorController extends Controller
      */
     public function index()
     {
-        
+        Gate::authorize('utility.index');
        $colors = $this->colors->all();  
        return view('backend.color.index', compact('colors'));
     }
@@ -40,6 +41,7 @@ class ColorController extends Controller
      */
     public function store(Request $request)
     { 
+        Gate::authorize('utility.index');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -63,6 +65,7 @@ class ColorController extends Controller
      */
     public function edit(Color $color)
     { 
+        Gate::authorize('utility.edit');
         $color = $color;
         return view('backend.color.form', compact('color'));
     }
@@ -72,6 +75,7 @@ class ColorController extends Controller
      */
     public function update(Request $request, Color $color)
     { 
+        Gate::authorize('utility.edit');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -86,6 +90,7 @@ class ColorController extends Controller
      */
     public function destroy(Color $color)
     { 
+        Gate::authorize('utility.delete');
         if($color->deletable == 1){
             $color->delete();
             notify()->success('delete Successfully','Success');

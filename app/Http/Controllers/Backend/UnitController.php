@@ -6,6 +6,7 @@ use App\Contracts\UnitInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Unit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Gate;
 
 class UnitController extends Controller
 {
@@ -21,7 +22,7 @@ class UnitController extends Controller
      */
     public function index()
     {
-        
+        Gate::authorize('utility.index');
        $units = $this->units->all();  
        return view('backend.unit.index', compact('units'));
     }
@@ -39,6 +40,7 @@ class UnitController extends Controller
      */
     public function store(Request $request)
     { 
+        Gate::authorize('utility.index');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -62,6 +64,7 @@ class UnitController extends Controller
      */
     public function edit(Unit $unit)
     { 
+        Gate::authorize('utility.edit');
         $unit = $unit;
         return view('backend.unit.form', compact('unit'));
     }
@@ -71,6 +74,7 @@ class UnitController extends Controller
      */
     public function update(Request $request, Unit $unit)
     { 
+        Gate::authorize('utility.edit');
         $this->validate($request,[
             'name'  => 'required'
         ]);
@@ -85,6 +89,7 @@ class UnitController extends Controller
      */
     public function destroy(Unit $unit)
     { 
+        Gate::authorize('utility.delete');
         if($unit->deletable == 1){
             $unit->delete();
             notify()->success('delete Successfully','Success');

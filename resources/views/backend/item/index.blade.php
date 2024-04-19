@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('title')
-    Sub Unit
+    Items
 @endsection
 @section('content')
     <div class="row">
@@ -8,14 +8,14 @@
             <div class="card-body">
 
                 <div class="mt-3 clearfix">
-                    <h3 class="float-start"># Sub Unit</h3>
-                    <a href="{{ route('admin.sub_units.index') }}" class="btn btn-sm btn-secondary  float-end">
+                    <h3 class="float-start">#Items</h3>
+                    <a href="{{ route('admin.items.create') }}" class="btn btn-sm btn-secondary  float-end">
                         <i class="bi bi-plus-circle"></i>
-                        Add Sub Unit</a>
+                        Add Item</a>
                 </div>
 
                 <div class="row">
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
 
 
 
@@ -30,7 +30,7 @@
                         @endif
 
 
-                        <form action="{{ route('admin.sub_units.store') }}" method="post">
+                        <form action="{{ route('admin.items.store') }}" method="post">
                             @csrf
                             <div class="form-group">
                                 <label for=""></label>
@@ -43,37 +43,48 @@
                             </div>
 
                         </form>
-                    </div>
+                    </div> --}}
 
-                    <div class="col-md-9">
+                    <div class="col-md-12">
                         <table class="table table-bordered">
                             <thead>
                                 <tr>
                                     <th scope="col">#</th>
-                                    <th scope="col">sub_units</th>
+                                    <th scope="col">Item</th>
+                                    <th scope="col">Utility</th>
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
                             <tbody>
 
-                                @foreach ($subUnits as $key => $subUnit)
+                                @foreach ($items as $key => $item)
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $subUnit->name }}</td>
+                                        <td>{{ $item->name.'(#'.$key.')' }}</td>
                                         <td>
-                                            <a href="{{ route('admin.sub_units.edit', $subUnit) }}"
+                                            <table class="table table-borderless ">
+                                                <tr><th>Category</th>    <td>:</td>  <td> @foreach($item->categories as $cat ) {{ $cat->name }} {{ $loop->last ? '':',' }}  @endforeach</td> </tr>
+                                                <tr><th>SubCategory</th> <td>:</td>  <td>@foreach($item->subCats as $cat ) {{ $cat->name }} {{ $loop->last ? '':',' }}  @endforeach</td> </tr>
+                                                <tr><th>Brand</th>       <td>:</td>  <td>{{ $item->brand->name }}</td> </tr> 
+                                                <tr><th>Unit</th>        <td>:</td>  <td>{{ $item->unit->name }}</td> </tr> 
+                                                <tr><th>Sub Unit</th>    <td>:</td>  <td>{{ $item->subUnit->name }}</td> </tr> 
+                                                <tr><th>Country</th>     <td>:</td>  <td>@foreach($item->countries as $cat ) {{ $cat->name }} {{ $loop->last ? '':',' }}  @endforeach</td> </tr> 
+                                            </table>   
+                                        </td>
+                                        <td>
+                                            <a href="{{ route('admin.items.edit', $item) }}"
                                                 class="btn btn-sm btn-secondary">
                                                 <i class="bi bi-pencil-square"></i>
                                                 Edit
                                             </a>
-                                            @if ($subUnit->deletable == true)
-                                                <a href="#" onclick="subUnitDelete({{ $subUnit->id }})"
+                                            @if ($item->deletable == true)
+                                                <a href="#" onclick="itemDelete({{ $item->id }})"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="bi bi-trash3-fill"></i>
                                                     Delete</a>
 
-                                                <form id="deletesub_unitsForm{{ $subUnit->id }}"
-                                                    action="{{ route('admin.sub_units.destroy', $subUnit) }}" method="post">
+                                                <form id="deleteItemForm{{ $item->id }}"
+                                                    action="{{ route('admin.items.destroy', $item) }}" method="post">
                                                     @method('DELETE')
                                                     @csrf
                                                 </form>
@@ -101,7 +112,7 @@
 
 @push('script')
     <script>
-        function subUnitDelete(id) {
+        function itemDelete(id) {
             Swal.fire({
                 title: "Are you sure?",
                 text: "You won't be able to revert this!",
@@ -112,7 +123,7 @@
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {
                 if (result.isConfirmed) {
-                    $('#deletesub_unitsForm' + id).submit();
+                    $('#deleteItemForm' + id).submit();
                 }
             });
         }
