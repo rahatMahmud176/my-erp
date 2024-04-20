@@ -21,10 +21,20 @@
                           @method('PUT')
                         @endisset
 
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                    <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
+                        </div>
+                    @endif
+
                         <div class="form-group col-md-6 my-3">
                           <label for="">Item Name </label>
-                          <input type="text" name="name" id="" class="form-control" value="@isset($item) {{ $item->name }} @endisset  ">
-                         </div>
+                          <input type="text" name="name" id="" class="form-control @error('name')is-invalid @enderror" value="@isset($item) {{ $item->name }} @endisset  ">
+                         </div> 
 
                         <div class="form-group col-md-6 my-3">   </div>
 

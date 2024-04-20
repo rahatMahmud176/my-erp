@@ -26,7 +26,7 @@ protected $guarded = ['id'];
 
 
 
-public static function newItem($request, $item = null)
+public static function newItem($request)
 {
     $item  = Item::create([
         'name'            => $request->name, 

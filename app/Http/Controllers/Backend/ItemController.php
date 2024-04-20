@@ -12,6 +12,7 @@ use App\Contracts\ItemInterface;
 use App\Contracts\subCategoryInterface;
 use App\Contracts\SubUnitInterface;
 use App\Contracts\UnitInterface;
+use Illuminate\Support\Facades\Gate;
 
 class ItemController extends Controller
 {
@@ -45,6 +46,8 @@ class ItemController extends Controller
 
     public function index()
     {
+        Gate::authorize('item.index');
+
         $items =  $this->items->all(); 
         return view('backend.item.index', compact('items'));
     }
@@ -54,6 +57,8 @@ class ItemController extends Controller
      */
     public function create()
     {
+        Gate::authorize('item.create');
+
         $countries = $this->countries->all();
         $categories = $this->categories->all(); 
         $subCats = $this->subCats->all();
@@ -68,10 +73,29 @@ class ItemController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        Item::newItem($request);
+    { 
+        Gate::authorize('item.create');
+       $this->infoValidate($request);
+
+        $this->items->newItem($request);
         notify('Save Successfully','Saved');
         return back();
+    }
+
+    public function infoValidate($request)
+    {
+        $this->validate($request,[
+            'name'  => 'required',
+            'cats'  => 'required',
+            'sub_cats'  => 'required',
+            'brand'  => 'required',
+            'unit'  => 'required',
+            'sub_unit'  => 'required',
+            'countries'  => 'required',
+        ],[
+            'cats.required' => 'Category field is required',
+            'sub_cats.required' => 'Category field is required',
+        ]);
     }
 
     /**
@@ -87,6 +111,7 @@ class ItemController extends Controller
      */
     public function edit(Item $item)
     {
+        Gate::authorize('item.edit');
         $countries = $this->countries->all();
         $categories = $this->categories->all(); 
         $subCats = $this->subCats->all();
@@ -103,7 +128,11 @@ class ItemController extends Controller
      */
     public function update(Request $request, Item $item)
     { 
-        Item::updateItem($request,$item);
+        Gate::authorize('item.edit');
+        // return $item;
+       $this->infoValidate($request);
+
+       $this->items->updateItem($request,$item);
         notify('Updated Successfully','Updated');
         return back();
     }
@@ -112,7 +141,10 @@ class ItemController extends Controller
      * Remove the specified resource from storage.
      */
     public function destroy(Item $item)
-    {
-        //
+    { 
+        Gate::authorize('item.delete');
+        $item->delete();
+        notify()->success('delete Successfully','Success'); 
+        return back();
     }
 }

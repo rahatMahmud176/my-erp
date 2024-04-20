@@ -92,51 +92,27 @@ class PermissionSeeder extends Seeder
                       ]);  
 
 
-        // $categoryModule = Module::updateOrCreate(['name'=>'Category Module']);
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $categoryModule->id,
-        //                 'name'       => 'Category View',
-        //                 'slug'       => 'category.index'
-        //             ]); 
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $categoryModule->id,
-        //                 'name'       => 'Category Create',
-        //                 'slug'       => 'category.create'
-        //             ]);  
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $categoryModule->id,
-        //                 'name'       => 'Category Edit',
-        //                 'slug'       => 'category.edit'
-        //              ]); 
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $categoryModule->id,
-        //                 'name'       => 'Category Delete',
-        //                 'slug'       => 'category.delete'
-        //              ]);  
-
-
-
-        // $subCategoryModule = Module::updateOrCreate(['name'=>'Sub Category Module']);
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $subCategoryModule->id,
-        //                 'name'       => 'Sub Category View',
-        //                 'slug'       => 'sub-category.index'
-        //             ]); 
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $subCategoryModule->id,
-        //                 'name'       => 'Sub Category Create',
-        //                 'slug'       => 'sub-category.create'
-        //             ]);  
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $subCategoryModule->id,
-        //                 'name'       => 'Sub Category Edit',
-        //                 'slug'       => 'sub-category.edit'
-        //              ]); 
-        //             Permission::updateOrCreate([
-        //                 'module_id'  => $subCategoryModule->id,
-        //                 'name'       => 'Sub Category Delete',
-        //                 'slug'       => 'sub-category.delete'
-        //              ]);  
+          $itemModule = Module::updateOrCreate(['name'=>'Item Registered Module']);
+                    Permission::updateOrCreate([
+                        'module_id'  => $itemModule->id,
+                        'name'       => 'Item View',
+                        'slug'       => 'item.index'
+                    ]); 
+                    Permission::updateOrCreate([
+                        'module_id'  => $itemModule->id,
+                        'name'       => 'Item Create',
+                        'slug'       => 'item.create'
+                    ]);  
+                    Permission::updateOrCreate([
+                        'module_id'  => $itemModule->id,
+                        'name'       => 'Item Edit',
+                        'slug'       => 'item.edit'
+                     ]); 
+                    Permission::updateOrCreate([
+                        'module_id'  => $itemModule->id,
+                        'name'       => 'Item Delete',
+                        'slug'       => 'item.delete'
+                     ]);  
   
     }
 }

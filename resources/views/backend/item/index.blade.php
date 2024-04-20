@@ -60,7 +60,7 @@
                                 @foreach ($items as $key => $item)
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $item->name.'(#'.$key.')' }}</td>
+                                        <td>{{ $item->name.'(#'.$item->id.')' }}</td>
                                         <td>
                                             <table class="table table-borderless ">
                                                 <tr><th>Category</th>    <td>:</td>  <td> @foreach($item->categories as $cat ) {{ $cat->name }} {{ $loop->last ? '':',' }}  @endforeach</td> </tr>
@@ -77,7 +77,7 @@
                                                 <i class="bi bi-pencil-square"></i>
                                                 Edit
                                             </a>
-                                            @if ($item->deletable == true)
+                                            
                                                 <a href="#" onclick="itemDelete({{ $item->id }})"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="bi bi-trash3-fill"></i>
@@ -88,7 +88,7 @@
                                                     @method('DELETE')
                                                     @csrf
                                                 </form>
-                                            @endif
+                                             
 
                                         </td>
                                     </tr>
