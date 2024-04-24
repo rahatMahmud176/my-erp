@@ -28,6 +28,15 @@ class RoleSeeder extends Seeder
             'deletable' =>  false,
         ])->permissions()->sync($superAdminPermissions->pluck('id'));
 
+    $EmployeePermissions = Permission::where('slug','LIKE','utility%')
+                                            ->orWhere('slug','LIKE','item%')
+                                            ->get();
+        Role::updateOrCreate([
+            'name'      => 'Employee',
+            'slug'      => 'employee',
+            'deletable' =>  false,
+        ])->permissions()->sync($EmployeePermissions->pluck('id'));
+ 
 
 
         Role::updateOrCreate([

@@ -46,6 +46,9 @@ class PermissionSeeder extends Seeder
                         'slug'       => 'role.delete'
                      ]);  
 
+
+
+
         $userModule = Module::updateOrCreate(['name'=>'User Module']);
                     Permission::updateOrCreate([
                         'module_id'  => $userModule->id,
@@ -112,6 +115,29 @@ class PermissionSeeder extends Seeder
                         'module_id'  => $itemModule->id,
                         'name'       => 'Item Delete',
                         'slug'       => 'item.delete'
+                     ]);  
+
+
+          $stockModule = Module::updateOrCreate(['name'=>'Stock Module']);
+                    Permission::updateOrCreate([
+                        'module_id'  => $stockModule->id,
+                        'name'       => 'Stock View',
+                        'slug'       => 'stock.index'
+                    ]); 
+                    Permission::updateOrCreate([
+                        'module_id'  => $stockModule->id,
+                        'name'       => 'Stock Create',
+                        'slug'       => 'stock.create'
+                    ]);  
+                    Permission::updateOrCreate([
+                        'module_id'  => $stockModule->id,
+                        'name'       => 'Stock Edit',
+                        'slug'       => 'stock.edit'
+                     ]); 
+                    Permission::updateOrCreate([
+                        'module_id'  => $stockModule->id,
+                        'name'       => 'Stock Delete',
+                        'slug'       => 'stock.delete'
                      ]);  
   
     }

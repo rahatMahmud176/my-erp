@@ -16,12 +16,21 @@
                     <span>Role Manage</span>
                 </a>
             </li>
+
             <li class="nav-item">
                 <a class="nav-link {{ Request::is('admin/users*') ? 'active' : '' }}" href="{{ route('admin.users.index') }}">
                     <i class="bi bi-people-fill"></i>
                     <span>User Manage</span>
                 </a>
-            </li>
+            </li> 
+
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/suppliers*') ? 'active' : '' }}" href="{{ route('admin.suppliers.index') }}">
+                    <i class="bi bi-people-fill"></i>
+                    <span>Supplier Manage</span>
+                </a>
+            </li> 
+
         @endrole
         {{-- //super Admin  --}}
 
@@ -90,7 +99,7 @@
 
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-nav" data-bs-toggle="collapse" href="#">
-                <i class="bi bi-menu-button-wide"></i><span>Item Stocks</span><i class="bi bi-chevron-down ms-auto"></i>
+                <i class="bi bi-menu-button-wide"></i><span>Item </span><i class="bi bi-chevron-down ms-auto"></i>
             </a>
             <ul id="components-nav" class="nav-content collapse " data-bs-parent="#sidebar-nav">
 
@@ -102,6 +111,26 @@
                 <li>
                     <a href="{{ route('admin.items.create') }}">
                         <i class="bi bi-circle"></i><span>Add Items</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li><!-- End Components Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-stocks" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>Stock </span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-stocks" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="{{ route('admin.stocks.create') }}">
+                        <i class="bi bi-circle"></i><span>Add Stock</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.stocks.index') }}">
+                        <i class="bi bi-circle"></i><span>Stock</span>
                     </a>
                 </li>
 

@@ -21,6 +21,7 @@
                         <tr>
                             <th>#</th>
                             <th>User</th>
+                            <th>Branch</th>
                             <th>Role</th> 
                             <th class="text-center">Action</th>
                         </tr>
@@ -28,6 +29,7 @@
                             <tr>
                                 <td>{{ $key + 1 }}</td>
                                 <td>{{ $user->name }}</td>
+                                <td>@isset($user->branch->id){{ $user->branch->name }}@endisset</td>
                                 <td> <span class="badge bg-secondary"">{{ $user->role->name }}</span> </td>
                                 
                                 <td class="text-center">

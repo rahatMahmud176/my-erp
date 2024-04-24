@@ -3,6 +3,8 @@
 namespace App\Models;
 
 // use Illuminate\Contracts\Auth\MustVerifyEmail;
+
+use App\Models\Backend\Branch;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
@@ -22,6 +24,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role_id',
+        'branch_id',
     ];
 
     /**
@@ -46,9 +49,11 @@ class User extends Authenticatable
 
 
     public static function updateUser($user,$request)
-    {
+    { 
+
         $user->update([
-                'role_id'=> $request->role,
+                'role_id'   => $request->role,
+                'branch_id' => $request->branch,
         ]);
     }
 
@@ -57,6 +62,10 @@ class User extends Authenticatable
     public function role()
     {
         return $this->belongsTo(Role::class);
+    }
+    public function branch()
+    {
+        return $this->belongsTo(Branch::class);
     }
 
     public function hasPermission($slug):bool

@@ -67,5 +67,19 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\Contracts\ItemInterface',
             'App\Repositories\ItemRepository' 
         );
+        $this->app->bind(
+            'App\Contracts\BranchInterface',
+            'App\Repositories\BranchRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\SupplierInterface',
+            'App\Repositories\SupplierRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\StockInterface',
+            'App\Repositories\StockRepository' 
+        );
+        
+
     }
 }

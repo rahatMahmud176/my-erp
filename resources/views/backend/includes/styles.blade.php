@@ -19,3 +19,5 @@
   <link href="{{ asset('/') }}backend/assets/css/style.css" rel="stylesheet"> 
 
   @stack('style')
+
+ 

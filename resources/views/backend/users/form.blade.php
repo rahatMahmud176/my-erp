@@ -28,7 +28,23 @@
                           </select>
                         </div>
                       </div>
-                      <div class="col-md-6 mx-auto">
+
+
+                    <div class="form-group col-md-6 mt-3">
+                        <div class="form-group">
+                          <label for="">Branch</label>
+                          <select class="form-control" name="branch" id="">
+                                  <option value="" selected disabled>Select</option>
+                            @foreach ($branches as $branch)
+                                 <option @isset($user->branch->id) {{ $branch->id == $user->branch->id ? 'selected':'' }} @endisset value="{{ $branch->id }}">{{ $branch->name }}</option> 
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+
+
+                      <div class="col-md-6 mx-auto mt-3">
                             <button type="submit" class="btn btn-success container-fluid mt-3">Update</button>
                       </div>
                 </div>

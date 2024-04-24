@@ -18,17 +18,28 @@ class UserSeeder extends Seeder
 
     $superadminRole = Role::where('slug','super-admin')->first();
         User::updateOrCreate([
-            'name'     => 'Super Admin',
-            'role_id'  => $superadminRole->id,
-            'email'    => 'superadmin@gmail.com',
-            'password' => Hash::make('12345678'),
+            'name'       => 'Super Admin',
+            'branch_id'  => 1,
+            'role_id'    => $superadminRole->id,
+            'email'      => 'superadmin@gmail.com',
+            'password'   => Hash::make('12345678'),
         ]);
 
     $adminRole = Role::where('slug','admin')->first();
         User::updateOrCreate([
             'name'     => 'Admin',
+            'branch_id'  => 1,
             'role_id'  => $adminRole->id,
             'email'    => 'admin@gmail.com',
+            'password' => Hash::make('12345678'),
+        ]);
+
+    $EmployeeRole = Role::where('slug','employee')->first();
+        User::updateOrCreate([
+            'name'     => 'Employee 01',
+            'branch_id'  => 2,
+            'role_id'  => $EmployeeRole->id,
+            'email'    => 'jamuna@gmail.com',
             'password' => Hash::make('12345678'),
         ]);
 

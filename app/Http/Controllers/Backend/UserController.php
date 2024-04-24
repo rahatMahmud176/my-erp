@@ -2,9 +2,11 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\BranchInterface;
 use App\Contracts\RoleInterface;
 use App\Contracts\UserInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Branch;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -14,10 +16,14 @@ class UserController extends Controller
 {
    public $role;
    public $user;
+   public $branches;
 
-    public function __construct(RoleInterface $roleInterface, UserInterface $userInterface) {
-        $this->role = $roleInterface;
-        $this->user = $userInterface;
+    public function __construct(RoleInterface $roleInterface, 
+                                UserInterface $userInterface, 
+                                BranchInterface $branchInterface) {
+        $this->role     = $roleInterface;
+        $this->user     = $userInterface;
+        $this->branches = $branchInterface;
     }
 
 
@@ -65,9 +71,10 @@ class UserController extends Controller
     {
         Gate::authorize('user.edit');
 
-        $user = $user;
-        $roles = $this->role->all();
-        return view('backend.users.form', compact('user','roles'));
+        $user     = $user;
+        $roles    = $this->role->all();
+        $branches = $this->branches->all();
+        return view('backend.users.form', compact('user','roles','branches'));
 
     }
 
@@ -77,6 +84,8 @@ class UserController extends Controller
     public function update(Request $request, User $user)
     {
         Gate::authorize('user.edit');
+
+        
 
         $this->user->update($user,$request);
         notify()->success('User Role Updated','Updated');
