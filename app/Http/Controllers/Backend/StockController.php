@@ -9,6 +9,7 @@ use App\Contracts\SizeInterface;
 use App\Contracts\StockInterface;
 use App\Contracts\SupplierInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Account;
 use App\Models\Backend\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -55,8 +56,9 @@ class StockController extends Controller
         $sizes      = $this->sizes->all();
         $countries  = $this->countries->all();
         $suppliers  = $this->suppliers->all();
+        $accounts   = Account::all();
 
-        return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers'));
+        return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers','accounts'));
     }
 
     /**

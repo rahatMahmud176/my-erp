@@ -34,6 +34,7 @@ class DatabaseSeeder extends Seeder
             $this->call(BranchSeeder::class);
             $this->call(SupplierSeeder::class);
             $this->call(StockSeeder::class);
+            $this->call(AccountSeeder::class);
 
     }
 }

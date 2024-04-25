@@ -20,6 +20,6 @@ class BranchSeeder extends Seeder
         Branch::updateOrCreate([
             'name' => 'Jamuna Branch',
             'slug' => 'jamuna-branch'
-        ]);
+        ]); 
     }
 }
