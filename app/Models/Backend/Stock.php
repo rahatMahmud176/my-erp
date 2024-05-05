@@ -16,32 +16,35 @@ class Stock extends Model
     public static function newStock($request)
     {
         Stock::create([
+            'supplier_id'        =>$request->supplier_id,
             'item_id'            =>$request->item,
-            'color_id'           =>$request->color,
-            'size_id'            =>$request->size,
-            'country_id'         =>$request->country,
-            'qty'                =>$request->qty,
-            'purchase_price'     =>$request->purchase,
-            'wholesale_price'    =>$request->wholesale,
-            'price'              =>$request->price,
+            'color_id'           =>$request->color_id,
+            'size_id'            =>$request->size_id,
+            'country_id'         =>$request->country_id,
+            'unit_qty'           =>$request->unit_qty,
+            'sub_unit_qty'       =>$request->sub_unit_qty,
+            'purchase_price'     =>$request->purchase, 
             'branch_id'          => auth()->user()->branch_id,
             'serial'             =>$request->serial,
+            'challan'             =>$request->challan,
+
         ]);
     }   
 
     public static function updateStock($request,$stock)
     {
         $stock->update([
-            'item_id'            =>$request->item_id,
+            'supplier_id'        =>$request->supplier_id,
+            'item_id'            =>$request->item,
             'color_id'           =>$request->color_id,
             'size_id'            =>$request->size_id,
             'country_id'         =>$request->country_id,
-            'qty'                =>$request->qty,
-            'purchase_price'     =>$request->purchase_price,
-            'wholesale_price'    =>$request->wholesale_price,
-            'price'              =>$request->price,
-            'branch_id'          =>$request->branch_id,
+            'unit_qty'           =>$request->unit_qty,
+            'sub_unit_qty'       =>$request->sub_unit_qty,
+            'purchase_price'     =>$request->purchase, 
+            'branch_id'          => auth()->user()->branch_id,
             'serial'             =>$request->serial,
+            'challan'            =>$request->challan,
         ]);
     }   
 

@@ -14,14 +14,14 @@ class StockSeeder extends Seeder
      */
     public function run(): void
     {
-        
-
-        Stock::updateOrCreate([
+         
+        Stock::updateOrCreate([ 
+            'supplier_id'       => 1,
             'item_id'           => 1,
             'color_id'          => 1,
             'size_id'           => 1,
             'country_id'        => 1,
-            'qty'               => 1,
+            'unit_qty'          => 1,
             'purchase_price'    => 1,
             'wholesale_price'   => 1,
             'price'             => 1,
@@ -29,11 +29,12 @@ class StockSeeder extends Seeder
         ]);
 
         Stock::updateOrCreate([
+            'supplier_id'       => 1,
             'item_id'           => 1,
             'color_id'          => 1,
             'size_id'           => 1,
             'country_id'        => 1,
-            'qty'               => 1,
+            'unit_qty'          => 1,
             'purchase_price'    => 15,
             'wholesale_price'   => 15,
             'price'             => 15,

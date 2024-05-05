@@ -1250,3 +1250,23 @@ h6 {
 .btn-group-sm>.btn, .btn-sm { 
   --bs-btn-font-size: 12px; 
 }
+
+
+
+.my-field{
+  display: block;
+  width: 100%;
+  padding: 2px;
+  font-size: 11px;
+  /* font-weight: 400; */
+  line-height: 1.5;
+  color: var(--bs-body-color);
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+  background-color: var(--bs-body-bg);
+  background-clip: padding-box;
+  border: var(--bs-border-width) solid var(--bs-border-color);
+  border-radius: var(--bs-border-radius);
+  transition: border-color .15s ease-in-out, box-shadow .15s ease-in-out;
+}

@@ -43,6 +43,17 @@ class ItemSeeder extends Seeder
         $item->subCats()->sync($allSubCat->pluck('id'));
 
  
+
+        $item  = Item::updateOrCreate([
+            'name'            => 'Note 12 Pro max Usd Note 12 Pro max Usd',
+            'slug'            => 'item-slug',
+            'brand_id'        => 1, 
+            'unit_id'    => 1, 
+            'sub_unit_id'     => 1, 
+        ]);
+        $item->categories()->sync($allCat->pluck('id'));
+        $item->countries()->sync($allCountries->pluck('id'));
+        $item->subCats()->sync($allSubCat->pluck('id'));
         
     }
 }

@@ -79,6 +79,10 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\Contracts\StockInterface',
             'App\Repositories\StockRepository' 
         );
+        $this->app->bind(
+            'App\Contracts\SettingInterface',
+            'App\Repositories\SettingRepository' 
+        );
         
 
     }

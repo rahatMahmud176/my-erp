@@ -5,11 +5,13 @@ namespace App\Http\Controllers\Backend;
 use App\Contracts\ColorInterface;
 use App\Contracts\CountryVariantInterface;
 use App\Contracts\ItemInterface;
+use App\Contracts\SettingInterface;
 use App\Contracts\SizeInterface;
 use App\Contracts\StockInterface;
 use App\Contracts\SupplierInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Account;
+use App\Models\Backend\Setting;
 use App\Models\Backend\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,7 +23,8 @@ class StockController extends Controller
     public $colors; 
     public $sizes; 
     public $countries; 
-    public $suppliers; 
+    public $suppliers;
+    public $setting;
 
     public function __construct(StockInterface $stockInterface,
                                 ItemInterface $itemInterface,
@@ -29,6 +32,7 @@ class StockController extends Controller
                                 SizeInterface $sizeInterface,
                                 CountryVariantInterface $countries,
                                 SupplierInterface $supplierInterface,
+                                SettingInterface $settingInterface,
                                 
     ) {
         $this->stocks    = $stockInterface;
@@ -37,6 +41,7 @@ class StockController extends Controller
         $this->sizes     = $sizeInterface;
         $this->countries = $countries;
         $this->suppliers = $supplierInterface;
+        $this->setting   = $settingInterface;
     } 
 
 
@@ -57,15 +62,17 @@ class StockController extends Controller
         $countries  = $this->countries->all();
         $suppliers  = $this->suppliers->all();
         $accounts   = Account::all();
+        $setting    = $this->setting->getSetting();
 
-        return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers','accounts'));
+        return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers','accounts','setting'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
+    { 
+        // return $request;
         $this->stocks->newStock($request);
         return 'ok';
     }

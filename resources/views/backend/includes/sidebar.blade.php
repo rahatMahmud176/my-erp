@@ -166,6 +166,13 @@
             </a>
         </li><!-- End Login Page Nav -->
 
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.setting.index') }}">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Setting</span>
+            </a>
+        </li><!-- End Login Page Nav -->
+
 
 
     </ul>
