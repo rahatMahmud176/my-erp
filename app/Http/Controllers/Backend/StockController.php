@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\AccountInterface;
 use App\Contracts\ColorInterface;
 use App\Contracts\CountryVariantInterface;
 use App\Contracts\ItemInterface;
@@ -11,6 +12,8 @@ use App\Contracts\StockInterface;
 use App\Contracts\SupplierInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Account;
+use App\Models\Backend\Challan;
+use App\Models\Backend\Item;
 use App\Models\Backend\Setting;
 use App\Models\Backend\Stock;
 use Illuminate\Http\Request;
@@ -25,6 +28,7 @@ class StockController extends Controller
     public $countries; 
     public $suppliers;
     public $setting;
+    public $accounts;
 
     public function __construct(StockInterface $stockInterface,
                                 ItemInterface $itemInterface,
@@ -33,6 +37,7 @@ class StockController extends Controller
                                 CountryVariantInterface $countries,
                                 SupplierInterface $supplierInterface,
                                 SettingInterface $settingInterface,
+                                AccountInterface $accountInterface
                                 
     ) {
         $this->stocks    = $stockInterface;
@@ -42,6 +47,7 @@ class StockController extends Controller
         $this->countries = $countries;
         $this->suppliers = $supplierInterface;
         $this->setting   = $settingInterface;
+        $this->accounts  = $accountInterface;
     } 
 
 
@@ -61,7 +67,7 @@ class StockController extends Controller
         $sizes      = $this->sizes->all();
         $countries  = $this->countries->all();
         $suppliers  = $this->suppliers->all();
-        $accounts   = Account::all();
+        $accounts   = $this->accounts->all();
         $setting    = $this->setting->getSetting();
 
         return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers','accounts','setting'));
@@ -70,10 +76,34 @@ class StockController extends Controller
     /**
      * Store a newly created resource in storage.
      */
+
+public function itemInfo()
+{
+    $id = $_GET['id'];
+       $item =  Item::select('id','name','unit_id','sub_unit_id')
+        ->with('unit:id,name')
+        ->with('subUnit:id,name')->find($id);
+
+        return response($item);
+}         
+
+
+
     public function store(Request $request)
     { 
         // return $request;
-        $this->stocks->newStock($request);
+        $challanId = Challan::create([
+            'supplier_id'  => $request->supplier_id,
+            'total'        => $request->total,
+            'pay'          => $request->pay,
+            'due'          => $request->due,
+            'branch_id'    => auth()->user()->branch_id,
+        ]); //todo organize this
+        $this->stocks->newStock($request,$challanId->id);
+          // todo insert info to transition table
+          // todo insert info to supplier transition table
+
+      
         return 'ok';
     }
 

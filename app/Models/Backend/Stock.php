@@ -13,7 +13,7 @@ class Stock extends Model
     protected $guarded = ['id'];
 
 
-    public static function newStock($request)
+    public static function newStock($request,$challanId)
     {
         Stock::create([
             'supplier_id'        =>$request->supplier_id,
@@ -26,7 +26,7 @@ class Stock extends Model
             'purchase_price'     =>$request->purchase, 
             'branch_id'          => auth()->user()->branch_id,
             'serial'             =>$request->serial,
-            'challan'             =>$request->challan,
+            'challan'            =>$challanId,
 
         ]);
     }   

@@ -14,9 +14,7 @@ return new class extends Migration
         Schema::create('suppliers', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->string('phone_number')->nullable();
-            $table->float('debit', 10,2)->default(0);
-            $table->float('credit', 10,2)->default(0);
+            $table->string('phone_number')->nullable(); 
             $table->timestamps();
         });
     }

@@ -11,9 +11,9 @@ class StockRepository implements StockInterface
     {
         return Stock::all();
     }
-    public function newStock($request)
+    public function newStock($request,$challanId)
     {
-        Stock::newStock($request);
+        Stock::newStock($request,$challanId);
     }
     public function updateStock($request,$category)
     {

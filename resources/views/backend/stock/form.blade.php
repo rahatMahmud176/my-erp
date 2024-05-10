@@ -88,9 +88,9 @@
                                     <th>country</th>
                                 @endif
 
-                                <th>Qty</th>
+                                <th>Qty (unit)</th>
                                 @if ($setting->sub_unit)
-                                    <th>Qty</th>
+                                    <th>Qty (sub-unit)</th>
                                 @endif
                                 <th>Purchase p.</th>
                                 @if ($setting->serial_number)
@@ -102,7 +102,8 @@
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <select class="form-control my-field" name="item" id="">
+                                        <select class="form-control my-field" name="item" id="item">
+                                            <option value="">--Select--</option>
                                             @foreach ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
                                             @endforeach
@@ -146,7 +147,7 @@
                                 @endif
 
                                 <td>
-                                    <input style="width: 100px" name="unit_qty" type="number" class="my-field">
+                                    <input style="width: 100px" name="unit_qty" id="unit_qty" type="text" class="my-field">
                                 </td>
                                 @if ($setting->sub_unit)
                                     <td>
@@ -155,12 +156,15 @@
                                 @endif
 
                                 <td>
-                                    <input style="width: 100px" required name="purchase" type="number" class="my-field">
+                                    <input style="width: 100px" required id="purchase" name="purchase" type="number" class="my-field">
                                 </td>
                                 @if ($setting->serial_number)
                                 <td>
-                                    <textarea name="serial" id="" class="form-control my-field"></textarea>
-                                    {{-- <input type="text" name="serial" class="my-field"> --}}
+                                    @if ($setting->qty_manage_by_serial)
+                                        <textarea name="serial" id="" class="form-control my-field"></textarea>
+                                    @else
+                                        <input type="text" name="serial" class="my-field">
+                                    @endif
                                 </td>
                                 @endif
                                 <td>
@@ -196,15 +200,16 @@
                                 <table class="table table-bordered">
                                     <tr>
                                         <th>Total =</th>
-                                        <td>{{ number_format(54654, 2) }}</td>
+                                        <td> <input name="total" class="form-control my-field" type="number" id="total" readonly></td>
                                     </tr>
                                     <tr>
                                         <th>Pay =</th>
-                                        <td><input type="number" class="form-control my-field"></td>
+                                        <td><input name="pay" type="number" id="pay" class="form-control my-field"></td>
                                     </tr>
                                     <tr>
                                         <th>Due =</th>
-                                        <td>{{ number_format(54654, 2) }}</td>
+                                         
+                                        <td><input name="due" type="number" id="due" readonly class="form-control my-field"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -238,6 +243,47 @@
 @endsection
 
 
+@push('script')
+    <script>
+         $('#unit_qty').placeholder(1);
+        $('#item').on('change', function(){
+             let id = $(this).val();
+              $.ajax({
+                    type : "GET",
+                    url : "{{ url('admin/get-item-info') }}",
+                    data : {id:id},
+                    success : function(res){
+                        // console.log(res);
+                        $('#unit_qty').va('abc');
+                    }
+              })
+        })
+    </script>
+
+<script>
+    $('#unit_qty, #purchase').on('keyup', function(){  
+        var qty = $('#unit_qty').val();
+        var price = $('#purchase').val();
+        var total = qty*price; 
+        $('#total').empty();
+        $('#total').val(total);
+    })  
+</script>
+
+<script>
+    $('#pay,#unit_qty, #purchase').on('keyup', function(){
+        let pay = $('#pay').val();
+        let total = $('#total').val();  
+        $('#due').empty();
+        $('#due').val(total-pay);
+    })
+</script>
+
+
+
+
+
+@endpush
 @push('style')
     <style>
         .my-btn {

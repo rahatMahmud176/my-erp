@@ -83,6 +83,10 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\Contracts\SettingInterface',
             'App\Repositories\SettingRepository' 
         );
+        $this->app->bind(
+            'App\Contracts\AccountInterface',
+            'App\Repositories\AccountRepository' 
+        );
         
 
     }

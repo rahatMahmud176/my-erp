@@ -54,6 +54,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('stocks', StockController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('setting', SettingController::class);
+
+
+
+    // Ajax Routes 
+    Route::get('get-item-info',[StockController::class, 'itemInfo'])->name('get-item-info');
+
+
 });
 
 
