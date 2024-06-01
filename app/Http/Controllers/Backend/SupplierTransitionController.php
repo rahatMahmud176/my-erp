@@ -1,18 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Contracts\SupplierTransitionInterface;
+use App\Http\Controllers\Controller;
 use App\Models\Backend\SupplierTransition;
 use Illuminate\Http\Request;
 
 class SupplierTransitionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public $transitions;
+    public function __construct(SupplierTransitionInterface $supplierTransitionInterface = null) {
+        $this->transitions = $supplierTransitionInterface;
+    } 
+
+
+
     public function index()
     {
-        //
+        $supplier_transitions = $this->transitions->all(); 
+        return view('backend.transition-supplier.index', compact('supplier_transitions'));
     }
 
     /**

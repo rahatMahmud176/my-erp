@@ -1,18 +1,25 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Backend;
 
+use App\Contracts\TransitionInterface;
+use App\Http\Controllers\Controller;
 use App\Models\Backend\Transition;
 use Illuminate\Http\Request;
 
 class TransitionController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    public $transitions;
+
+    public function __construct(TransitionInterface $transitionInterface = null) {
+        $this->transitions = $transitionInterface;
+    } 
+
+
     public function index()
     {
-        //
+        $transitions = $this->transitions->all(); 
+        return view('backend.transition.index',compact('transitions'));
     }
 
     /**

@@ -32,7 +32,8 @@ public static function newItem($request)
         'name'            => $request->name, 
         'brand_id'        => $request->brand, 
         'unit_id'         => $request->unit, 
-        'sub_unit_id'     => $request->sub_unit, 
+        'sub_unit_id'     => $request->sub_unit,
+        'branch_id'       => auth()->user()->branch_id,
     ]);
     $item->categories()->sync($request->cats);
     $item->countries()->sync($request->countries);
@@ -57,6 +58,11 @@ public static function updateItem($request, $item = null)
 
 
 
+
+    public function stocks()
+    {
+        return $this->hasMany(Stock::class);
+    }
 
     public function categories()
     {

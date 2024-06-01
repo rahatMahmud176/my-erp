@@ -18,6 +18,7 @@ return new class extends Migration
             $table->float('pay', 10,2)->default(0);
             $table->float('due', 10,2)->default(0);
             $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade');
+            $table->boolean('deletable')->default(true);
             $table->timestamps();
         });
     }

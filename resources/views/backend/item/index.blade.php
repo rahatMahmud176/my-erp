@@ -60,7 +60,7 @@
                                 @foreach ($items as $key => $item)
                                     <tr>
                                         <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $item->name.'(#'.$item->id.')' }}</td>
+                                        <td>{{ $item->name.'(#'.$item->id.')' }} </td>
                                         <td>
                                             <table class="table table-borderless ">
                                                 <tr><th>Category</th>    <td>:</td>  <td> @foreach($item->categories as $cat ) {{ $cat->name }} {{ $loop->last ? '':',' }}  @endforeach</td> </tr>

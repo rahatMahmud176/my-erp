@@ -15,6 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone_number')->nullable(); 
+            $table->boolean('deletable')->default(true); 
             $table->timestamps();
         });
     }

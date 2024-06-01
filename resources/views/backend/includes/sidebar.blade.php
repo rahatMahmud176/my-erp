@@ -139,7 +139,44 @@
 
 
 
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" data-bs-target="#components-history" data-bs-toggle="collapse" href="#">
+                <i class="bi bi-menu-button-wide"></i><span>History </span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
+            <ul id="components-history" class="nav-content collapse " data-bs-parent="#sidebar-nav">
+
+                <li>
+                    <a href="{{ route('admin.transitions.index') }}">
+                        <i class="bi bi-circle"></i><span>Account Transitions</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="{{ route('admin.supplier_transitions.index') }}">
+                        <i class="bi bi-circle"></i><span>Supplier Transitions</span>
+                    </a>
+                </li>
+
+            </ul>
+        </li><!-- End Components Nav -->
+
+
+
         <li class="nav-heading">Pages</li>
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.challans.index') }}">
+                <i class="bi bi-person"></i>
+                <span>Challans</span>
+            </a>
+        </li><!-- End Challans Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.setting.index') }}">
+                <i class="bi bi-person"></i>
+                <span>Settings</span>
+            </a>
+        </li><!-- End Profile Page Nav -->
 
         <li class="nav-item">
             <a class="nav-link collapsed" href="users-profile.html">

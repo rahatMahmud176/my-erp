@@ -24,6 +24,7 @@ class ItemSeeder extends Seeder
             'name'            => 'item',
             'slug'            => 'item-slug',
             'brand_id'        => 1, 
+            'branch_id'        => 1, 
             'unit_id'    => 1, 
             'sub_unit_id'     => 1, 
         ]);
@@ -35,6 +36,7 @@ class ItemSeeder extends Seeder
             'name'            => 'item 2',
             'slug'            => 'item-slug-2',   
             'brand_id'        => 1, 
+            'branch_id'        => 1,
             'unit_id'    => 1, 
             'sub_unit_id'     => 1, 
         ]);
@@ -48,6 +50,7 @@ class ItemSeeder extends Seeder
             'name'            => 'Note 12 Pro max Usd Note 12 Pro max Usd',
             'slug'            => 'item-slug',
             'brand_id'        => 1, 
+            'branch_id'        => 1,
             'unit_id'    => 1, 
             'sub_unit_id'     => 1, 
         ]);

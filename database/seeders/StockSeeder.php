@@ -26,6 +26,7 @@ class StockSeeder extends Seeder
             'wholesale_price'   => 1,
             'price'             => 1,
             'branch_id'         => 1,
+            'challan_id'        => 1,
         ]);
 
         Stock::updateOrCreate([
@@ -39,6 +40,7 @@ class StockSeeder extends Seeder
             'wholesale_price'   => 15,
             'price'             => 15,
             'branch_id'         => 2,
+            'challan_id'        => 1,
         ]);
 
 

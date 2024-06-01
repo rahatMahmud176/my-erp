@@ -21,4 +21,18 @@ class ItemRepository implements ItemInterface
     }
 
 
+    public function allStock()
+    {
+       return Item::select('id','name','unit_id','sub_unit_id')
+                      ->with([
+                        'stocks:item_id,unit_qty',
+                        'unit:id,name',
+                        'subUnit:id,name'
+                      ])
+        ->where('branch_id',auth()->user()->branch_id)->get();
+    }
+    
+
+
+
 }

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\AccountInterface;
+use App\Contracts\ChallanInterface;
 use App\Contracts\ColorInterface;
 use App\Contracts\CountryVariantInterface;
 use App\Contracts\ItemInterface;
@@ -10,14 +11,12 @@ use App\Contracts\SettingInterface;
 use App\Contracts\SizeInterface;
 use App\Contracts\StockInterface;
 use App\Contracts\SupplierInterface;
-use App\Http\Controllers\Controller;
-use App\Models\Backend\Account;
-use App\Models\Backend\Challan;
-use App\Models\Backend\Item;
-use App\Models\Backend\Setting;
-use App\Models\Backend\Stock;
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Contracts\SupplierTransitionInterface;
+use App\Contracts\TransitionInterface;
+use App\Http\Controllers\Controller; 
+use App\Models\Backend\Item; 
+use App\Models\Backend\Stock; 
+use Illuminate\Http\Request; 
 
 class StockController extends Controller
 {
@@ -29,6 +28,9 @@ class StockController extends Controller
     public $suppliers;
     public $setting;
     public $accounts;
+    public $challan;
+    public $transitions;
+    public $supplierTransitions;
 
     public function __construct(StockInterface $stockInterface,
                                 ItemInterface $itemInterface,
@@ -37,24 +39,29 @@ class StockController extends Controller
                                 CountryVariantInterface $countries,
                                 SupplierInterface $supplierInterface,
                                 SettingInterface $settingInterface,
-                                AccountInterface $accountInterface
-                                
+                                AccountInterface $accountInterface,
+                                ChallanInterface $challanInterface,
+                                TransitionInterface $transitionInterface,
+                                SupplierTransitionInterface $supplierTransitionInterface
     ) {
-        $this->stocks    = $stockInterface;
-        $this->items     = $itemInterface;
-        $this->colors    = $colorInterface;
-        $this->sizes     = $sizeInterface;
-        $this->countries = $countries;
-        $this->suppliers = $supplierInterface;
-        $this->setting   = $settingInterface;
-        $this->accounts  = $accountInterface;
+        $this->stocks      = $stockInterface;
+        $this->items       = $itemInterface;
+        $this->colors      = $colorInterface;
+        $this->sizes       = $sizeInterface;
+        $this->countries   = $countries;
+        $this->suppliers   = $supplierInterface;
+        $this->setting     = $settingInterface;
+        $this->accounts    = $accountInterface;
+        $this->challan     = $challanInterface;
+        $this->transitions = $transitionInterface;
+        $this->supplierTransitions = $supplierTransitionInterface;
     } 
 
 
     public function index()
     {   
-        $stocks = Stock::where('branch_id',auth()->user()->branch_id)->get(); 
-        return view('backend.stock.index', compact('stocks'));
+        $items = $this->items->allStock();
+        return view('backend.stock.index', compact('items'));
     }
 
     /**
@@ -69,41 +76,33 @@ class StockController extends Controller
         $suppliers  = $this->suppliers->all();
         $accounts   = $this->accounts->all();
         $setting    = $this->setting->getSetting();
+        $challanId  = $this->challan->getLastChallanId();
 
-        return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers','accounts','setting'));
+        return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers','accounts','setting','challanId'));
     }
 
     /**
      * Store a newly created resource in storage.
      */
 
-public function itemInfo()
-{
-    $id = $_GET['id'];
-       $item =  Item::select('id','name','unit_id','sub_unit_id')
-        ->with('unit:id,name')
-        ->with('subUnit:id,name')->find($id);
+    public function itemInfo()
+    {
+        $id = $_GET['id'];
+        $item =  Item::select('id','name','unit_id','sub_unit_id')
+            ->with('unit:id,name')
+            ->with('subUnit:id,name')->find($id);
 
-        return response($item);
-}         
-
-
-
+            return response($item);
+    }         
+ 
     public function store(Request $request)
-    { 
-        // return $request;
-        $challanId = Challan::create([
-            'supplier_id'  => $request->supplier_id,
-            'total'        => $request->total,
-            'pay'          => $request->pay,
-            'due'          => $request->due,
-            'branch_id'    => auth()->user()->branch_id,
-        ]); //todo organize this
-        $this->stocks->newStock($request,$challanId->id);
-          // todo insert info to transition table
-          // todo insert info to supplier transition table
+    {  
+       
 
-      
+        $challanId = $this->challan->newChallan($request); 
+        $this->stocks->newStock($request,$challanId); 
+        $this->transitions->newTransitionWithNewStock($request,$challanId); 
+        $this->supplierTransitions->newSupplierTransitionWithNewStock($request,$challanId);
         return 'ok';
     }
 
@@ -112,7 +111,12 @@ public function itemInfo()
      */
     public function show(Stock $stock)
     {
-        //
+        
+    }
+    public function stockDetails($itemId)
+    {
+        $stocks = Stock::where('item_id',$itemId)->get();
+        return view('backend.stock.details', compact('stocks'));
     }
 
     /**

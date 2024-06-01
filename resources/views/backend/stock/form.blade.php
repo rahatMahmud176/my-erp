@@ -68,7 +68,7 @@
                             <div class="form-group col-md-3 my-3">
                                 <div class="form-group">
                                     <label for="">Challan / Lot Traking </label>
-                                    <input type="text" name="challan" class="form-control my-field">
+                                    <input type="text" readonly name="challan" class="form-control my-field" value="{{ $challanId }}">
                                 </div>
                             </div>
                         </div>
@@ -102,7 +102,7 @@
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <select class="form-control my-field" name="item" id="item">
+                                        <select class="form-control my-field" name="item" required id="item">
                                             <option value="">--Select--</option>
                                             @foreach ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -186,7 +186,7 @@
                             <div class="form-group col-md-3 my-3">
                                 <div class="form-group">
                                     <label for="">Payment Type</label>
-                                    <select class="form-control my-field" name="account" id="">
+                                    <select class="form-control my-field" name="account_id" id="">
                                         @foreach ($accounts as $item)
                                             <option value="{{ $item->id }}">{{ $item->ac_title }}</option>
                                         @endforeach

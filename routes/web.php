@@ -15,7 +15,10 @@ use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Backend\StockController;
-use App\Http\Controllers\Backend\SupplierController; 
+use App\Http\Controllers\Backend\SupplierController;
+use App\Http\Controllers\Backend\ChallanController;
+use App\Http\Controllers\Backend\TransitionController;
+use App\Http\Controllers\Backend\SupplierTransitionController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -51,9 +54,13 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('units', UnitController::class);
     Route::resource('sub_units', SubUnitController::class);
     Route::resource('items', ItemController::class);
-    Route::resource('stocks', StockController::class);
     Route::resource('suppliers', SupplierController::class);
     Route::resource('setting', SettingController::class);
+    Route::resource('stocks', StockController::class);
+    Route::get('stock-details-{id}',[StockController::class,'stockDetails'])->name(('stock.details'));
+    Route::resource('challans', ChallanController::class);
+    Route::resource('transitions', TransitionController::class);
+    Route::resource('supplier_transitions', SupplierTransitionController::class);
 
 
 

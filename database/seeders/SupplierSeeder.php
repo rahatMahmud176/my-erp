@@ -14,8 +14,9 @@ class SupplierSeeder extends Seeder
     public function run(): void
     {
         Supplier::updateOrCreate([
-            'name'          => 'Supplier 01',
+            'name'          => 'Demo supplier',
             'phone_number'  => '015********',
+            'deletable'     => false,
         ]);
     }
 }

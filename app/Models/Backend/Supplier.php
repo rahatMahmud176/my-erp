@@ -33,4 +33,14 @@ class Supplier extends Model
 
 
 
+
+
+
+public function challans()
+{
+    return $this->hasMany(Challan::class);
+}
+
+
+
 }

@@ -87,7 +87,20 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\Contracts\AccountInterface',
             'App\Repositories\AccountRepository' 
         );
+        $this->app->bind(
+            'App\Contracts\ChallanInterface',
+            'App\Repositories\ChallanRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\TransitionInterface',
+            'App\Repositories\TransitionRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\SupplierTransitionInterface',
+            'App\Repositories\SupplierTransitionRepository' 
+        );
         
+
 
     }
 }
