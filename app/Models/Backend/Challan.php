@@ -27,7 +27,7 @@ public static function newChallan($request)
 
 public static function getLastChallanId()
 {
-   return Challan::count()+1;
+   return Challan::all()->last()->id +1;
 }
 
 

@@ -15,8 +15,21 @@ class StockRepository implements StockInterface
     {
         Stock::newStock($request,$challanId);
     }
+    public function newStockWithSerial($request,$challanId,$serial)
+    {
+        Stock::newStockWithSerial($request,$challanId,$serial);
+    } 
     public function updateStock($request,$category)
     {
         Stock::updateStock($request,$category);
     }
+
+
+
+
+
+
+
+
+
 }

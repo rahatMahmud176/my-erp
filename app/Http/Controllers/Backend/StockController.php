@@ -13,7 +13,8 @@ use App\Contracts\StockInterface;
 use App\Contracts\SupplierInterface;
 use App\Contracts\SupplierTransitionInterface;
 use App\Contracts\TransitionInterface;
-use App\Http\Controllers\Controller; 
+use App\Http\Controllers\Controller;
+use App\Models\Backend\Account;
 use App\Models\Backend\Item; 
 use App\Models\Backend\Stock; 
 use Illuminate\Http\Request; 
@@ -83,24 +84,20 @@ class StockController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     */
-
-    public function itemInfo()
-    {
-        $id = $_GET['id'];
-        $item =  Item::select('id','name','unit_id','sub_unit_id')
-            ->with('unit:id,name')
-            ->with('subUnit:id,name')->find($id);
-
-            return response($item);
-    }         
+     */ 
+    
  
     public function store(Request $request)
-    {  
-       
-
-        $challanId = $this->challan->newChallan($request); 
-        $this->stocks->newStock($request,$challanId); 
+    {    
+        $challanId = $this->challan->newChallan($request);  
+        if ($this->setting->getSetting()->qty_manage_by_serial==true) {
+            $serials = explode(',', $request->serial);
+            foreach ($serials as $key => $serial) {
+                $this->stocks->newStockWithSerial($request,$challanId,$serial);
+            } 
+        } else {
+            $this->stocks->newStock($request,$challanId); 
+        }  
         $this->transitions->newTransitionWithNewStock($request,$challanId); 
         $this->supplierTransitions->newSupplierTransitionWithNewStock($request,$challanId);
         return 'ok';
@@ -142,4 +139,51 @@ class StockController extends Controller
     {
         //
     }
+
+
+
+
+
+
+
+ //  Ajax Functions
+
+ public function itemInfo()
+ {
+     $id = $_GET['id'];
+     $item =  Item::select('id','name','unit_id','sub_unit_id')
+         ->with('unit:id,name')
+         ->with('subUnit:id,name')->find($id); 
+         return response($item);
+ }      
+ 
+ public function acInfoWithOutFirstOne()
+ { 
+     $accounts =  Account::all()->skip(1);
+     return response()->view('backend.ajax-results.accounts', compact('accounts'));
+ }  
+
+public function addStockRow()
+{
+
+    $items      = $this->items->all();
+    $colors     = $this->colors->all();
+    $sizes      = $this->sizes->all();
+    $countries  = $this->countries->all();
+    $suppliers  = $this->suppliers->all();
+    $accounts   = $this->accounts->all();
+    $setting    = $this->setting->getSetting();
+    $challanId  = $this->challan->getLastChallanId(); 
+
+    return response()->view('backend.ajax-results.stock-row', compact('items','colors','sizes','countries','suppliers','accounts','setting','challanId')); 
+}
+
+
+
+
+
+
+
+
+
 }

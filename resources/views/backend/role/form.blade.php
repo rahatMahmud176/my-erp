@@ -98,8 +98,7 @@
             if (this.checked) {
                 $(':checkbox').prop('checked', true);
             } else {
-                $(':checkbox').prop('checked', false);
-                
+                $(':checkbox').prop('checked', false); 
             }
         })
     </script>

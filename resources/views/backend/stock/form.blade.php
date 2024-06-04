@@ -75,7 +75,7 @@
 
 
 
-                        <table class="table table-striped mt-3">
+                        <table class="table table-striped mt-3 stock-table">
                             <tr>
                                 <th>item</th>
                                 @if ($setting->color)
@@ -88,7 +88,11 @@
                                     <th>country</th>
                                 @endif
 
-                                <th>Qty (unit)</th>
+                                @if ($setting->qty_manage_by_serial==false )
+                                     <th>Qty (unit)</th>
+                                @endif
+
+
                                 @if ($setting->sub_unit)
                                     <th>Qty (sub-unit)</th>
                                 @endif
@@ -146,12 +150,16 @@
                                     </td>
                                 @endif
 
-                                <td>
-                                    <input style="width: 100px" name="unit_qty" id="unit_qty" type="text" class="my-field">
-                                </td>
+                                @if ($setting->qty_manage_by_serial==false )
+                                    <td>
+                                        <input style="width: 100px" name="unit_qty" id="unit_qty" type="text" class="my-field">
+                                    </td>
+                                @endif  
+
                                 @if ($setting->sub_unit)
                                     <td>
-                                        <input style="width: 100px" name="sub_unit_qty" type="number" class="my-field">
+                                        <input style="width: 100px" name="sub_unit_qty" id="sub_unit_qty" type="number" class="my-field">
+                                        
                                     </td>
                                 @endif
 
@@ -168,7 +176,7 @@
                                 </td>
                                 @endif
                                 <td>
-                                    <button class="btn btn-sm btn-success my-btn">+</button>
+                                    <button type="button" class="btn btn-sm btn-success my-btn add-row">+</button>
                                 </td>
                             </tr>
 
@@ -186,7 +194,7 @@
                             <div class="form-group col-md-3 my-3">
                                 <div class="form-group">
                                     <label for="">Payment Type</label>
-                                    <select class="form-control my-field" name="account_id" id="">
+                                    <select class="form-control my-field" name="account_id" id="accounts">
                                         @foreach ($accounts as $item)
                                             <option value="{{ $item->id }}">{{ $item->ac_title }}</option>
                                         @endforeach
@@ -245,7 +253,7 @@
 
 @push('script')
     <script>
-         $('#unit_qty').placeholder(1);
+        
         $('#item').on('change', function(){
              let id = $(this).val();
               $.ajax({
@@ -253,8 +261,9 @@
                     url : "{{ url('admin/get-item-info') }}",
                     data : {id:id},
                     success : function(res){
-                        // console.log(res);
-                        $('#unit_qty').va('abc');
+                         console.log(res); 
+                         $('#unit_qty').attr('placeholder',res.unit.name);
+                         $('#sub_unit_qty').attr('placeholder',res.sub_unit.name);
                     }
               })
         })
@@ -279,7 +288,33 @@
     })
 </script>
 
+<script>
+    $('#pay').on('click', function(){   
+        $.ajax({
+            type: "GET",
+            url : "{{ url('admin/get-account-info-without-first-one') }}",
+            success: function(res){
+                // console.log(res);
+                $('#accounts').empty();
+                $('#accounts').html(res);
+            }
+        }) 
+    }) 
 
+</script>
+
+
+<script>
+    $('.add-row').on('click', function(){
+        $.ajax({
+            type: "GET",
+            url : "{{ url('admin/add-stock-row') }}",
+            success: function(res){
+                $('.stock-table').append(res); 
+            }
+        }) 
+    })
+</script>
 
 
 

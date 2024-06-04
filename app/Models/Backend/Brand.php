@@ -8,9 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Brand extends Model
-{ 
-
-
+{  
+    
     use HasFactory,Sluggable;
 
 

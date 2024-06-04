@@ -51,8 +51,8 @@
                                 <label class="form-check-label" for="sl_number">Use SL / IMEI No.</label>
                             </div>
 
-                            <div class="form-check form-switch col-6">
-                                <input class="form-check-input" name="qty_manage_by_serial" value="1" type="checkbox" role="switch" id="manage_qty_by_imei"
+                            <div class="form-check form-switch col-6 manage_qty_by_imei_div">
+                                <input  class="form-check-input"  name="qty_manage_by_serial" value="1" type="checkbox" role="switch" id="manage_qty_by_imei"
                                 {{ $setting->qty_manage_by_serial ?'checked':'' }}>
                                 <label class="form-check-label" for="manage_qty_by_imei">Manage Quantity By SL / IMEI No.</label>
                             </div>
@@ -73,3 +73,27 @@
         </div>
     </div>
 @endsection
+
+
+@push('script')
+    <script>  
+
+        $(document).ready(function(){
+            if ($('#sl_number').is(':checked')) {
+               
+            }else{
+                $('#manage_qty_by_imei').prop('checked', false); 
+                $('#manage_qty_by_imei').attr('disabled', true);
+            }
+        }) 
+        $('#sl_number').on('change', function(){
+            if(this.checked){
+                $('.manage_qty_by_imei_div').show() 
+                $('#manage_qty_by_imei').attr('disabled', false);
+            }else{ 
+                $('#manage_qty_by_imei').prop('checked', false); 
+                $('.manage_qty_by_imei_div').hide();
+            }
+        })
+    </script>
+@endpush

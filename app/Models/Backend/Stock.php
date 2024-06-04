@@ -14,9 +14,7 @@ class Stock extends Model
 
 
     public static function newStock($request,$challanId)
-    {
-
-        $serials = explode(',', $request->serial); 
+    { 
 
         Stock::create([
             'supplier_id'        =>$request->supplier_id,
@@ -30,10 +28,36 @@ class Stock extends Model
             'branch_id'          => auth()->user()->branch_id,
             'serial'             =>$request->serial,
             'challan_id'         =>$challanId, 
-        ]);
-
-        
+        ]); 
     }   
+
+    public static function newStockWithSerial($request,$challanId,$serial)
+    {  
+        Stock::create([
+            'supplier_id'        =>$request->supplier_id,
+            'item_id'            =>$request->item,
+            'color_id'           =>$request->color_id ?? 1,
+            'size_id'            =>$request->size_id ?? 1,
+            'country_id'         =>$request->country_id ?? 1, 
+            'sub_unit_qty'       =>$request->sub_unit_qty,
+            'purchase_price'     =>$request->purchase, 
+            'branch_id'          => auth()->user()->branch_id,
+            'challan_id'         =>$challanId, 
+            'serial'             =>$serial,
+        ]); 
+    }   
+
+
+
+
+
+
+
+
+
+
+
+
 
     public static function updateStock($request,$stock)
     {

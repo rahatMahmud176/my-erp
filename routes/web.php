@@ -66,6 +66,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
 
     // Ajax Routes 
     Route::get('get-item-info',[StockController::class, 'itemInfo'])->name('get-item-info');
+    Route::get('get-account-info-without-first-one',[StockController::class, 'acInfoWithOutFirstOne'])->name('get-account-info-without-first-one');
+    Route::get('add-stock-row',[StockController::class, 'addStockRow'])->name('add-stock-row');
 
 
 });
