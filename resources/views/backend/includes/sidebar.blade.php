@@ -138,8 +138,6 @@
         </li><!-- End Components Nav -->
 
 
-
-
         <li class="nav-item">
             <a class="nav-link collapsed" data-bs-target="#components-history" data-bs-toggle="collapse" href="#">
                 <i class="bi bi-menu-button-wide"></i><span>History </span><i class="bi bi-chevron-down ms-auto"></i>

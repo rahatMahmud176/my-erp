@@ -25,6 +25,15 @@ public static function newChallan($request)
 }
 
 
+public static function pay($request, $challanId)
+{
+    $challan = Challan::find($challanId);
+    $challan->due = $challan->due - $request->pay;
+    $challan->pay = $challan->pay + $request->pay;
+    $challan->save();
+}
+
+
 public static function getLastChallanId()
 {
    return Challan::all()->last()->id +1;

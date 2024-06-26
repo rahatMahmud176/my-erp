@@ -24,6 +24,11 @@ class ChallanRepository implements ChallanInterface
         return Challan::getLastChallanId();
     }
 
+    public function pay($request, $challanId)
+    {
+        return Challan::pay($request, $challanId);
+    }
+
 
 
 

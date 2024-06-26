@@ -17,6 +17,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\ChallanController;
+use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\TransitionController;
 use App\Http\Controllers\Backend\SupplierTransitionController;
 use Illuminate\Support\Facades\Route;
@@ -60,8 +61,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::get('stock-details-{id}',[StockController::class,'stockDetails'])->name(('stock.details'));
     Route::resource('challans', ChallanController::class);
     Route::resource('transitions', TransitionController::class);
-    Route::resource('supplier_transitions', SupplierTransitionController::class);
-
+    Route::resource('supplier_transitions', SupplierTransitionController::class); 
+    Route::resource('payments', PaymentController::class); 
 
 
     // Ajax Routes 

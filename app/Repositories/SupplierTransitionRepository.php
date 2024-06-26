@@ -7,9 +7,9 @@ use App\Models\Backend\SupplierTransition;
 
 class SupplierTransitionRepository implements SupplierTransitionInterface
 {
-   public function newSupplierTransitionWithNewStock($request,$challanId)
+   public function newSupplierTransition($request,$challanId)
    {
-        SupplierTransition::newSupplierTransitionWithNewStock($request,$challanId);
+        SupplierTransition::newSupplierTransition($request,$challanId);
    }
    public function all()
    {

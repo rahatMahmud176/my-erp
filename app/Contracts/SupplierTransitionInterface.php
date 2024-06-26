@@ -5,7 +5,7 @@ namespace App\Contracts;
 
 interface SupplierTransitionInterface
 {
-   public function newSupplierTransitionWithNewStock($request,$challanId);
+   public function newSupplierTransition($request,$challanId);
 
    public function all();
 
@@ -17,3 +17,4 @@ interface SupplierTransitionInterface
 
 
 }
+

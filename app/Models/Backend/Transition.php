@@ -13,7 +13,7 @@ class Transition extends Model
 
 
 
-    public static function newTransitionWithNewStock($request,$challanId)
+    public static function newTransition($request,$challanId)
     {
         Transition::create([
             'account_id'   => $request->account_id,

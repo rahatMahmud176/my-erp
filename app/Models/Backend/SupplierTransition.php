@@ -13,14 +13,14 @@ class SupplierTransition extends Model
 
 
 
-    public static function newSupplierTransitionWithNewStock($request,$challanId)
+    public static function newSupplierTransition($request,$challanId)
     {
         SupplierTransition::create([
             'supplier_id'   => $request->supplier_id,
             'challan_id'    => $challanId ?? 1,
             'branch_id'     => auth()->user()->branch_id,
             'deposit'       => $request->pay,
-            'due'           => $request->due,
+            'due'           => $request->due ?? 0,
         ]);
     }
 

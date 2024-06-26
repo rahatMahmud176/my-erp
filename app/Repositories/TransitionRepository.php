@@ -7,9 +7,9 @@ use App\Models\Backend\Transition;
 
 class TransitionRepository implements TransitionInterface
 {
-    public function newTransitionWithNewStock($request,$challanId)
+    public function newTransition($request,$challanId)
     {
-       Transition::newTransitionWithNewStock($request,$challanId);
+       Transition::newTransition($request,$challanId);
     }
 
     public function all()

@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\AccountInterface;
 use App\Contracts\ChallanInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Challan;
@@ -10,18 +11,24 @@ use Illuminate\Http\Request;
 class ChallanController extends Controller
 {
    public $challans;
+   public $accounts;
 
 
-    public function __construct(ChallanInterface $challanInterface = null) {
+    public function __construct(ChallanInterface $challanInterface = null, 
+                                AccountInterface $accountInterface) {
         $this->challans = $challanInterface;
+        $this->accounts = $accountInterface;
+        
     } 
 
 
 
     public function index()
     {
-       $challans = $this->challans->all();
-       return view('backend.challan.index', compact('challans'));
+     
+        $accounts = $this->accounts->all()->skip(1); 
+        $challans = $this->challans->all();
+       return view('backend.challan.index', compact('challans','accounts'));
     }
 
     /**

@@ -17,7 +17,8 @@ use App\Http\Controllers\Controller;
 use App\Models\Backend\Account;
 use App\Models\Backend\Item; 
 use App\Models\Backend\Stock; 
-use Illuminate\Http\Request; 
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class StockController extends Controller
 {
@@ -79,29 +80,52 @@ class StockController extends Controller
         $setting    = $this->setting->getSetting();
         $challanId  = $this->challan->getLastChallanId();
 
-        return view('backend.stock.form', compact('items','colors','sizes','countries','suppliers','accounts','setting','challanId'));
+        return view('backend.stock.form', compact('items','colors','sizes','countries',
+                                                  'suppliers','accounts','setting','challanId'));
     }
 
     /**
      * Store a newly created resource in storage.
      */ 
-    
- 
+     
     public function store(Request $request)
-    {    
-        $challanId = $this->challan->newChallan($request);  
+    {   
+        DB::beginTransaction();
+
+        try {
+                $challanId = $this->challan->newChallan($request);   
+                $this->newStock($challanId,$request);  
+                $this->transitions->newTransition($request,$challanId); 
+                $this->supplierTransitions->newSupplierTransition($request,$challanId);
+
+                DB::commit(); 
+                notify('Save successfully','success');
+                return redirect()->back();
+        } catch (\Exception $e) {
+            DB::rollback();
+            notify()->error('Please give Proper Info','Error');
+            return redirect()->back(); 
+        } 
+        
+}
+
+
+    public function newStock($challanId,$request)
+    { 
+    foreach ($request->stock as $myStock) {   
         if ($this->setting->getSetting()->qty_manage_by_serial==true) {
-            $serials = explode(',', $request->serial);
+            $serials = explode(',', $myStock['serial']); 
             foreach ($serials as $key => $serial) {
-                $this->stocks->newStockWithSerial($request,$challanId,$serial);
+                $this->stocks->newStockWithSerial($myStock,$challanId,$serial,$request->supplier_id);
             } 
         } else {
-            $this->stocks->newStock($request,$challanId); 
+            $this->stocks->newStock($myStock,$challanId,$request->supplier_id); 
         }  
-        $this->transitions->newTransitionWithNewStock($request,$challanId); 
-        $this->supplierTransitions->newSupplierTransitionWithNewStock($request,$challanId);
-        return 'ok';
+     } //foreach
+
     }
+
+
 
     /**
      * Display the specified resource.
@@ -166,6 +190,7 @@ class StockController extends Controller
 public function addStockRow()
 {
 
+    $i = $_GET['i'];  
     $items      = $this->items->all();
     $colors     = $this->colors->all();
     $sizes      = $this->sizes->all();
@@ -175,7 +200,7 @@ public function addStockRow()
     $setting    = $this->setting->getSetting();
     $challanId  = $this->challan->getLastChallanId(); 
 
-    return response()->view('backend.ajax-results.stock-row', compact('items','colors','sizes','countries','suppliers','accounts','setting','challanId')); 
+    return response()->view('backend.ajax-results.stock-row', compact('items','colors','sizes','countries','suppliers','accounts','setting','challanId','i')); 
 }
 
 

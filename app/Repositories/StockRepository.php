@@ -11,13 +11,13 @@ class StockRepository implements StockInterface
     {
         return Stock::all();
     }
-    public function newStock($request,$challanId)
+    public function newStock($request,$challanId,$supplier_id)
     {
-        Stock::newStock($request,$challanId);
+        Stock::newStock($request,$challanId,$supplier_id);
     }
-    public function newStockWithSerial($request,$challanId,$serial)
+    public function newStockWithSerial($request,$challanId,$serial,$supplier_id)
     {
-        Stock::newStockWithSerial($request,$challanId,$serial);
+        Stock::newStockWithSerial($request,$challanId,$serial,$supplier_id);
     } 
     public function updateStock($request,$category)
     {

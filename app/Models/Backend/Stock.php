@@ -13,34 +13,37 @@ class Stock extends Model
     protected $guarded = ['id'];
 
 
-    public static function newStock($request,$challanId)
-    { 
+    public static function newStock($request,$challanId,$supplier_id)
+    {   
 
         Stock::create([
-            'supplier_id'        =>$request->supplier_id,
-            'item_id'            =>$request->item,
-            'color_id'           =>$request->color_id ?? 1,
-            'size_id'            =>$request->size_id ?? 1,
-            'country_id'         =>$request->country_id ?? 1,
-            'unit_qty'           =>$request->unit_qty,
-            'sub_unit_qty'       =>$request->sub_unit_qty,
-            'purchase_price'     =>$request->purchase, 
+            'supplier_id'        =>$supplier_id,
+            'supplier_id'        =>1,
+            'item_id'            =>$request['item'],
+            'color_id'           =>$request['color_id'] ?? 1,
+            'size_id'            =>$request['size_id'] ?? 1,
+            'country_id'         =>$request['country_id'] ?? 1,
+            'unit_qty'           =>$request['unit_qty'],
+            'sub_unit_qty'       =>$request['sub_unit_qty'],
+            'purchase_price'     =>$request['purchase'], 
             'branch_id'          => auth()->user()->branch_id,
-            'serial'             =>$request->serial,
+            'serial'             =>$request['serial'] ?? '0',
             'challan_id'         =>$challanId, 
         ]); 
     }   
 
-    public static function newStockWithSerial($request,$challanId,$serial)
+    public static function newStockWithSerial($request,$challanId,$serial,$supplier_id)
     {  
+        // dd($serial);
         Stock::create([
-            'supplier_id'        =>$request->supplier_id,
-            'item_id'            =>$request->item,
-            'color_id'           =>$request->color_id ?? 1,
-            'size_id'            =>$request->size_id ?? 1,
-            'country_id'         =>$request->country_id ?? 1, 
-            'sub_unit_qty'       =>$request->sub_unit_qty,
-            'purchase_price'     =>$request->purchase, 
+            'supplier_id'        =>$supplier_id,
+            'supplier_id'        =>1,
+            'item_id'            =>$request['item'],
+            'color_id'           =>$request['color_id'] ?? 1,
+            'size_id'            =>$request['size_id'] ?? 1,
+            'country_id'         =>$request['country_id'] ?? 1, 
+            'sub_unit_qty'       =>$request['sub_unit_qty'],
+            'purchase_price'     =>$request['purchase'], 
             'branch_id'          => auth()->user()->branch_id,
             'challan_id'         =>$challanId, 
             'serial'             =>$serial,

@@ -25,7 +25,7 @@
 
   <main id="main" class="main">
 
-    @yield('content')
+    @yield('content') 
 
   </main><!-- End #main -->
 
@@ -36,8 +36,8 @@
 
 
 @include('backend.includes.scripts')
-
  
+@stack('modal')
 
 </body>
 

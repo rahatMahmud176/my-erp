@@ -25,10 +25,7 @@
                         Cancel</a>
                 </div>
 
-                <div class="row">
-
-
-                    
+                <div class="row"> 
 
 
                     <form
@@ -106,7 +103,7 @@
                             <tr>
                                 <td>
                                     <div class="form-group">
-                                        <select class="form-control my-field" name="item" required id="item">
+                                        <select class="form-control my-field" name="stock[1][item]" required id="item">
                                             <option value="">--Select--</option>
                                             @foreach ($items as $item)
                                                 <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -118,7 +115,7 @@
                                 @if ($setting->color)
                                     <td>
                                         <div class="form-group">
-                                            <select class="form-control my-field" name="color_id" id="">
+                                            <select class="form-control my-field" name="stock[1][color_id]" id="">
                                                 @foreach ($colors as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -130,7 +127,7 @@
                                 @if ($setting->size)
                                     <td>
                                         <div class="form-group">
-                                            <select class="form-control my-field" name="size_id" id="">
+                                            <select class="form-control my-field" name="stock[1][size_id]" id="">
                                                 @foreach ($sizes as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -141,7 +138,7 @@
                                 @if ($setting->country)
                                     <td>
                                         <div class="form-group">
-                                            <select class="form-control my-field" name="country_id" id="">
+                                            <select class="form-control my-field" name="stock[1][country_id]" id="">
                                                 @foreach ($countries as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -152,38 +149,33 @@
 
                                 @if ($setting->qty_manage_by_serial==false )
                                     <td>
-                                        <input style="width: 100px" name="unit_qty" id="unit_qty" type="text" class="my-field">
+                                        <input style="width: 100px" name="stock[1][unit_qty]" id="unit_qty" type="text" class="my-field">
                                     </td>
                                 @endif  
 
                                 @if ($setting->sub_unit)
                                     <td>
-                                        <input style="width: 100px" name="sub_unit_qty" id="sub_unit_qty" type="number" class="my-field">
+                                        <input style="width: 100px" name="stock[1][sub_unit_qty]" id="sub_unit_qty" type="number" class="my-field">
                                         
                                     </td>
                                 @endif
 
                                 <td>
-                                    <input style="width: 100px" required id="purchase" name="purchase" type="number" class="my-field">
+                                    <input style="width: 100px" required id="purchase" name="stock[1][purchase]" type="number" class="my-field">
                                 </td>
                                 @if ($setting->serial_number)
                                 <td>
                                     @if ($setting->qty_manage_by_serial)
-                                        <textarea name="serial" id="" class="form-control my-field"></textarea>
+                                        <textarea name="stock[1][serial]" id="" class="form-control my-field"></textarea>
                                     @else
-                                        <input type="text" name="serial" class="my-field">
+                                        <input type="text" name="stock[1][serial]" class="my-field">
                                     @endif
                                 </td>
                                 @endif
                                 <td>
                                     <button type="button" class="btn btn-sm btn-success my-btn add-row">+</button>
                                 </td>
-                            </tr>
-
-
-
-
-
+                            </tr> 
 
                         </table>
 
@@ -208,7 +200,7 @@
                                 <table class="table table-bordered">
                                     <tr>
                                         <th>Total =</th>
-                                        <td> <input name="total" class="form-control my-field" type="number" id="total" readonly></td>
+                                        <td> <input name="total" class="form-control my-field" type="number" id="total" required></td>
                                     </tr>
                                     <tr>
                                         <th>Pay =</th>
@@ -220,12 +212,8 @@
                                         <td><input name="due" type="number" id="due" readonly class="form-control my-field"></td>
                                     </tr>
                                 </table>
-                            </div>
-
-
-                        </div>
-
-
+                            </div>  
+                        </div> 
 
 
                         <div class="form-group col-1 float-end">
@@ -305,12 +293,15 @@
 
 
 <script>
+    var i = 2; 
     $('.add-row').on('click', function(){
         $.ajax({
             type: "GET",
+            data: {i:i},
             url : "{{ url('admin/add-stock-row') }}",
             success: function(res){
-                $('.stock-table').append(res); 
+                $('.stock-table').append(res);
+                i++; 
             }
         }) 
     })

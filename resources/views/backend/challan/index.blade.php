@@ -8,16 +8,13 @@
             <div class="card-body">
 
                 <div class="mt-3 clearfix">
-                    <h3 class="float-start">#Challans</h3>
-                    <a href="{{ route('admin.challans.index') }}" class="btn btn-sm btn-secondary  float-end">
-                        <i class="bi bi-plus-circle"></i>
-                        Add Challan</a>
+                    <h3 class="float-start">#Challans</h3> 
                 </div>
 
                 <div class="row"> 
 
                     <div class="col-md-12">
-                        <table class="table table-bordered ">
+                        <table class="table table-bordered">
                             <thead class="">
                                 <tr>
                                     <th scope="col">Date</th>
@@ -41,18 +38,23 @@
                                         <td class="{{ $challan->due == 0 ?'text-success':'text-danger' }} text-center">{{ number_format($challan->due, 2) }}</td>
                                         
                                         <td class="text-center">
-                                           todo 
-                                            @if ($challan->deletable == true)
-                                                <a href="#" onclick="challanDelete({{ $challan->id }})"
-                                                    class="btn btn-sm btn-secondary">
-                                                    <i class="bi bi-eye"></i>
-                                                    View</a>
 
-                                                    <a href="{{ route('admin.challans.edit', $challan) }}"
-                                                    class="btn btn-sm btn-secondary">
-                                                    <i class="bi bi-pencil-square"></i>
-                                                    Edit
-                                                </a>
+                                            @if ($challan->due != 0)
+                                               <a href="#" 
+                                               data-id = "{{ $challan->id }}"
+                                               data-due = "{{ $challan->due }}"
+                                               data-supplier = "{{ $challan->supplier->name }}"
+                                               data-supplier_id = "{{ $challan->supplier_id }}"
+                                               class="btn btn-sm btn-success pay-challan" 
+                                               data-bs-toggle="modal" data-bs-target="#exampleModal">
+                                                    <i class="bi bi-coin"></i>
+                                                    Pay</a>
+                                            @endif
+                                            
+                                            @if ($challan->deletable == true)   
+                                                <a href="#"  class="btn btn-sm btn-secondary">
+                                                    <i class="bi bi-eye"></i>
+                                                    View</a> 
 
                                                 <a href="#" onclick="challanDelete({{ $challan->id }})"
                                                     class="btn btn-sm btn-danger">
@@ -75,18 +77,80 @@
                         </table>
                     </div>
 
-                </div>
-
-
+                </div> 
 
             </div>
         </div>
-    </div>
+    </div> 
+   
 @endsection
 
+ 
+@push('modal')
+<form action="{{ route('admin.payments.store') }}" method="post">
+    @csrf 
+    <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h1 class="modal-title fs-5" id="exampleModalLabel">Payment</h1>
+              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+            </div>
+            <div class="modal-body row"> 
+                <div class="form-group col-md-6 mb-3">
+                  <label for="">Due Amount</label>
+                  <input type="hidden" name="challan_id" id="challan_id">
+                  <input type="hidden" name="supplier_id" id="supplier_id">
+                  <input readonly type="text" id="due" class="form-control text-danger" placeholder="" aria-describedby="helpId"> 
+                </div> 
+                <div class="form-group col-md-6 mb-3">
+                </div> 
+                <div class="form-group col-md-6">
+                    <label for=""> Account </label>
+                    <select name="account_id" class="form-control" id="">
+                        @foreach ($accounts as $account)
+                             <option value="{{ $account->id }}">{{ $account->ac_title }} </option>                            
+                        @endforeach
+                    </select>
+                </div> 
+                <div class="form-group col-md-6">
+                  <label for="">Pay Amount</label>
+                  <input type="number" name="pay" id="pay-amount" max="" class="form-control" > 
+                </div> 
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+              <button type="submit" class="btn btn-primary"> <i class="bi bi-coin"></i> Pay </button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+</form>
+@endpush
 
 
-@push('script')
+@push('script') 
+
+
+<script>
+    $('.pay-challan').on('click', function(){
+        let id = $(this).attr('data-id');
+        let deu = $(this).attr('data-due');
+        let supplier = $(this).attr('data-supplier');
+        let supplier_id = $(this).attr('data-supplier_id');
+
+        $('#pay-amount').attr('max', deu);
+        const nFormat = new Intl.NumberFormat(undefined, {minimumFractionDigits: 2});
+        $('#challan_id').val(id);
+        $('#supplier_id').val(supplier_id);
+        $('#due').val(nFormat.format(deu));
+        $('#exampleModalLabel').empty();
+        $('#exampleModalLabel').append('Challan#'+id); 
+    })
+</script>
+
+ 
     <script>
         function challanDelete(id) {
             Swal.fire({
