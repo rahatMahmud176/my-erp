@@ -31,6 +31,13 @@
                 </a>
             </li> 
 
+            <li class="nav-item">
+                <a class="nav-link {{ Request::is('admin/pos*') ? 'active' : '' }}" href="{{ route('admin.pos.index') }}">
+                    <i class="bi bi-people-fill"></i>
+                    <span>POS</span>
+                </a>
+            </li> 
+
         @endrole
         {{-- //super Admin  --}}
 
@@ -166,6 +173,13 @@
             <a class="nav-link collapsed" href="{{ route('admin.challans.index') }}">
                 <i class="bi bi-person"></i>
                 <span>Challans</span>
+            </a>
+        </li><!-- End Challans Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.invoice.index') }}">
+                <i class="bi bi-person"></i>
+                <span>Invoices</span>
             </a>
         </li><!-- End Challans Page Nav -->
 

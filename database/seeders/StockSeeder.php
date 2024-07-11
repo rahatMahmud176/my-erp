@@ -21,7 +21,7 @@ class StockSeeder extends Seeder
             'color_id'          => 1,
             'size_id'           => 1,
             'country_id'        => 1,
-            'unit_qty'          => 1,
+            'unit_qty'          => 10,
             'purchase_price'    => 1,
             'wholesale_price'   => 1,
             'price'             => 1,
@@ -31,15 +31,29 @@ class StockSeeder extends Seeder
 
         Stock::updateOrCreate([
             'supplier_id'       => 1,
-            'item_id'           => 1,
+            'item_id'           => 2,
             'color_id'          => 1,
             'size_id'           => 1,
             'country_id'        => 1,
-            'unit_qty'          => 1,
+            'unit_qty'          => 15,
             'purchase_price'    => 15,
             'wholesale_price'   => 15,
             'price'             => 15,
             'branch_id'         => 2,
+            'challan_id'        => 1,
+        ]);
+
+        Stock::updateOrCreate([
+            'supplier_id'       => 1,
+            'item_id'           => 3,
+            'color_id'          => 1,
+            'size_id'           => 1,
+            'country_id'        => 1,
+            'unit_qty'          => 20,
+            'purchase_price'    => 15,
+            'wholesale_price'   => 15,
+            'price'             => 15,
+            'branch_id'         => 1,
             'challan_id'        => 1,
         ]);
 

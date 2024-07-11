@@ -59,7 +59,6 @@ class StockController extends Controller
         $this->supplierTransitions = $supplierTransitionInterface;
     } 
 
-
     public function index()
     {   
         $items = $this->items->allStock();
@@ -163,11 +162,7 @@ class StockController extends Controller
     {
         //
     }
-
-
-
-
-
+ 
 
 
  //  Ajax Functions

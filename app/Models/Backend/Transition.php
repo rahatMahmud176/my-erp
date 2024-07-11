@@ -18,6 +18,7 @@ class Transition extends Model
         Transition::create([
             'account_id'   => $request->account_id,
             'challan_id'   => $challanId ?? 1,
+            'invoice_id'   => 1,
             'branch_id'    => auth()->user()->branch_id,
             'pay'          => $request->pay,
         ]);

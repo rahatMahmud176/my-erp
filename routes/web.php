@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\Backend\AdminCartController;
 use App\Http\Controllers\Backend\BrandController;
 use App\Http\Controllers\Backend\CategoryController;
 use App\Http\Controllers\Backend\ColorController;
@@ -17,9 +18,12 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\ChallanController;
+use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\TransitionController;
 use App\Http\Controllers\Backend\SupplierTransitionController;
+use App\Http\Controllers\Backend\PosController;
+use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -63,12 +67,17 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('transitions', TransitionController::class);
     Route::resource('supplier_transitions', SupplierTransitionController::class); 
     Route::resource('payments', PaymentController::class); 
+    Route::resource('pos', PosController::class); 
+    Route::resource('cart', AdminCartController::class); 
+    Route::resource('invoice', InvoiceController::class); 
 
 
     // Ajax Routes 
     Route::get('get-item-info',[StockController::class, 'itemInfo'])->name('get-item-info');
     Route::get('get-account-info-without-first-one',[StockController::class, 'acInfoWithOutFirstOne'])->name('get-account-info-without-first-one');
     Route::get('add-stock-row',[StockController::class, 'addStockRow'])->name('add-stock-row');
+    Route::get('add-to-cart-ajax',[AdminCartController::class, 'addToCart'])->name('add-to-cart');
+    Route::get('find-customer',[CustomerController::class, 'findCustomer'])->name('find-customer');
 
 
 });

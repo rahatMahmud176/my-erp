@@ -159,7 +159,7 @@ return [
         /*
          * Package Service Providers...
          */ 
-            LaraIzitoast\LaraIzitoastServiceProvider::class, 
+            LaraIzitoast\LaraIzitoastServiceProvider::class,  
 
         /*
          * Application Service Providers...
@@ -188,7 +188,7 @@ return [
     */
 
     'aliases' => Facade::defaultAliases()->merge([
-        // 'Example' => App\Facades\Example::class,
+        // 'Example' => App\Facades\Example::class, 
     ])->toArray(),
 
 ];

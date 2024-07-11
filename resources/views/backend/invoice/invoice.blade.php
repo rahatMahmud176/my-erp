@@ -1,0 +1,108 @@
+@extends('backend.master')
+@section('title')
+    invoice
+@endsection
+@section('content') 
+
+<div class="container my-5">
+    <div class="card p-5">
+        <div class="card-body">
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <h6 class="mb-3">From:</h6>
+                    <div>
+                        <strong>Your Company Name</strong>
+                    </div>
+                    <div>1234 Main St</div>
+                    <div>City, State, ZIP</div>
+                    <div>Email: email@company.com</div>
+                    <div>Phone: (123) 456-7890</div>
+                </div>
+
+                <div class="col-sm-6 text-sm-end">
+                    <h6 class="mb-3">To:</h6>
+                    <div>
+                        <strong>{{ $invoice->customer->name }}</strong>
+                    </div> 
+                    <div>{{ $invoice->customer->address }}</div>
+                    <div>Email: {{ $invoice->customer->email }}</div>
+                    <div>Phone: {{ $invoice->customer->phone_number }}</div>
+                </div>
+            </div>
+
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <h6 class="mb-3">Payment Details:</h6>
+                    <div>
+                        <strong>Invoice #: {{ $invoice->id }}</strong>
+                    </div>
+                    <div>Date: {{ date('d-M-y', strtotime($invoice->created_at)) }}</div> 
+                </div>
+            </div>
+
+            <div class="table-responsive">
+                <table class="table table-bordered">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Description</th>
+                            <th>Quantity</th>
+                            <th>Unit Price</th>
+                            <th>Total</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+
+                        @php
+                            $total = 0; 
+                        @endphp
+
+                    @foreach ($invoice->details as $key => $details) 
+                        <tr>
+                            <td>{{ $key++ }}</td>
+                            <td>
+                                {{ $details->stock->item->name }} <br>
+                                <small> <i class="bi bi-arrow-right"></i> {{ $details->stock->color->name }} </small> <br>
+                                <small> <i class="bi bi-arrow-right"></i> {{ $details->stock->size->name }} </small> <br>
+                                <small> <i class="bi bi-arrow-right"></i> {{ $details->stock->country->name }} </small> <br>
+                            </td>
+                            <td>
+                                {{ $details->unit_qty.' ('.$details->stock->item->unit->name.')' }} <br>
+                                {{ $details->sub_unit_qty.' ('.$details->stock->item->subUnit->name.')' }}
+                            </td>
+                            <td>{{ number_format($details->sale_price, 2) }}</td>
+                            <td>{{ $subTotal =  $details->sale_price * $details->unit_qty }}</td>
+                        </tr>
+
+                        <input type="hidden" value="{{ $total= $total+$subTotal }}">
+                    @endforeach  
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>Subtotal</strong></td>
+                            <td>{{ number_format($total,2) }}</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>Tax (10%)</strong></td>
+                            <td>$34.00</td>
+                        </tr>
+                        <tr>
+                            <td colspan="4" class="text-end"><strong>Total</strong></td>
+                            <td><strong>$374.00</strong></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="text-center">
+                <p class="text-muted">Thank you for your business!</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@endsection
+
+ 
+
+
+

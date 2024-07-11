@@ -21,7 +21,7 @@ class ItemSeeder extends Seeder
         $allSubCat = SubCategory::all();  
 
     $item  = Item::updateOrCreate([
-            'name'            => 'item',
+            'name'            => 'Note 10',
             'slug'            => 'item-slug',
             'brand_id'        => 1, 
             'branch_id'        => 1, 
@@ -33,12 +33,12 @@ class ItemSeeder extends Seeder
         $item->subCats()->sync($allSubCat->pluck('id'));
 
     $item  = Item::updateOrCreate([
-            'name'            => 'item 2',
+            'name'            => 'Note 11',
             'slug'            => 'item-slug-2',   
             'brand_id'        => 1, 
             'branch_id'        => 1,
-            'unit_id'    => 1, 
-            'sub_unit_id'     => 1, 
+            'unit_id'         => 2, 
+            'sub_unit_id'     => 3, 
         ]);
         $item->categories()->sync($allCat->pluck('id'));
         $item->countries()->sync($allCountries->pluck('id'));
@@ -47,12 +47,12 @@ class ItemSeeder extends Seeder
  
 
         $item  = Item::updateOrCreate([
-            'name'            => 'Note 12 Pro max Usd Note 12 Pro max Usd',
+            'name'            => 'Note 12 Pro max Usd',
             'slug'            => 'item-slug',
             'brand_id'        => 1, 
-            'branch_id'        => 1,
-            'unit_id'    => 1, 
-            'sub_unit_id'     => 1, 
+            'branch_id'       => 1,
+            'unit_id'         => 4, 
+            'sub_unit_id'     => 5, 
         ]);
         $item->categories()->sync($allCat->pluck('id'));
         $item->countries()->sync($allCountries->pluck('id'));
