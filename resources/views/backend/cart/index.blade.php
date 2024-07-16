@@ -6,6 +6,8 @@
     <div class="row">
         <div class="card text-left">
             <div class="card-body">
+ 
+
 
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Product for Sale out</h3>
@@ -39,21 +41,23 @@
                                                 <td>{{ $content->item->name }}</td>
                                                 <input name="sale[{{ $key }}][id]" type="hidden" value="{{ $content->id }}">
                                                 <td>
-                                                    {{ number_format($content->purchase_price, 2) }} Tk.
+                                                    {{ number_format($pPrice =  $content->purchase_price, 2) }} Tk.
+                                                    <input type="hidden" class="p-price{{ $key }}" value="{{ $pPrice }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="sale[{{ $key }}][sale_price]" class="form-control my-field"
+                                                    <input type="number" name="sale[{{ $key }}][sale_price]" class="form-control my-field sale-price"
+                                                        data-id="{{ $key }}"
                                                         placeholder="0.00" min="1">
                                                 </td>
-                                                <td>10.00 Tk.</td>
+                                                <td><span class="profit{{ $key }}">0.00</span> Tk</td>
                                                 <td>
                                                     <input name="sale[{{ $key }}][unit_qty]" type="number" class="form-control my-field"
-                                                        value="{{ $content->unit_qty }}" min="1"
+                                                        value="{{ old("sale.$key.unit_qty") ?? $content->unit_qty }}" min="1" max="{{ $content->unit_qty }}"
                                                             >{{ $content->item->unit->name }}
                                                 </td>
                                                 <td>
                                                     <input name="sale[{{ $key }}][sub_unit_qty]" type="number" class="form-control my-field"
-                                                        value="{{ $content->sub_unit_qty }}">
+                                                        value="{{ old("sale.$key.sub_unit_qty") ?? $content->sub_unit_qty }}" max="{{ $content->sub_unit_qty }}" min="0">
                                                     <small>{{ $content->item->subUnit->name }}</small>
                                                 </td>
                                                 <td>
@@ -66,6 +70,16 @@
                                 </table>
                             </div>
 
+                            @if ($errors->any())
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $error)
+                                        <li>{{ $error }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        @endif
+
                             <div class="col-lg-6 mt-5">
                                 <table class="table table-bordered">
                                     <thead class="thead-light">
@@ -77,16 +91,16 @@
                                     <tbody> 
                                             <tr>
                                                 <td>Customer Phone Number:</td>  
-                                                <td> <input name="phone_number" class="my-field phone_number" placeholder="015********" type="text"> </td>
-                                                <input type="hidden" class="customer_id" name="customer_id" id="">
+                                                <td> <input name="phone_number" class="my-field phone_number" placeholder="015********" value="{{ old('phone_number') }}" type="text"> </td>
+                                                <input type="hidden" class="customer_id" name="customer_id" value="{{ old('customer_id') }}" id="">
                                             </tr> 
                                             <tr>
                                                 <td>Customer Name:</td>  
-                                                <td> <input name="name" class="my-field name" placeholder="Mr. xyz" type="text"> </td>
+                                                <td> <input name="name" class="my-field name" placeholder="Mr. xyz" value="{{ old('name') }}" type="text"> </td>
                                             </tr> 
                                             <tr>
                                                 <td>Customer Address:</td>  
-                                                <td> <textarea name="address" class="my-field address"></textarea> </td>
+                                                <td> <textarea name="address" class="my-field address">{{ old('address') }}</textarea> </td>
                                             </tr> 
                                     </tbody> 
                                 </table>
@@ -106,18 +120,18 @@
                                                 <td> 
                                                     <select class="my-field" name="account_id" id="">
                                                         @foreach ($accounts as $account)
-                                                            <option value="{{ $account->id }}">{{ $account->ac_title }}</option>
+                                                            <option {{ $account->id == old('account_id') ? 'selected':'' }} value="{{ $account->id }}">{{ $account->ac_title }}</option>
                                                         @endforeach   
                                                     </select>    
                                                 </td> 
                                             </tr> 
                                             <tr>
                                                 <td>Total Due:</td>  
-                                                <td> <input name="total" class="my-field due-field" type="number"> </td>
+                                                <td> <input name="total" class="my-field due-field" type="number" value="{{ old('total') }}"> </td>
                                             </tr> 
                                             <tr>
                                                 <td>Payment:</td>  
-                                                <td> <input name="deposit" class="my-field due-field" type="number"> </td>
+                                                <td> <input name="deposit" class="my-field due-field" type="number" value="{{ old('deposit') }}"> </td>
                                             </tr> 
                                     </tbody> 
                                 </table>
@@ -145,6 +159,18 @@
         @push('script')
 
 
+        <script>
+            $('.sale-price').on('keyup', function(){
+                let id = $(this).attr('data-id');
+                let price = $(this).val();
+                let pPrice = $('.p-price'+id).val(); 
+                let profit = price - pPrice;
+                $('.profit'+id).empty();
+                $('.profit'+id).append(profit);
+            })
+        </script>
+
+
             <script>
                 $('.phone_number').on('blur', function(){
                     let number = $(this).val();
@@ -164,14 +190,7 @@
                         }
                     })
                 })
-            </script>
-
-
-
-
-
-
-
+            </script>  
 
             <script>
                 function colorDelete(id) {

@@ -24,5 +24,4 @@ class SettingSeeder extends Seeder
                 'serial_number'         => true, 
         ]);
     }
-}
-// test
+} 

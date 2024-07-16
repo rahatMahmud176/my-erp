@@ -27,8 +27,13 @@ class AdminCartController extends Controller
                             ->with('item:id,name,unit_id,sub_unit_id')
                             ->whereIn('id',$ids)->get();  
         $accounts = Account::get();
-                            
-        return view('backend.cart.index', compact('contents','accounts'));
+                         
+        if ($contents->isEmpty()) {
+            notify()->error('The cart is Empty!','Empty');
+             return redirect('admin/pos');
+        }else{
+            return view('backend.cart.index', compact('contents','accounts'));
+        }
     }
 
     public function addToCart()
@@ -66,11 +71,26 @@ class AdminCartController extends Controller
     public function store(Request $request)
     { 
 
-        // todo Need to validation
+        $this->validate($request,[
+            'name'             => 'required',
+            'phone_number'     => 'required',
+            'address'          => 'required', 
+            'total'            => 'required', 
+            'sale.*.sale_price'=> 'required',
+            'sale.*.unit_qty'  => 'required'
+         ],[
+             'name.required'                => 'Customer name is required',
+            'phone_number.required'         => 'Customer phone number is required',
+            'address.required'              => 'Customer address is required',
+            'sale.*.sale_price.required'    => 'The Sale price is required',
+            'sale.*.unit_qty.required'      => 'The Unit Qty is required',
+         ]);
+        
+        
 
 
         // need to customer table data send 
-        if (!$request->customer_id) {
+        if (!$request->customer_id) {   
            $customer = Customer::create([
                 'name'          => $request->name,
                 'phone_number'  => $request->phone_number, 
@@ -101,13 +121,17 @@ class AdminCartController extends Controller
 
         // need to send data to transition table 
 
-        Transition::create([
-            'account_id'   => $request->account_id,
-            'challan_id'   => 1,
-            'invoice_id'   => $invoice->id ?? 1,
-            'branch_id'    => auth()->user()->branch_id,
-            'deposit'      => $request->deposit,
-        ]);
+        if ($request->deposit) {
+            Transition::create([
+                'account_id'   => $request->account_id,
+                'challan_id'   => 1,
+                'invoice_id'   => $invoice->id ?? 1,
+                'branch_id'    => auth()->user()->branch_id,
+                'deposit'      => $request->deposit,
+            ]);
+        }
+
+        
  
         // session()->forget('ids'); todo uncomment
 

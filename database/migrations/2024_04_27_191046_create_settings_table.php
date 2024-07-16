@@ -15,8 +15,7 @@ return new class extends Migration
             $table->id();
             $table->string('company_name')->nullable(); 
             $table->string('company_phone_number')->nullable();
-            $table->string('company_address')->nullable();
-
+            $table->string('company_address')->nullable(); 
             $table->boolean('color')->default(true)->nullable();
             $table->boolean('size')->default(true)->nullable();
             $table->boolean('country')->default(true)->nullable();

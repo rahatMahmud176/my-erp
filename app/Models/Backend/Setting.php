@@ -15,6 +15,9 @@ class Setting extends Model
     public static function updateSetting($request,$setting)
     {
             $setting->update([
+                'company_name'          => $request->company_name ?? 'None',
+                'company_phone_number'  => $request->company_phone_number ?? 'None',
+                'company_address'       => $request->company_address ?? 'None',
                 'color'                 => $request->color ?? '0',
                 'size'                  => $request->size ?? '0',
                 'country'               => $request->country ?? '0',

@@ -23,15 +23,15 @@
 
                          <div class="form-group">
                            <label for="">Company Name</label>
-                           <input type="text" name="company_name" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                           <input type="text" name="company_name" id="" class="form-control" value="{{ $setting->company_name }}" aria-describedby="helpId">
                          </div>
                          <div class="form-group">
                            <label for="">Company Phone Number</label>
-                           <input type="text" name="company_phone_number" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                           <input type="text" name="company_phone_number" id="" class="form-control" value="{{ $setting->company_phone_number }}" aria-describedby="helpId">
                          </div>
                          <div class="form-group">
                            <label for="">Company Address</label>
-                           <input type="text" name="company_address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                           <input type="text" name="company_address" id="" class="form-control" value="{{ $setting->company_address }}" aria-describedby="helpId">
                          </div> 
 
                     </div>
