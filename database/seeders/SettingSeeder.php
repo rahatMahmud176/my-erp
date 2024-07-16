@@ -14,11 +14,14 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         Setting::create([
-                'color'            => true,
-                'size'             => true,
-                'country'          => true,
-                'sub_unit'         => true,
-                'serial_number'    => true, 
+                'company_name'          => 'Company Name',
+                'company_phone_number'  => '015*****',
+                'company_address'       => 'Company Address',
+                'color'                 => true,
+                'size'                  => true,
+                'country'               => true,
+                'sub_unit'              => true,
+                'serial_number'         => true, 
         ]);
     }
 }

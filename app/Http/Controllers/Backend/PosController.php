@@ -21,6 +21,7 @@ class PosController extends Controller
     public function index()
     {
         $stocks =  $this->stocks->all();
+        
         return view('backend.pos.index', compact('stocks'));
     }
 

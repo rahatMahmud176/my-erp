@@ -13,12 +13,33 @@
                         Cancel</a>
                 </div>
 
-                <div class="row">
-                    <div class="col-md-6 mx-auto">
-                        <form action="{{ route('admin.setting.update',1) }}" method="post" class="row">
-                            @csrf 
-                            @method('PUT')
+                 
 
+            <form action="{{ route('admin.setting.update',1) }}" method="post" class="row">
+                @csrf 
+                @method('PUT')
+
+                    <div class="col-md-5">
+
+                         <div class="form-group">
+                           <label for="">Company Name</label>
+                           <input type="text" name="company_name" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                         </div>
+                         <div class="form-group">
+                           <label for="">Company Phone Number</label>
+                           <input type="text" name="company_phone_number" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                         </div>
+                         <div class="form-group">
+                           <label for="">Company Address</label>
+                           <input type="text" name="company_address" id="" class="form-control" placeholder="" aria-describedby="helpId">
+                         </div> 
+
+                    </div>
+
+                    <div class="col-md-1"></div>
+
+                    <div class="col-md-6"> 
+                        <div class="row">
                             <div class="form-check form-switch col-6">
                                 <input class="form-check-input" name="color" value="1" type="checkbox" role="switch" id="color"
                                     {{ $setting->color ?'checked':'' }}>
@@ -55,17 +76,13 @@
                                 <input  class="form-check-input"  name="qty_manage_by_serial" value="1" type="checkbox" role="switch" id="manage_qty_by_imei"
                                 {{ $setting->qty_manage_by_serial ?'checked':'' }}>
                                 <label class="form-check-label" for="manage_qty_by_imei">Manage Quantity By SL / IMEI No.</label>
-                            </div>
-
-
-                            <div class="form-group">
-                                <button type="submit" class="btn btn-secondary container-fluid mt-3">Update </button>
-                            </div>
-
-                        </form>
+                            </div>  
+                        </div> 
                     </div>
-
-                </div>
+                    <div class="form-group mt-3">
+                        <button type="submit" class="btn btn-secondary container-fluid mt-3">Update </button>
+                    </div>
+            </form>
 
 
 

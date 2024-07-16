@@ -13,6 +13,10 @@ return new class extends Migration
     {
         Schema::create('settings', function (Blueprint $table) {
             $table->id();
+            $table->string('company_name')->nullable(); 
+            $table->string('company_phone_number')->nullable();
+            $table->string('company_address')->nullable();
+
             $table->boolean('color')->default(true)->nullable();
             $table->boolean('size')->default(true)->nullable();
             $table->boolean('country')->default(true)->nullable();

@@ -9,7 +9,7 @@ class StockRepository implements StockInterface
 {
     public function all()
     {
-        return Stock::all();
+        return Stock::where('branch_id',auth()->user()->branch_id)->get();
     }
     public function newStock($request,$challanId,$supplier_id)
     {

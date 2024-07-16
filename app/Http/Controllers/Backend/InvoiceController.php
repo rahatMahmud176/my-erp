@@ -42,8 +42,7 @@ class InvoiceController extends Controller
      */
     public function show(string $id)
     {
-        $invoice = Invoice::find($id);
-
+        $invoice = Invoice::find($id); 
         return view('backend.invoice.invoice', compact('invoice'));
     }
 

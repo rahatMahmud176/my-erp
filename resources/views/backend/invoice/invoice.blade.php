@@ -71,7 +71,8 @@
                                 {{ $details->sub_unit_qty.' ('.$details->stock->item->subUnit->name.')' }}
                             </td>
                             <td>{{ number_format($details->sale_price, 2) }}</td>
-                            <td>{{ $subTotal =  $details->sale_price * $details->unit_qty }}</td>
+                            <input type="hidden" value="{{ $subTotal =  $details->sale_price * $details->unit_qty }}">
+                            <td>{{ number_format($subTotal, 2) }}</td>
                         </tr>
 
                         <input type="hidden" value="{{ $total= $total+$subTotal }}">
