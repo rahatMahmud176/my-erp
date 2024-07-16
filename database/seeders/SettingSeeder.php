@@ -25,3 +25,4 @@ class SettingSeeder extends Seeder
         ]);
     }
 }
+// test
