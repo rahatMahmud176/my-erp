@@ -41,5 +41,41 @@ class AccountSeeder extends Seeder
             'ac_no'     => '01580351075',
             'branch_id' => 1,
         ]);
+
+
+        // ------------------for jamuna branch ------------------------------------------------------
+
+
+        Account::updateOrCreate([
+            'ac_title'  => 'Due (Jamuna)',
+            'ac_no'     => '-',
+            'branch_id' => 2,
+            'deletable' => false,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'Cash (Jamuna)',
+            'ac_no'     => '-',
+            'branch_id' => 2,
+            'deletable' => false,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'Cheque (Jamuna)',
+            'ac_no'     => '-',
+            'branch_id' => 2,
+            'deletable' => false,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'City Bank (Jamuna)',
+            'ac_no'     => '5465465465454',
+            'branch_id' => 2,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'Nagad 75 (Jamuna)',
+            'ac_no'     => '01580351075',
+            'branch_id' => 2,
+        ]);
+
+
+
     }
 }

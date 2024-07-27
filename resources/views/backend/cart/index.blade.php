@@ -61,7 +61,7 @@
                                                     <small>{{ $content->item->subUnit->name }}</small>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-danger btn-sm">Remove</button>
+                                                    <button class="btn btn-danger btn-sm">Remove </button>/ Todo
                                                 </td>
                                             </tr>
                                         @endforeach

@@ -7,12 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 
 class Unit extends Model
 {
-    use HasFactory;
-
-    protected $guarded =  ['id']; 
- 
+    use HasFactory; 
+    protected $guarded =  ['id'];  
     public static $unit;
 
+
+    public static function allUnit()
+    {
+        return Unit::orderBy('id','desc')->get();
+    }  
 
     public static function newUnit($request)
     {

@@ -39,8 +39,7 @@ class SupplierController extends Controller
     {
         $this->validate($request,[
             'name'  => 'required'
-        ]);
-
+        ]); 
         $this->suppliers->store($request);
         notify()->success('Save Successfully ! ','Success');
         return back();

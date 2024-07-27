@@ -9,8 +9,7 @@ use App\Http\Controllers\Backend\SizeController;
 use App\Http\Controllers\Backend\SubCategoryController;
 use App\Http\Controllers\Backend\SubUnitController;
 use App\Http\Controllers\Backend\UnitController;
-use App\Http\Controllers\Backend\UserController;
-use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Backend\UserController; 
 use App\Http\Controllers\Backend\ItemController;
 use App\Http\Controllers\Backend\SettingController;
 use App\Http\Controllers\ProfileController;
@@ -18,6 +17,7 @@ use App\Http\Controllers\RoleController;
 use App\Http\Controllers\Backend\StockController;
 use App\Http\Controllers\Backend\SupplierController;
 use App\Http\Controllers\Backend\ChallanController;
+use App\Http\Controllers\Backend\DashboardController;
 use App\Http\Controllers\Backend\InvoiceController;
 use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\TransitionController;
@@ -25,6 +25,7 @@ use App\Http\Controllers\Backend\SupplierTransitionController;
 use App\Http\Controllers\Backend\PosController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Route;
+use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
 
 /*
 |--------------------------------------------------------------------------
@@ -38,12 +39,10 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('/login');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+Route::get('/dashboard',[DashboardController::class,'dashboard'])->middleware(['auth', 'verified'])->name('dashboard');
 
 // -------------Route by me ---------------
 
@@ -70,6 +69,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('pos', PosController::class); 
     Route::resource('cart', AdminCartController::class); 
     Route::resource('invoice', InvoiceController::class); 
+    Route::resource('customers', CustomerController::class); 
 
 
     // Ajax Routes 

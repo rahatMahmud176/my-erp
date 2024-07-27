@@ -99,6 +99,14 @@ class RepositoriesServiceProvider extends ServiceProvider
             'App\Contracts\SupplierTransitionInterface',
             'App\Repositories\SupplierTransitionRepository' 
         );
+        $this->app->bind(
+            'App\Contracts\CustomerInterface',
+            'App\Repositories\CustomerRepository' 
+        );
+        $this->app->bind(
+            'App\Contracts\InvoiceInterface',
+            'App\Repositories\InvoiceRepository' 
+        );
         
 
 

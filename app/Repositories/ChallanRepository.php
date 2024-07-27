@@ -8,13 +8,15 @@ use App\Models\Backend\Challan;
 class ChallanRepository implements ChallanInterface
 {
 
-    public function all()
+    public function allChallan()
     {
-        return Challan::select('id','total','due','pay','created_at','supplier_id','deletable')
-        ->with('supplier:id,name')
-        ->orderBy('id','desc')
-        ->get();
+        return Challan::allChallan(); ;
     }
+    public function branchChallan()
+    {
+        return Challan::branchChallan(); ;
+    }
+
     public function newChallan($request)
     {
         return Challan::newChallan($request);

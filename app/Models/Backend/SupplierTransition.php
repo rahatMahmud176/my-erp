@@ -13,6 +13,26 @@ class SupplierTransition extends Model
 
 
 
+    public static function allSupplierTransitions()
+    {
+       return SupplierTransition::select('id','supplier_id','challan_id','deposit','due')
+       ->with([
+           'challan:id',
+           'supplier:id,name'
+       ])->orderBy('id','desc')->get();
+    }
+    public static function branchSupplierTransitions()
+    {
+       return SupplierTransition::select('id','supplier_id','challan_id','deposit','due')
+                                  ->where('branch_id', auth()->user()->branch_id)
+                                  ->with([
+                                     'challan:id',
+                                     'supplier:id,name'
+                                  ])->orderBy('id','desc')->get();
+    }
+
+
+
     public static function newSupplierTransition($request,$challanId)
     {
         SupplierTransition::create([

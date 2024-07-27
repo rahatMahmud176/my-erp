@@ -29,7 +29,9 @@ class RoleSeeder extends Seeder
         ])->permissions()->sync($superAdminPermissions->pluck('id'));
 
     $EmployeePermissions = Permission::where('slug','LIKE','utility%')
+                                            ->orWhere('slug','LIKE','dashboard%')
                                             ->orWhere('slug','LIKE','item%')
+                                            ->orWhere('slug','LIKE','stock%')
                                             ->get();
         Role::updateOrCreate([
             'name'      => 'Employee',

@@ -2,19 +2,41 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\AccountInterface;
+use App\Contracts\CustomerInterface;
+use App\Contracts\InvoiceInterface;
+use App\Contracts\SettingInterface;
+use App\Contracts\StockInterface;
+use App\Contracts\TransitionInterface;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\Account;
-use App\Models\Backend\Customer;
-use App\Models\Backend\Invoice;
-use App\Models\Backend\InvoiceDetails;
+use App\Models\Backend\Account; 
 use App\Models\Backend\Stock;
 use App\Models\Backend\Transition;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Session;
+use Illuminate\Support\Facades\DB;
 
 class AdminCartController extends Controller
 {
-    
+   public $settings; 
+   public $customers; 
+   public $invoices; 
+   public $stocks; 
+   public $transitions; 
+   public $accounts;
+    public function __construct(SettingInterface $settingInterface = null,
+                                CustomerInterface $customerInterface,
+                                InvoiceInterface $invoiceInterface,
+                                StockInterface $stockInterface,
+                                TransitionInterface $transitionInterface,
+                                AccountInterface $accountInterface,
+                                ) {
+        $this->settings    = $settingInterface;
+        $this->customers   = $customerInterface;
+        $this->invoices    = $invoiceInterface;
+        $this->stocks      = $stockInterface;
+        $this->transitions = $transitionInterface;
+        $this->accounts    = $accountInterface;
+    }
  
 
 /**
@@ -23,10 +45,10 @@ class AdminCartController extends Controller
     public function index()
     { 
         $ids = session('ids') ?? [];
-        $contents = Stock::select('id','item_id','purchase_price','unit_qty','sub_unit_qty')
+        $contents = Stock::select('id','item_id','purchase_price','unit_qty','sub_unit_qty') 
                             ->with('item:id,name,unit_id,sub_unit_id')
                             ->whereIn('id',$ids)->get();  
-        $accounts = Account::get();
+        $accounts = $this->accounts->branchAccounts();
                          
         if ($contents->isEmpty()) {
             notify()->error('The cart is Empty!','Empty');
@@ -50,12 +72,7 @@ class AdminCartController extends Controller
        $content = session('ids');
        return response('Add to cart successfully');  
     }
-
-
-
-
-
-
+ 
 
     /**
      * Show the form for creating a new resource.
@@ -68,9 +85,9 @@ class AdminCartController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(Request $request)
-    { 
 
+     public function infoValidate($request)
+     {
         $this->validate($request,[
             'name'             => 'required',
             'phone_number'     => 'required',
@@ -85,57 +102,47 @@ class AdminCartController extends Controller
             'sale.*.sale_price.required'    => 'The Sale price is required',
             'sale.*.unit_qty.required'      => 'The Unit Qty is required',
          ]);
-        
-        
+     }
 
 
-        // need to customer table data send 
-        if (!$request->customer_id) {   
-           $customer = Customer::create([
-                'name'          => $request->name,
-                'phone_number'  => $request->phone_number, 
-                'address'       => $request->address,
-            ]);
-        } 
-        // need to invoice table data send
-       $invoice = Invoice::create([
-                'customer_id'  => $request->customer_id ?? $customer->id, 
-                'total'         => $request->total, 
-                'branch_id'    => auth()->user()->branch_id,
-        ]); 
-        foreach ($request->sale as $sale) {
-            InvoiceDetails::create([
-                'invoice_id'    => $invoice->id,
-                'stock_id'      => $sale['id'],
-                'sale_price'    => $sale['sale_price'],
-                'unit_qty'      => $sale['unit_qty'],
-                'sub_unit_qty'  => $sale['sub_unit_qty'],
-            ]);
+    public function store(Request $request)
+    {  
+        $this->infoValidate($request);  
+        DB::beginTransaction(); 
+        try { 
+            if (!$request->customer_id) {  
+                $customerId = $this->customers->newCustomer($request); 
+                $invoice    = $this->invoices->newInvoice($request,$customerId); 
+             } else{ 
+                 $invoice   = $this->invoices->newInvoice($request,$request->customer_id); 
+              } 
+             foreach ($request->sale as $sale) {
+                 $this->invoices->newDetails($sale,$invoice->id);  
+                 $this->stocks->decrees($sale); 
+             } //foreach  
+             if ($request->deposit) { 
+                 $this->transitions->deposit($request,$invoice->id); 
+                     // Transition::create([
+                     //     'account_id'   => $request->account_id,
+                     //     'challan_id'   => 1,
+                     //     'invoice_id'   => $invoice->id ?? 1,
+                     //     'branch_id'    => auth()->user()->branch_id,
+                     //     'deposit'      => $request->deposit,
+                     // ]);  
+             }  
+
+            DB::commit(); 
+            notify('Checkout successfully','Success'); 
+            session()->forget('ids');  
+            $company = $this->settings->companyInfo(); 
+            return view('backend.invoice.invoice', compact('invoice','company')); 
+    } catch (\Exception $e) {
+        DB::rollback();
+        notify()->error('Please give Proper Info','Error');
+        return redirect()->back(); 
+    } 
  
-            // need to stock unit_qty & sub_unit_qty Dicress
-            $stock =   Stock::find($sale['id']);
-            $stock->unit_qty = $stock->unit_qty - $sale['unit_qty'];
-            $stock->sub_unit_qty = $stock->sub_unit_qty - $sale['sub_unit_qty'];
-            $stock->save(); 
-        } //foreach 
-
-        // need to send data to transition table 
-
-        if ($request->deposit) {
-            Transition::create([
-                'account_id'   => $request->account_id,
-                'challan_id'   => 1,
-                'invoice_id'   => $invoice->id ?? 1,
-                'branch_id'    => auth()->user()->branch_id,
-                'deposit'      => $request->deposit,
-            ]);
-        }
-
         
- 
-        // session()->forget('ids'); todo uncomment
-
-        return view('backend.invoice.invoice', compact('invoice'));
     }
 
     /**

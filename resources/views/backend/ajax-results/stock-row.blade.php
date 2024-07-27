@@ -1,7 +1,7 @@
 <tr>
     <td>
         <div class="form-group">
-            <select class="form-control my-field item" name="stock[{{ $i }}][item]" required id="item" data-id="{{ $i }}">
+            <select class="form-control select2 my-field item" name="stock[{{ $i }}][item]"  id="item" data-id="{{ $i }}">
                 <option value="">--Select--</option>
                 @foreach ($items as $item)
                     <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -47,7 +47,12 @@
 
     @if ($setting->qty_manage_by_serial==false )
         <td>
-            <input style="width: 100px" name="stock[{{ $i }}][unit_qty]" id="unit_qty{{ $i }}" type="text" class="my-field">
+            <input style="width: 100px" 
+                   name="stock[{{ $i }}][unit_qty]"
+                   id="unit_qty{{ $i }}" 
+                   value="{{ old("stock.$i.unit_qty") }}"
+                   type="number" 
+                   class="my-field">
         </td>
     @endif  
 
@@ -59,7 +64,7 @@
     @endif
 
     <td>
-        <input style="width: 100px" required id="purchase" name="stock[{{ $i }}][purchase]" type="number" class="my-field">
+        <input style="width: 100px"  id="purchase" name="stock[{{ $i }}][purchase]" type="number" class="my-field">
     </td>
     @if ($setting->serial_number)
     <td>
@@ -101,3 +106,4 @@
         $(this).parent().parent().remove();
     })
 </script>
+ 

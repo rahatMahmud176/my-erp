@@ -10,7 +10,7 @@ class UnitRepository implements UnitInterface
 
     public function all()
     {
-        return Unit::all();
+        return Unit::allUnit();
     }
     public function store($request)
     {

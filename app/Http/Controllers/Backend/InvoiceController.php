@@ -2,23 +2,45 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\AccountInterface;
+use App\Contracts\InvoiceInterface;
+use App\Contracts\SettingInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Invoice;
+use App\Models\Backend\Setting;
 use App\Models\Backend\Stock;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
 class InvoiceController extends Controller
 {
+
+
+    public $accounts;
+    public $settings;
+    public $invoices;
+
+
+    public function __construct(AccountInterface $accountInterface,
+                                SettingInterface $settingInterface,
+                                InvoiceInterface $invoiceInterface,
+    ) { 
+        $this->accounts = $accountInterface; 
+        $this->settings = $settingInterface;
+        $this->invoices = $invoiceInterface;
+    } 
+
+
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        $invoices = Invoice::select('id','total','customer_id','deletable','created_at')
-                            ->with('customer:id,name,phone_number')  
-                            ->get(); 
-        return view('backend.invoice.index', compact('invoices'));
+    {  
+        $invoices = $this->invoices->branchInvoices(); 
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        return view('backend.invoice.index', compact('invoices','accounts'));
     }
 
     /**
@@ -42,8 +64,9 @@ class InvoiceController extends Controller
      */
     public function show(string $id)
     {
-        $invoice = Invoice::find($id); 
-        return view('backend.invoice.invoice', compact('invoice'));
+        $invoice = Invoice::with('transitions:id,invoice_id,deposit,created_at')->find($id);
+        $company = $this->settings->companyInfo();
+        return view('backend.invoice.invoice', compact('invoice','company'));
     }
 
     /**

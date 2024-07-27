@@ -2,17 +2,28 @@
 
 namespace App\Http\Controllers;
 
+use App\Contracts\CustomerInterface;
+use App\Http\Requests\CustomerRequest;
 use App\Models\Backend\Customer;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
 {
+
+    public $customers;
+
+    public function __construct(CustomerInterface $customerInterface) {
+        $this->customers = $customerInterface;
+    }
+
+
     /**
      * Display a listing of the resource.
      */
     public function index()
-    {
-        //
+    { 
+        $customers = $this->customers->all(); 
+        return view('backend.customer.index', compact('customers'));
     }
 
     /**
@@ -25,10 +36,13 @@ class CustomerController extends Controller
 
     /**
      * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        //
+     */ 
+
+    public function store(CustomerRequest $request)
+    {  
+        $this->customers->newCustomer($request);
+        notify('Customer Save Successfully','Success');
+        return back();
     }
 
     /**

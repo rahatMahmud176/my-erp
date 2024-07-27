@@ -7,7 +7,8 @@
 
   <title>@yield('title')</title>
   <meta content="" name="description">
-  <meta content="" name="keywords">
+  <meta content="" name="keywords"> 
+
 
   @include('backend.includes.styles')
  
@@ -38,6 +39,7 @@
 @include('backend.includes.scripts')
  
 @stack('modal')
+ 
 
 </body>
 

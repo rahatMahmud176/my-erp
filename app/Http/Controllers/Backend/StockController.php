@@ -74,8 +74,8 @@ class StockController extends Controller
         $colors     = $this->colors->all();
         $sizes      = $this->sizes->all();
         $countries  = $this->countries->all();
-        $suppliers  = $this->suppliers->all();
-        $accounts   = $this->accounts->all();
+        $suppliers  = $this->suppliers->branchSuppliers();
+        $accounts   = $this->accounts->branchAccounts();
         $setting    = $this->setting->getSetting();
         $challanId  = $this->challan->getLastChallanId();
 
@@ -89,16 +89,34 @@ class StockController extends Controller
      
     public function store(Request $request)
     {   
+
+        $this->validate($request,[
+                'supplier_id'           => 'required',
+                'challan'               => 'required',
+                'stock.*.item'          => 'required',
+                'stock.*.color_id'      => 'required',
+                'stock.*.size_id'       => 'required',
+                'stock.*.country_id'    => 'required',
+                'stock.*.unit_qty'      => 'required',
+                'stock.*.sub_unit_qty'  => 'required',
+                'stock.*.purchase'      => 'required',
+                'account_id'            => 'required',
+                'total'                 => 'required',
+                'pay'                   => 'required',
+                'due'                   => 'required',
+        ]);
+
+
         DB::beginTransaction();
 
         try {
                 $challanId = $this->challan->newChallan($request);   
                 $this->newStock($challanId,$request);  
-                $this->transitions->newTransition($request,$challanId); 
+                $this->transitions->pay($request,$challanId); 
                 $this->supplierTransitions->newSupplierTransition($request,$challanId);
 
                 DB::commit(); 
-                notify('Save successfully','success');
+                notify('Save successfully','Success');
                 return redirect()->back();
         } catch (\Exception $e) {
             DB::rollback();
@@ -178,7 +196,7 @@ class StockController extends Controller
  
  public function acInfoWithOutFirstOne()
  { 
-     $accounts =  Account::all()->skip(1);
+     $accounts =  Account::branchAccounts()->skip(1);
      return response()->view('backend.ajax-results.accounts', compact('accounts'));
  }  
 
@@ -190,7 +208,7 @@ public function addStockRow()
     $colors     = $this->colors->all();
     $sizes      = $this->sizes->all();
     $countries  = $this->countries->all();
-    $suppliers  = $this->suppliers->all();
+    $suppliers  = $this->suppliers->branchSuppliers();
     $accounts   = $this->accounts->all();
     $setting    = $this->setting->getSetting();
     $challanId  = $this->challan->getLastChallanId(); 

@@ -7,7 +7,8 @@ interface SupplierTransitionInterface
 {
    public function newSupplierTransition($request,$challanId);
 
-   public function all();
+   public function allSupplierTransitions();
+   public function branchSupplierTransitions();
 
 
 

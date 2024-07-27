@@ -26,8 +26,8 @@ class ChallanController extends Controller
     public function index()
     {
      
-        $accounts = $this->accounts->all()->skip(1); 
-        $challans = $this->challans->all();
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        $challans = $this->challans->branchChallan();
        return view('backend.challan.index', compact('challans','accounts'));
     }
 

@@ -13,6 +13,23 @@ class Stock extends Model
     protected $guarded = ['id'];
 
 
+
+    public static function branchStocks()
+    {
+        return Stock::where('branch_id',auth()->user()->branch_id)->get();
+    }
+    public static function allStocks()
+    {
+        return Stock::orderBy('id','DESC')->get();
+    }
+
+
+
+
+
+
+
+
     public static function newStock($request,$challanId,$supplier_id)
     {   
 
@@ -23,8 +40,8 @@ class Stock extends Model
             'color_id'           =>$request['color_id'] ?? 1,
             'size_id'            =>$request['size_id'] ?? 1,
             'country_id'         =>$request['country_id'] ?? 1,
-            'unit_qty'           =>$request['unit_qty'],
-            'sub_unit_qty'       =>$request['sub_unit_qty'],
+            'unit_qty'           =>$request['unit_qty'] ?? 1,
+            'sub_unit_qty'       =>$request['sub_unit_qty'] ?? 1,
             'purchase_price'     =>$request['purchase'], 
             'branch_id'          => auth()->user()->branch_id,
             'serial'             =>$request['serial'] ?? '0',
@@ -49,10 +66,15 @@ class Stock extends Model
             'serial'             =>$serial,
         ]); 
     }   
+ 
 
-
-
-
+public static function decrees($sale)
+{
+    $stock = Stock::find($sale['id']);
+    $stock->unit_qty = $stock->unit_qty - $sale['unit_qty'];
+    $stock->sub_unit_qty = $stock->sub_unit_qty - $sale['sub_unit_qty'];
+    $stock->save(); 
+}
 
 
 

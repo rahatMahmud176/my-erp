@@ -7,20 +7,26 @@ use App\Models\Backend\Transition;
 
 class TransitionRepository implements TransitionInterface
 {
-    public function newTransition($request,$challanId)
-    {
-       Transition::newTransition($request,$challanId);
-    }
 
-    public function all()
-    {
-      return  Transition::select('created_at','account_id','challan_id','deposit','pay')
-        ->with([
-           'account:id,ac_title',
-           'challan:id,supplier_id',
-           'challan.supplier:id,name'
-           ])->orderBy('id','desc')->get();
-    }
+
+   public function allTransitions()
+   {
+   return Transition::allTransitions();
+   }
+
+   public function branchTransitions()
+   {
+   return Transition::branchTransitions();
+   } 
+   public function deposit($request,$invoiceId)
+   {
+         Transition::deposit($request,$invoiceId);
+   } 
+   public function pay($request,$challanId)
+   {
+      Transition::pay($request,$challanId);
+   }
+
 
 
 }

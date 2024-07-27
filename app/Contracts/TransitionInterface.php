@@ -4,12 +4,10 @@ namespace App\Contracts;
 
 interface TransitionInterface 
 {
-    public function newTransition($request,$challanId);
-
-
-    public function all();
-
-
+    public function allTransitions();
+    public function branchTransitions();
+    public function pay($request,$challanId); 
+    public function deposit($request,$invoiceId);
 
 
 

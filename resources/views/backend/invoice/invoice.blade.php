@@ -11,12 +11,11 @@
                 <div class="col-sm-6">
                     <h6 class="mb-3">From:</h6>
                     <div>
-                        <strong>Your Company Name</strong>
+                        <strong>{{ $company->company_name }}</strong>
                     </div>
-                    <div>1234 Main St</div>
-                    <div>City, State, ZIP</div>
+                    <div>{{ $company->company_address }}</div> 
                     <div>Email: email@company.com</div>
-                    <div>Phone: (123) 456-7890</div>
+                    <div>Phone: {{ $company->company_phone_number }}</div>
                 </div>
 
                 <div class="col-sm-6 text-sm-end">
@@ -31,8 +30,7 @@
             </div>
 
             <div class="row mb-4">
-                <div class="col-sm-6">
-                    <h6 class="mb-3">Payment Details:</h6>
+                <div class="col-sm-6"> 
                     <div>
                         <strong>Invoice #: {{ $invoice->id }}</strong>
                     </div>
@@ -81,17 +79,28 @@
                             <td colspan="4" class="text-end"><strong>Subtotal</strong></td>
                             <td>{{ number_format($total,2) }}</td>
                         </tr>
-                        <tr>
+                        {{-- <tr>
                             <td colspan="4" class="text-end"><strong>Tax (10%)</strong></td>
                             <td>$34.00</td>
                         </tr>
                         <tr>
                             <td colspan="4" class="text-end"><strong>Total</strong></td>
                             <td><strong>$374.00</strong></td>
-                        </tr>
+                        </tr> --}}
                     </tbody>
                 </table>
             </div>
+
+
+            <div class="row mb-4">
+                <div class="col-sm-6">
+                    <h6 class="mb-3">Payment Details:</h6> 
+                    @foreach ($invoice->transitions as $transition)
+                        <span> {{ date('d-M-y', strtotime($transition->created_at)) }} : {{ number_format($transition->deposit,2) }} tk</span>
+                        <br>
+                    @endforeach
+            </div>
+
 
             <div class="text-center">
                 <p class="text-muted">Thank you for your business!</p>

@@ -16,6 +16,14 @@ class SupplierSeeder extends Seeder
         Supplier::updateOrCreate([
             'name'          => 'Demo supplier',
             'phone_number'  => '015********',
+            'branch_id'     => 1,
+            'deletable'     => false,
+        ]);
+        
+        Supplier::updateOrCreate([
+            'name'          => 'Jamuna supplier',
+            'phone_number'  => '015********',
+            'branch_id'     => 2,
             'deletable'     => false,
         ]);
     }

@@ -18,7 +18,7 @@ class SupplierTransitionController extends Controller
 
     public function index()
     {
-        $supplier_transitions = $this->transitions->all(); 
+        $supplier_transitions = $this->transitions->branchSupplierTransitions(); 
         return view('backend.transition-supplier.index', compact('supplier_transitions'));
     }
 

@@ -52,7 +52,7 @@ class PaymentController extends Controller
     {  
         $challanId = $request->challan_id; 
         $this->challans->pay($request, $challanId);  
-        $this->transitions->newTransition($request,$challanId);  
+        $this->transitions->pay($request,$challanId);  
         $this->supplierTransitions->newSupplierTransition($request,$challanId);
 
         notify('Success', 'Payment Successfully');

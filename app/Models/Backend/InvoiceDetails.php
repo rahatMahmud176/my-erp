@@ -11,6 +11,17 @@ class InvoiceDetails extends Model
 
     protected $guarded = ['id'];
 
+public static function new($sale, $invoiceId)
+{
+    InvoiceDetails::create([
+        'invoice_id'    => $invoiceId,
+        'stock_id'      => $sale['id'],
+        'sale_price'    => $sale['sale_price'],
+        'unit_qty'      => $sale['unit_qty'],
+        'sub_unit_qty'  => $sale['sub_unit_qty'],
+    ]);
+}
+
 
 
 

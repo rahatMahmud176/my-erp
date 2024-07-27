@@ -12,8 +12,33 @@ class Transition extends Model
     protected $guarded = ['id'];
 
 
+    public static function allTransitions()
+    {
+       return Transition::select('created_at','account_id','challan_id','invoice_id','deposit','pay')
+        ->with([
+           'account:id,ac_title',
+           'challan:id,supplier_id',
+           'challan.supplier:id,name',
+           'invoice:id,customer_id',
+           'invoice.customer:id,name,phone_number'
+           ])->orderBy('id','desc')->get();
+    }
 
-    public static function newTransition($request,$challanId)
+    public static function branchTransitions()
+    {
+       return Transition::select('created_at','account_id','challan_id','invoice_id','deposit','pay')
+                        ->where('branch_id', auth()->user()->branch_id)
+                        ->with([
+                        'account:id,ac_title',
+                        'challan:id,supplier_id',
+                        'challan.supplier:id,name',
+                        'invoice:id,customer_id',
+                        'invoice.customer:id,name,phone_number'
+                        ])->orderBy('id','desc')->get();
+    }
+    
+
+    public static function pay($request,$challanId)
     {
         Transition::create([
             'account_id'   => $request->account_id,
@@ -21,10 +46,18 @@ class Transition extends Model
             'invoice_id'   => 1,
             'branch_id'    => auth()->user()->branch_id,
             'pay'          => $request->pay,
+        ]); 
+    } 
+    public static function deposit($request,$invoiceId)
+    {
+        Transition::create([
+            'account_id'   => $request->account_id,
+            'challan_id'   => 1,
+            'invoice_id'   => $invoiceId ?? 1,
+            'branch_id'    => auth()->user()->branch_id,
+            'deposit'      => $request->deposit,
         ]);
-
     }
-
 
 
 
@@ -42,6 +75,10 @@ public function account()
 public function challan()
 {
     return $this->belongsTo(Challan::class);
+}
+public function invoice()
+{
+    return $this->belongsTo(Invoice::class);
 }
 
 

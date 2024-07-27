@@ -27,6 +27,10 @@ class Setting extends Model
             ]);
     }
 
+    public static function companyInfo()
+    {
+        return Setting::select('company_name','company_phone_number','company_address')->first();
+    }
 
 
 

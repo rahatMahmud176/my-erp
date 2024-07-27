@@ -12,6 +12,25 @@ class Challan extends Model
     protected $guarded = ['id'];
 
 
+public static function allChallan()
+{
+   return Challan::select('id','total','due','pay','created_at','supplier_id','deletable')
+    ->with('supplier:id,name')
+    ->orderBy('id','desc')
+    ->get();
+}
+public static function branchChallan()
+{
+   return Challan::select('id','total','due','pay','created_at','supplier_id','deletable')
+    ->where('branch_id', auth()->user()->branch_id)
+    ->with('supplier:id,name')
+    ->orderBy('id','desc')
+    ->get();
+}
+
+
+
+
 public static function newChallan($request)
 {
    $challan =  Challan::create([

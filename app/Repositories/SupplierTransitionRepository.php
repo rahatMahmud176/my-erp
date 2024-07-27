@@ -11,13 +11,13 @@ class SupplierTransitionRepository implements SupplierTransitionInterface
    {
         SupplierTransition::newSupplierTransition($request,$challanId);
    }
-   public function all()
+   public function allSupplierTransitions()
    {
-      return SupplierTransition::select('id','supplier_id','challan_id','deposit','due')
-      ->with([
-          'challan:id',
-          'supplier:id,name'
-      ])->orderBy('id','desc')->get();
+      return SupplierTransition::allSupplierTransitions();
+   }
+   public function branchSupplierTransitions()
+   {
+      return SupplierTransition::branchSupplierTransitions(); 
    }
 
 

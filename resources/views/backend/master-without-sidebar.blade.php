@@ -32,6 +32,8 @@
 
 @include('backend.includes.scripts')
 
+
+@stack('modal')
  
 
 </body>

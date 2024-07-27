@@ -15,19 +15,11 @@ class CustomerSeeder extends Seeder
     {
         
         Customer::create([
-            'name'          => 'Demo Customer 01',
-            'phone_number'  => '01580351075',
+            'name'          => 'Cell Tech BD',
+            'phone_number'  => '01500000000',
             'email'         => 'example@gmail.com',
             'address'       => 'Kuakata',
-        ]);
-        Customer::create([
-            'name'          => 'Demo Customer 02',
-            'phone_number'  => '01625139805',
-            'email'         => 'example2@gmail.com',
-            'address'       => 'Coxs Bazar',
-        ]);
-
-
+        ]);  
 
     }
 }

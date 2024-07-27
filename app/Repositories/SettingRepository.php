@@ -14,4 +14,10 @@ class SettingRepository implements SettingInterface
     {
         Setting::updateSetting($request,$setting);
     }
+    public function companyInfo()
+    {
+       return Setting::companyInfo();
+    }
+
+
 }

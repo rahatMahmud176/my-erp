@@ -7,9 +7,13 @@ use App\Models\Backend\Supplier;
 
 class SupplierRepository implements SupplierInterface
 {
-    public function all()
+    public function allSuppliers()
     {
-        return Supplier::orderBy('id','desc')->get();
+        return Supplier::allSuppliers();
+    }
+    public function branchSuppliers()
+    {
+        return Supplier::branchSuppliers();
     }
     public function store($request)
     {

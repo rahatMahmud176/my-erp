@@ -18,7 +18,7 @@ class TransitionController extends Controller
 
     public function index()
     {
-        $transitions = $this->transitions->all(); 
+        $transitions = $this->transitions->branchTransitions(); 
         return view('backend.transition.index',compact('transitions'));
     }
 
@@ -34,8 +34,10 @@ class TransitionController extends Controller
      * Store a newly created resource in storage.
      */
     public function store(Request $request)
-    {
-        //
+    {   
+        $this->transitions->deposit($request,$request->invoice_id);
+        notify('Successfully Pay done','Success');
+        return redirect()->back();
     }
 
     /**

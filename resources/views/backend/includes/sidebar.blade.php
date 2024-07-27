@@ -29,19 +29,20 @@
                     <i class="bi bi-people-fill"></i>
                     <span>Supplier Manage</span>
                 </a>
-            </li> 
-
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/pos*') ? 'active' : '' }}" href="{{ route('admin.pos.index') }}">
-                    <i class="bi bi-people-fill"></i>
-                    <span>POS</span>
-                </a>
-            </li> 
-
+            </li>  
         @endrole
         {{-- //super Admin  --}}
 
         @role('admin' && 'super-admin')
+
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('admin/pos*') ? 'active' : '' }}" href="{{ route('admin.pos.index') }}">
+                <i class="bi bi-people-fill"></i>
+                <span>POS</span>
+            </a>
+        </li> 
+
+
             <li class="nav-item">
                 <a class="nav-link collapsed" data-bs-target="#utility-nav" data-bs-toggle="collapse" href="#">
                     <i class="bi bi-menu-button-wide"></i><span>Utilitis</span><i class="bi bi-chevron-down ms-auto"></i>
@@ -180,6 +181,13 @@
             <a class="nav-link collapsed" href="{{ route('admin.invoice.index') }}">
                 <i class="bi bi-person"></i>
                 <span>Invoices</span>
+            </a>
+        </li><!-- End Challans Page Nav -->
+
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="{{ route('admin.customers.index') }}">
+                <i class="bi bi-people-fill"></i>
+                <span>Customers</span>
             </a>
         </li><!-- End Challans Page Nav -->
 
