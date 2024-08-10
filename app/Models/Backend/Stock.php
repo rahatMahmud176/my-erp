@@ -18,6 +18,13 @@ class Stock extends Model
     {
         return Stock::where('branch_id',auth()->user()->branch_id)->get();
     }
+    public static function searchResult($searchKey)
+    {
+        return Stock::where('branch_id',auth()->user()->branch_id)
+                    ->where('serial', 'LIKE', '%'.$searchKey.'%')
+                    ->get();
+    }
+
     public static function allStocks()
     {
         return Stock::orderBy('id','DESC')->get();

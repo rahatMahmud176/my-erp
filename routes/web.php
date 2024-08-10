@@ -84,8 +84,9 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::get('get-today-challans',[ChallanController::class, 'getTodayChallans'])->name('get-today-challans');
     Route::get('get-previous-month-transition',[TransitionController::class, 'getPreviousMonthTransitions'])->name('get-previous-month-transition');
     Route::get('get-this-month-transition',[TransitionController::class, 'getThisMonthTransitions'])->name('get-this-month-transition');
- Route::get('get-previous-month-supplier-transition',[SupplierTransitionController::class, 'getPreviousMonthSupplierTransitions'])->name('get-previous-month-supplier-transition');
+    Route::get('get-previous-month-supplier-transition',[SupplierTransitionController::class, 'getPreviousMonthSupplierTransitions'])->name('get-previous-month-supplier-transition');
     Route::get('get-this-month-supplier-transition',[SupplierTransitionController::class, 'getThisMonthSupplierTransitions'])->name('get-this-month-supplier-transition');
+    Route::get('get-pos-search-result',[PosController::class, 'searchResult'])->name('get-pos-search-result');
 
 
 });

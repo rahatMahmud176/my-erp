@@ -9,3 +9,21 @@
          </a></td>
  </tr>
 @endforeach 
+
+
+<script>
+    $('.cart-icon').on('click', function() {
+        let id = $(this).attr('data-id');
+        $.ajax({
+            type: "GET",
+            url: "{{ url('admin/add-to-cart-ajax') }}",
+            data: {
+                id: id
+            },
+            success: function(res) {
+                // console.log(res);
+                toastr.success(res);
+            }
+        })
+    })
+</script>

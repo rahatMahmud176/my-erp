@@ -15,6 +15,10 @@ class StockRepository implements StockInterface
     {
         return Stock::where('branch_id',auth()->user()->branch_id)->get();
     }
+    public function searchResult($searchKey)
+    {
+        return Stock::searchResult($searchKey);
+    }
     public function newStock($request,$challanId,$supplier_id)
     {
         Stock::newStock($request,$challanId,$supplier_id);

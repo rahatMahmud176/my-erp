@@ -6,6 +6,7 @@ use App\Contracts\ItemInterface;
 use App\Contracts\StockInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Pos;
+use App\Models\Backend\Stock;
 use Illuminate\Http\Request;
 
 class PosController extends Controller
@@ -72,4 +73,24 @@ class PosController extends Controller
     {
         //
     }
+
+
+//  ajax functions 
+    public function searchResult()
+    {
+        $searchKey = $_GET['searchKey'];
+        $stocks = Stock::searchResult($searchKey);
+        return response()->view('backend.pos.ajax-body', compact('stocks'));
+    }
+
+
+
+
+
+
+
+
+
+
+
 }
