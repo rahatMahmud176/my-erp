@@ -26,8 +26,25 @@ class Transition extends Model
 
     public static function branchTransitions()
     {
+       $thisMonth = date('m');
        return Transition::select('created_at','account_id','challan_id','invoice_id','deposit','pay')
                         ->where('branch_id', auth()->user()->branch_id)
+                        ->whereraw('MONTH(created_at) = ?', $thisMonth)
+                        ->with([
+                        'account:id,ac_title',
+                        'challan:id,supplier_id',
+                        'challan.supplier:id,name',
+                        'invoice:id,customer_id',
+                        'invoice.customer:id,name,phone_number'
+                        ])->orderBy('id','desc')->get();
+    }
+
+    public static function branchTransitionsPreviousMonth()
+    {
+       $thisMonth = date('m');
+       return Transition::select('created_at','account_id','challan_id','invoice_id','deposit','pay')
+                        ->where('branch_id', auth()->user()->branch_id)
+                        ->whereraw('MONTH(created_at) = ?', $thisMonth -1)
                         ->with([
                         'account:id,ac_title',
                         'challan:id,supplier_id',

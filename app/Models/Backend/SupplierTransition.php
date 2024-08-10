@@ -23,8 +23,21 @@ class SupplierTransition extends Model
     }
     public static function branchSupplierTransitions()
     {
-       return SupplierTransition::select('id','supplier_id','challan_id','deposit','due')
+        $thisMonth = date('m');
+       return SupplierTransition::select('id','supplier_id','challan_id','deposit','due','created_at')
                                   ->where('branch_id', auth()->user()->branch_id)
+                                  ->whereraw('MONTH(created_at) = ?',$thisMonth)
+                                  ->with([
+                                     'challan:id',
+                                     'supplier:id,name'
+                                  ])->orderBy('id','desc')->get();
+    }
+    public static function branchSupplierTransitionsPreviousMonth()
+    {
+        $thisMonth = date('m');
+       return SupplierTransition::select('id','supplier_id','challan_id','deposit','due','created_at')
+                                  ->where('branch_id', auth()->user()->branch_id)
+                                  ->whereraw('MONTH(created_at) = ?',$thisMonth-1)
                                   ->with([
                                      'challan:id',
                                      'supplier:id,name'

@@ -18,8 +18,21 @@ public static function allInvoices()
 } 
 
 public static function branchInvoices()
-{
+{ 
+    $today     = date('Y-m-d') . ' 00:00:00';
     return Invoice::select('id','total','customer_id','deletable','created_at','branch_id')
+    ->where([['created_at','>=',$today]]) 
+    ->where('branch_id', auth()->user()->branch_id)
+    ->with('transitions:id,deposit,invoice_id')
+    ->with('customer:id,name,phone_number')  
+    ->get();
+} 
+
+public static function branchInvoicesThisMonth()
+{
+    $thisMonth = date('m'); 
+    return Invoice::select('id','total','customer_id','deletable','created_at','branch_id') 
+    ->whereraw('MONTH(created_at) = ?', [$thisMonth])
     ->where('branch_id', auth()->user()->branch_id)
     ->with('transitions:id,deposit,invoice_id')
     ->with('customer:id,name,phone_number')  

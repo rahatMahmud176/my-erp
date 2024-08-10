@@ -21,7 +21,21 @@ public static function allChallan()
 }
 public static function branchChallan()
 {
+    $today = date('Y-m-d').' 00:00:00';
+
    return Challan::select('id','total','due','pay','created_at','supplier_id','deletable')
+   ->where([['created_at','>=', $today]])
+    ->where('branch_id', auth()->user()->branch_id)
+    ->with('supplier:id,name')
+    ->orderBy('id','desc')
+    ->get();
+}
+public static function branchChallanThisMonth()
+{
+    $thisMonth = date('m');
+
+   return Challan::select('id','total','due','pay','created_at','supplier_id','deletable')
+   ->whereraw('MONTH(created_at) = ?',[$thisMonth])
     ->where('branch_id', auth()->user()->branch_id)
     ->with('supplier:id,name')
     ->orderBy('id','desc')

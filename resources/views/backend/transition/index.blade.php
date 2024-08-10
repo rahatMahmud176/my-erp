@@ -9,9 +9,12 @@
 
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Transitions</h3>
-                    <a href="{{ route('admin.transitions.index') }}" class="btn btn-sm btn-secondary  float-end">
-                        <i class="bi bi-plus-circle"></i>
-                        Add Transition</a>
+                    <div class="form-check float-end">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="" id="previous-month" value="checkedValue">
+                        Previous Month? 
+                      </label>
+                    </div>
                 </div>
 
                 <div class="row"> 
@@ -28,35 +31,9 @@
                                     <th class="text-center" scope="col">Pay</th> 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="transition-body-ajax"> 
 
-                                @foreach ($transitions as $key => $transition)
-                                    <tr>
-                                        <td>{{ date("d-M-y" , strtotime($transition->created_at)) }}</td> 
-                                        <td class="text-center"><a href="#">{{ $transition->account->ac_title }}</a></td>
-
-                                        <td class="text-center">
-                                            @if ($transition->challan_id != 1)
-                                                <a href="#">#Challan:{{ $transition->challan_id }}</a> <br>
-                                            @else
-                                                <a href="#">#Invoice:{{ $transition->invoice_id }}</a>
-                                            @endif 
-                                            
-                                        </td> 
-
-                                        <td class="text-center">
-                                            @if ($transition->challan_id != 1)
-                                                #Supp: <a href="#">{{ $transition->challan->supplier->name }}</a> <br>
-                                            @else
-                                               #Cust: <a href="#">{{ $transition->invoice->customer->name }}</a>
-                                            @endif  
-                                        </td> 
-                                             <td class="text-success text-center">{{  $transition->deposit != 0 ? number_format($transition->deposit,2): '-' }}</td>
-                                            <td class="text-success text-center">{{  $transition->pay != 0 ? number_format($transition->pay,2): '-' }}</td> 
-                                       </tr>
-                                @endforeach
-
-
+                                @include('backend.transition.body-ajax')
                             </tbody>
                         </table>
                     </div>
@@ -90,4 +67,34 @@
             });
         }
     </script>
+
+
+<script>
+    $('#previous-month').on('click', function(){
+        if (this.checked) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-previous-month-transition') }}",
+                    data: '',
+                    success: function(res) {
+                        $('.transition-body-ajax').empty();
+                        $('.transition-body-ajax').html(res);
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-this-month-transition') }}",
+                    data: '',
+                    success: function(res) {
+                        // console.log(res); 
+                        $('.transition-body-ajax').empty();
+                        $('.transition-body-ajax').html(res);
+                    }
+                });
+            }
+    });
+</script>
+
+
 @endpush

@@ -69,4 +69,27 @@ class SupplierTransitionController extends Controller
     {
         //
     }
+
+
+// ajax function 
+
+public function getPreviousMonthSupplierTransitions()
+{
+    $supplier_transitions = $this->transitions->branchSupplierTransitionsPreviousMonth(); 
+    return view('backend.transition-supplier.ajax-body', compact('supplier_transitions'));
+}
+public function getThisMonthSupplierTransitions()
+{
+    $supplier_transitions = $this->transitions->branchSupplierTransitions(); 
+    return view('backend.transition-supplier.ajax-body', compact('supplier_transitions'));
+}
+
+
+
+
+
+
+
+
+
 }

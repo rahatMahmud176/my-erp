@@ -20,11 +20,11 @@ class SupplierSeeder extends Seeder
             'deletable'     => false,
         ]);
         
-        Supplier::updateOrCreate([
-            'name'          => 'Jamuna supplier',
-            'phone_number'  => '015********',
-            'branch_id'     => 2,
-            'deletable'     => false,
-        ]);
+        // Supplier::updateOrCreate([
+        //     'name'          => 'Jamuna supplier',
+        //     'phone_number'  => '015********',
+        //     'branch_id'     => 2,
+        //     'deletable'     => false,
+        // ]);
     }
 }

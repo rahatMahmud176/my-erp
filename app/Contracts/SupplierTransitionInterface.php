@@ -9,6 +9,7 @@ interface SupplierTransitionInterface
 
    public function allSupplierTransitions();
    public function branchSupplierTransitions();
+   public function branchSupplierTransitionsPreviousMonth();
 
 
 

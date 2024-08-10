@@ -19,6 +19,10 @@ class SupplierTransitionRepository implements SupplierTransitionInterface
    {
       return SupplierTransition::branchSupplierTransitions(); 
    }
+   public function branchSupplierTransitionsPreviousMonth()
+   {
+      return SupplierTransition::branchSupplierTransitionsPreviousMonth(); 
+   }
 
 
 

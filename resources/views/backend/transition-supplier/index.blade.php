@@ -9,9 +9,12 @@
 
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Transitions</h3>
-                    <a href="{{ route('admin.supplier_transitions.index') }}" class="btn btn-sm btn-secondary  float-end">
-                        <i class="bi bi-plus-circle"></i>
-                        Add Transition</a>
+                    <div class="form-check float-end">
+                      <label class="form-check-label">
+                        <input type="checkbox" class="form-check-input" name="" id="previous-month" value="checkedValue">
+                        Previous month?
+                      </label>
+                    </div>
                 </div>
 
                 <div class="row"> 
@@ -27,17 +30,9 @@
                                     <th class="text-center" scope="col">Due</th> 
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="transition-supplier-body">
 
-                                @foreach ($supplier_transitions as $key => $transition)
-                                    <tr>
-                                        <td>{{ date("d-M-y" , strtotime($transition->created_at)) }}</td> 
-                                         <td class="text-center"><a href="#">#Challan:{{ $transition->challan_id }}</a></td>
-                                        <td class="text-center"><a href="#">{{ $transition->supplier->name }}</a></td>
-                                        <td class="text-success text-center">{{ number_format($transition->deposit, 2) }}</td>
-                                        <td class="text-success text-center">{{ number_format($transition->due, 2) }}</td> 
-                                    </tr>
-                                @endforeach
+                                @include('backend.transition-supplier.ajax-body')
 
 
                             </tbody>
@@ -73,4 +68,40 @@
             });
         }
     </script>
+
+
+<script>
+    $('#previous-month').on('click', function(){
+        if (this.checked) {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-previous-month-supplier-transition') }}",
+                    data: '',
+                    success: function(res) {
+                        $('.transition-supplier-body').empty();
+                        $('.transition-supplier-body').html(res);
+                    }
+                });
+            } else {
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-this-month-supplier-transition') }}",
+                    data: '',
+                    success: function(res) {
+                        // console.log(res); 
+                        $('.transition-supplier-body').empty();
+                        $('.transition-supplier-body').html(res);
+                    }
+                });
+            }
+    });
+</script>
+
+
+
+
+
+
+
+
 @endpush

@@ -32,13 +32,23 @@ class AccountSeeder extends Seeder
             'deletable' => false,
         ]);
         Account::updateOrCreate([
-            'ac_title'  => 'City Bank',
+            'ac_title'  => 'Bank',
             'ac_no'     => '5465465465454',
             'branch_id' => 1,
         ]);
         Account::updateOrCreate([
-            'ac_title'  => 'Nagad 75',
-            'ac_no'     => '01580351075',
+            'ac_title'  => 'Nagad',
+            'ac_no'     => '-',
+            'branch_id' => 1,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'Bkash',
+            'ac_no'     => '-',
+            'branch_id' => 1,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'Rocket',
+            'ac_no'     => '-',
             'branch_id' => 1,
         ]);
 
@@ -47,31 +57,41 @@ class AccountSeeder extends Seeder
 
 
         Account::updateOrCreate([
-            'ac_title'  => 'Due (Jamuna)',
+            'ac_title'  => 'Due',
             'ac_no'     => '-',
             'branch_id' => 2,
             'deletable' => false,
         ]);
         Account::updateOrCreate([
-            'ac_title'  => 'Cash (Jamuna)',
+            'ac_title'  => 'Cash',
             'ac_no'     => '-',
             'branch_id' => 2,
             'deletable' => false,
         ]);
         Account::updateOrCreate([
-            'ac_title'  => 'Cheque (Jamuna)',
+            'ac_title'  => 'Cheque',
             'ac_no'     => '-',
             'branch_id' => 2,
             'deletable' => false,
         ]);
         Account::updateOrCreate([
-            'ac_title'  => 'City Bank (Jamuna)',
+            'ac_title'  => 'Bank',
             'ac_no'     => '5465465465454',
             'branch_id' => 2,
         ]);
         Account::updateOrCreate([
-            'ac_title'  => 'Nagad 75 (Jamuna)',
-            'ac_no'     => '01580351075',
+            'ac_title'  => 'Nagad',
+            'ac_no'     => '-',
+            'branch_id' => 2,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'Bkash',
+            'ac_no'     => '-',
+            'branch_id' => 2,
+        ]);
+        Account::updateOrCreate([
+            'ac_title'  => 'Rocket',
+            'ac_no'     => '-',
             'branch_id' => 2,
         ]);
 

@@ -71,4 +71,25 @@ class TransitionController extends Controller
     {
         //
     }
+
+    // ajax Functions 
+    public function getPreviousMonthTransitions()
+    {
+        $transitions = $this->transitions->branchTransitionsPreviousMonth(); 
+        return view('backend.transition.body-ajax',compact('transitions'));
+    }
+    public function getThisMonthTransitions()
+    {
+        $transitions = $this->transitions->branchTransitions(); 
+        return view('backend.transition.body-ajax',compact('transitions'));
+    }
+
+
+
+
+
+
+
+
+
 }

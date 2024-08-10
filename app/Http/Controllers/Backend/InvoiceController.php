@@ -111,4 +111,29 @@ class InvoiceController extends Controller
             } 
         return back();
     }
+
+
+
+
+// ajax Functions 
+public function getFullMonthInvoice()
+{
+    $invoices = $this->invoices->branchInvoicesThisMonth(); 
+    $accounts = $this->accounts->branchAccounts()->skip(1); 
+    return response()->view('backend.invoice.ajax-invoice-body', compact('invoices','accounts'));
+}
+
+public function getTodayInvoice()
+{
+    $invoices = $this->invoices->branchInvoices();  
+    $accounts = $this->accounts->branchAccounts()->skip(1); 
+    return response()->view('backend.invoice.ajax-invoice-body', compact('invoices','accounts'));
+}
+
+
+
+
+
+
+
 }

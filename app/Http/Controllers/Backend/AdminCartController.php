@@ -72,6 +72,19 @@ class AdminCartController extends Controller
        $content = session('ids');
        return response('Add to cart successfully');  
     }
+
+    public function removeCartItem($id)
+    { 
+        $ids = session('ids');
+         $key = array_search($id,$ids);
+         if ($key !== false) {
+            unset($ids[$key]);
+         } 
+       $ids = array_values($ids);
+       session(['ids'=>$ids]);
+       notify()->error('Remove Successfully','Removed');
+       return back();
+    }
  
 
     /**
@@ -121,14 +134,7 @@ class AdminCartController extends Controller
                  $this->stocks->decrees($sale); 
              } //foreach  
              if ($request->deposit) { 
-                 $this->transitions->deposit($request,$invoice->id); 
-                     // Transition::create([
-                     //     'account_id'   => $request->account_id,
-                     //     'challan_id'   => 1,
-                     //     'invoice_id'   => $invoice->id ?? 1,
-                     //     'branch_id'    => auth()->user()->branch_id,
-                     //     'deposit'      => $request->deposit,
-                     // ]);  
+                 $this->transitions->deposit($request,$invoice->id);
              }  
 
             DB::commit(); 
@@ -172,8 +178,8 @@ class AdminCartController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(Stock $id)
     {
-        //
+        return 'ok';
     }
 }

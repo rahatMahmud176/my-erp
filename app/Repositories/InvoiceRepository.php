@@ -16,6 +16,10 @@ class InvoiceRepository implements InvoiceInterface
     {
         return Invoice::branchInvoices();
     }
+    public function branchInvoicesThisMonth()
+    {
+        return Invoice::branchInvoicesThisMonth();
+    }
     public function newInvoice($request, $customerId)
     {
         return Invoice::newInvoice($request, $customerId);

@@ -23,9 +23,8 @@ use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\TransitionController;
 use App\Http\Controllers\Backend\SupplierTransitionController;
 use App\Http\Controllers\Backend\PosController;
-use App\Http\Controllers\CustomerController;
-use Illuminate\Support\Facades\Route;
-use SebastianBergmann\CodeCoverage\Report\Html\Dashboard;
+use App\Http\Controllers\CustomerController; 
+use Illuminate\Support\Facades\Route; 
 
 /*
 |--------------------------------------------------------------------------
@@ -67,7 +66,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('supplier_transitions', SupplierTransitionController::class); 
     Route::resource('payments', PaymentController::class); 
     Route::resource('pos', PosController::class); 
-    Route::resource('cart', AdminCartController::class); 
+    Route::resource('cart', AdminCartController::class);
+    Route::get('remove-cart-item/{id}',[AdminCartController::class,'removeCartItem'])->name('remove-cart-item');
     Route::resource('invoice', InvoiceController::class); 
     Route::resource('customers', CustomerController::class); 
 
@@ -78,6 +78,14 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::get('add-stock-row',[StockController::class, 'addStockRow'])->name('add-stock-row');
     Route::get('add-to-cart-ajax',[AdminCartController::class, 'addToCart'])->name('add-to-cart');
     Route::get('find-customer',[CustomerController::class, 'findCustomer'])->name('find-customer');
+    Route::get('get-full-month-invoices',[InvoiceController::class, 'getFullMonthInvoice'])->name('get-full-month-invoices');
+    Route::get('get-today-invoices',[InvoiceController::class, 'getTodayInvoice'])->name('get-today-invoices');
+    Route::get('get-full-month-challans',[ChallanController::class, 'getFullMonthChallans'])->name('get-full-month-challans');
+    Route::get('get-today-challans',[ChallanController::class, 'getTodayChallans'])->name('get-today-challans');
+    Route::get('get-previous-month-transition',[TransitionController::class, 'getPreviousMonthTransitions'])->name('get-previous-month-transition');
+    Route::get('get-this-month-transition',[TransitionController::class, 'getThisMonthTransitions'])->name('get-this-month-transition');
+ Route::get('get-previous-month-supplier-transition',[SupplierTransitionController::class, 'getPreviousMonthSupplierTransitions'])->name('get-previous-month-supplier-transition');
+    Route::get('get-this-month-supplier-transition',[SupplierTransitionController::class, 'getThisMonthSupplierTransitions'])->name('get-this-month-supplier-transition');
 
 
 });

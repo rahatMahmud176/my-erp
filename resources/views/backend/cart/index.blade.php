@@ -61,7 +61,7 @@
                                                     <small>{{ $content->item->subUnit->name }}</small>
                                                 </td>
                                                 <td>
-                                                    <button class="btn btn-danger btn-sm">Remove </button>/ Todo
+                                                    <a href="{{ route('admin.remove-cart-item',['id'=>$content->id]) }}" class="btn btn-danger btn-sm">Remove </a> 
                                                 </td>
                                             </tr>
                                         @endforeach

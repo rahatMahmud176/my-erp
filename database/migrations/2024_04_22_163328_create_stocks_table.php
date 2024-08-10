@@ -23,7 +23,7 @@ return new class extends Migration
             $table->integer('sub_unit_qty')->default(0);
             $table->float('purchase_price', 10,2)->nullable();
             $table->float('wholesale_price', 10,2)->nullable();
-            $table->float('price', 10,2)->nullable();
+            // $table->float('price', 10,2)->nullable();
             $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade');
             $table->string('serial')->nullable(); 
             $table->boolean('sale_status')->default(0);

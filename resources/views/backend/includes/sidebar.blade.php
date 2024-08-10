@@ -196,40 +196,7 @@
                 <i class="bi bi-person"></i>
                 <span>Settings</span>
             </a>
-        </li><!-- End Profile Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="users-profile.html">
-                <i class="bi bi-person"></i>
-                <span>Profile</span>
-            </a>
-        </li><!-- End Profile Page Nav -->
-
-
-
-
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-register.html">
-                <i class="bi bi-card-list"></i>
-                <span>Register</span>
-            </a>
-        </li><!-- End Register Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="pages-login.html">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Login</span>
-            </a>
-        </li><!-- End Login Page Nav -->
-
-        <li class="nav-item">
-            <a class="nav-link collapsed" href="{{ route('admin.setting.index') }}">
-                <i class="bi bi-box-arrow-in-right"></i>
-                <span>Setting</span>
-            </a>
-        </li><!-- End Login Page Nav -->
-
+        </li><!-- End Profile Page Nav --> 
 
 
     </ul>

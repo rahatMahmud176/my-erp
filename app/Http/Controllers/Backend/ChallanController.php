@@ -84,4 +84,34 @@ class ChallanController extends Controller
         }
         return back();
     }
+
+
+    // ajax functions 
+    public function getFullMonthChallans()
+    {
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        $challans = $this->challans->branchChallanThisMonth();
+       return response()->view('backend.challan.challan-body-ajax', compact('challans','accounts'));
+    }
+
+    public function getTodayChallans()
+    {
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        $challans = $this->challans->branchChallan();
+        return response()->view('backend.challan.challan-body-ajax', compact('challans','accounts'));
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 }

@@ -88,9 +88,25 @@ class StockController extends Controller
      */ 
      
     public function store(Request $request)
-    {   
-
-        $this->validate($request,[
+    {    
+        if ($this->setting->getSetting()->sub_unit && $this->setting->getSetting()->qty_manage_by_serial) {
+            $this->validate($request,[
+                'supplier_id'           => 'required',
+                'challan'               => 'required',
+                'stock.*.item'          => 'required',
+                'stock.*.color_id'      => 'required',
+                'stock.*.size_id'       => 'required',
+                'stock.*.country_id'    => 'required',
+                // 'stock.*.unit_qty'      => 'required',
+                'stock.*.sub_unit_qty'  => 'required',
+                'stock.*.purchase'      => 'required',
+                'account_id'            => 'required',
+                'total'                 => 'required',
+                'pay'                   => 'required',
+                'due'                   => 'required',
+        ]);
+        }else if($this->setting->getSetting()->sub_unit && !$this->setting->getSetting()->qty_manage_by_serial){
+            $this->validate($request,[
                 'supplier_id'           => 'required',
                 'challan'               => 'required',
                 'stock.*.item'          => 'required',
@@ -105,6 +121,49 @@ class StockController extends Controller
                 'pay'                   => 'required',
                 'due'                   => 'required',
         ]);
+        }else if(!$this->setting->getSetting()->sub_unit && $this->setting->getSetting()->qty_manage_by_serial){
+            $this->validate($request,[
+                'supplier_id'           => 'required',
+                'challan'               => 'required',
+                'stock.*.item'          => 'required',
+                'stock.*.color_id'      => 'required',
+                'stock.*.size_id'       => 'required',
+                'stock.*.country_id'    => 'required',
+                // 'stock.*.unit_qty'      => 'required',
+                // 'stock.*.sub_unit_qty'  => 'required',
+                'stock.*.purchase'      => 'required',
+                'account_id'            => 'required',
+                'total'                 => 'required',
+                'pay'                   => 'required',
+                'due'                   => 'required',
+        ]);
+        }else {
+            $this->validate($request,[
+                'supplier_id'           => 'required',
+                'challan'               => 'required',
+                'stock.*.item'          => 'required',
+                'stock.*.color_id'      => 'required',
+                'stock.*.size_id'       => 'required',
+                'stock.*.country_id'    => 'required',
+                'stock.*.unit_qty'      => 'required',
+                // 'stock.*.sub_unit_qty'  => 'required',
+                'stock.*.purchase'      => 'required',
+                'account_id'            => 'required',
+                'total'                 => 'required',
+                'pay'                   => 'required',
+                'due'                   => 'required',
+            ]);
+        }
+  
+
+        $challanId = $this->challan->newChallan($request);   
+        $this->newStock($challanId,$request);  
+        $this->transitions->pay($request,$challanId); 
+        $this->supplierTransitions->newSupplierTransition($request,$challanId);
+
+        DB::commit(); 
+        notify('Save successfully','Success');
+        return redirect()->back();
 
 
         DB::beginTransaction();

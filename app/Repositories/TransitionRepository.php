@@ -18,6 +18,10 @@ class TransitionRepository implements TransitionInterface
    {
    return Transition::branchTransitions();
    } 
+   public function branchTransitionsPreviousMonth()
+   {
+   return Transition::branchTransitionsPreviousMonth();
+   } 
    public function deposit($request,$invoiceId)
    {
          Transition::deposit($request,$invoiceId);

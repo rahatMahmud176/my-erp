@@ -16,6 +16,10 @@ class ChallanRepository implements ChallanInterface
     {
         return Challan::branchChallan(); ;
     }
+    public function branchChallanThisMonth()
+    {
+        return Challan::branchChallanThisMonth(); ;
+    }
 
     public function newChallan($request)
     {
