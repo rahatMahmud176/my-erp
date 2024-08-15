@@ -9,9 +9,7 @@
 
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Suppliers</h3>
-                    <a href="{{ route('admin.suppliers.index') }}" class="btn btn-sm btn-secondary  float-end">
-                        <i class="bi bi-plus-circle"></i>
-                        Add Supplier</a>
+                     <input type="text" class=" float-end search-supplier" placeholder="Search by Name">
                 </div>
 
                 <div class="row">
@@ -69,7 +67,8 @@
                                         <th scope="row">{{ $key + 1 }}</th>
                                         <td>{{ $supplier->name }}</td>
                                         <td>{{ $supplier->phone_number }}</td>
-                                        <td>{{ number_format($supplier->credit - $supplier->debit, 2) }}</td>
+                                         
+                                        <td>{{ number_format($supplier->challans->sum('total') - $supplier->challans->sum('pay'), 2) }}</td>
                                         <td>
                                             <a href="{{ route('admin.suppliers.edit', $supplier) }}"
                                                 class="btn btn-sm btn-secondary">

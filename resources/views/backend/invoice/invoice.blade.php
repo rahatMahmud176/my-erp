@@ -8,17 +8,16 @@
     <div class="card p-5">
         <div class="card-body">
             <div class="row mb-4">
-                <div class="col-sm-6">
+                <div class="col-6">
                     <h6 class="mb-3">From:</h6>
                     <div>
                         <strong>{{ $company->company_name }}</strong>
                     </div>
-                    <div>{{ $company->company_address }}</div> 
-                    <div>Email: email@company.com</div>
+                    <div>{{ $company->company_address }}</div>  
                     <div>Phone: {{ $company->company_phone_number }}</div>
                 </div>
 
-                <div class="col-sm-6 text-sm-end">
+                <div class="col-6 text-sm-end">
                     <h6 class="mb-3">To:</h6>
                     <div>
                         <strong>{{ $invoice->customer->name }}</strong>
@@ -102,16 +101,34 @@
             </div>
 
 
-            <div class="text-center">
-                <p class="text-muted">Thank you for your business!</p>
+            <div class="text-center mt-3">
+                <p class="text-muted">Thank you for your purchase!</p>
             </div>
         </div>
-    </div>
-</div>
 
+        <a href="javascript:window.print()" class="btn btn-secondary d-print-none float-end">Print</a>
+    </div>  
+</div>
 
 @endsection
 
+
+@push('style')
+    <style>
+        @media print {
+        .not-print{
+            display: none;
+        }
+        .printable{
+            width: 100%;
+            font-size: 9px;
+            margin-top:0 !important;
+            margin: 0; /* Remove any margin to take full page width */
+            padding: 0;
+        }
+    }
+    </style>
+@endpush
  
 
 

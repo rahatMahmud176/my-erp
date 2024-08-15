@@ -5,13 +5,13 @@
 @endsection
 
 @section('content')
-    @role('user')
+    {{-- @role('user')
         <h1>Hello User</h1>
     @endrole
 
     @role('super-admin')
         <h1>Hello Super Admin</h1>
-    @endrole
+    @endrole --}}
 
     <div class="row container">
         @foreach ($accounts as $account)

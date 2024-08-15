@@ -23,7 +23,8 @@ use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\TransitionController;
 use App\Http\Controllers\Backend\SupplierTransitionController;
 use App\Http\Controllers\Backend\PosController;
-use App\Http\Controllers\CustomerController; 
+use App\Http\Controllers\CustomerController;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route; 
 
 /*
@@ -105,3 +106,14 @@ Route::middleware('auth')->group(function () {
 });
 
 require __DIR__.'/auth.php';
+
+
+
+Route::get('/all-clear', function () {
+    Artisan::call('cache:clear');
+    Artisan::call('config:clear');
+    Artisan::call('view:clear');
+    Artisan::call('route:clear');
+
+    return 'Clear Compleate !';
+});

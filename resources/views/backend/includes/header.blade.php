@@ -1,7 +1,7 @@
-<header id="header" class="header fixed-top d-flex align-items-center">
+<header id="header" class="header fixed-top d-flex align-items-center d-print-none">
 
     <div class="d-flex align-items-center justify-content-between">
-      <a href="index.html" class="logo d-flex align-items-center">
+      <a href="{{ asset('/') }}" class="logo d-flex align-items-center">
         <img src="{{ asset('/') }}backend/assets/img/logo.png" alt="">
         <span class="d-none d-lg-block">My-ERP</span>
       </a>

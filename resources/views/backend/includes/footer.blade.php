@@ -1,4 +1,4 @@
-<footer id="footer" class="footer">
+<footer id="footer" class="footer d-print-none">
     <div class="copyright">
       &copy; Copyright <strong><span>Rahat Mahmud</span></strong>. All Rights Reserved
     </div>

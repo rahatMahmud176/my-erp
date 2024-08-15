@@ -1,4 +1,4 @@
-<aside id="sidebar" class="sidebar">
+<aside id="sidebar" class="sidebar d-print-none">
 
     <ul class="sidebar-nav" id="sidebar-nav">
 

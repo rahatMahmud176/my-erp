@@ -2,10 +2,10 @@
 
 namespace App\Repositories;
 
-use App\Contracts\subCategoryInterface;
+use App\Contracts\SubCategoryInterface;
 use App\Models\Backend\SubCategory;
 
-class SubCategoryRepository implements subCategoryInterface
+class SubCategoryRepository implements SubCategoryInterface
 {
     public function all()
     {
