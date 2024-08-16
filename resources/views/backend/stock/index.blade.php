@@ -11,9 +11,15 @@
 
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Stocks</h3>
-                    <a href="{{ route('admin.stocks.index') }}" class="btn btn-sm btn-secondary  float-end">
-                        <i class="bi bi-plus-circle"></i>
-                        Add Stock</a>
+
+                    <select class="float-end category" name="" id="">
+                        <option value=""> Categories </option>
+                        @foreach ($categories as $category)
+                            <option value="{{ $category->id }}"> {{ $category->name }} </option>
+                        @endforeach
+                    </select>
+
+                 
                 </div>
 
                 <div class="row"> 
@@ -27,32 +33,9 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="stock-body">
 
-                                @foreach ($items as $key => $item)
-                                   
-                                    @if ($item->stocks->sum('unit_qty') !=0)      
-                                    <tr>
-                                        <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $item->name }}</td>
-                                       
-                                       <td>
-                                         {{ $item->stocks->sum('unit_qty') }}
-                                            @if($item->unit_id!=1) {{ $item->unit->name}}@endif
-                                            @if($item->sub_unit_id!=1){{' / '.$item->stocks->sum('sub_unit_qty').' '.$item->subUnit->name }}@endif
-                                       </td>
- 
-                                      
-                                        <td>
-                                            <a href="{{ route('admin.stock.details',['id'=>$item->id]) }}"
-                                                class="btn btn-sm btn-secondary">
-                                                <i class="bi bi-pencil-eye"></i>
-                                                view
-                                            </a>  
-                                        </td>
-                                    </tr>
-                                    @endif    
-                                @endforeach
+                                @include('backend.stock.ajax-body')
 
 
                             </tbody>
@@ -87,5 +70,21 @@
                 }
             });
         }
+    </script>
+
+    <script>
+        $('.category').on('change', function(){
+            let id = $(this).val();
+            $.ajax({
+                type: "GET",
+                url : "{{ url('admin/get-stock-by-category') }}",
+                data: {id:id},
+                success: function(res){ 
+                    $('.stock-body').empty();
+                    $('.stock-body').html(res); 
+                }
+
+            })
+        })
     </script>
 @endpush

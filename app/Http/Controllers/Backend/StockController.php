@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\AccountInterface;
+use App\Contracts\CategoryInterface;
 use App\Contracts\ChallanInterface;
 use App\Contracts\ColorInterface;
 use App\Contracts\CountryVariantInterface;
@@ -33,6 +34,7 @@ class StockController extends Controller
     public $challan;
     public $transitions;
     public $supplierTransitions;
+    public $categories;
 
     public function __construct(StockInterface $stockInterface,
                                 ItemInterface $itemInterface,
@@ -44,7 +46,8 @@ class StockController extends Controller
                                 AccountInterface $accountInterface,
                                 ChallanInterface $challanInterface,
                                 TransitionInterface $transitionInterface,
-                                SupplierTransitionInterface $supplierTransitionInterface
+                                SupplierTransitionInterface $supplierTransitionInterface,
+                                CategoryInterface $categoryInterface
     ) {
         $this->stocks      = $stockInterface;
         $this->items       = $itemInterface;
@@ -57,12 +60,14 @@ class StockController extends Controller
         $this->challan     = $challanInterface;
         $this->transitions = $transitionInterface;
         $this->supplierTransitions = $supplierTransitionInterface;
+        $this->categories = $categoryInterface;
     } 
 
     public function index()
     {   
         $items = $this->items->allStock();
-        return view('backend.stock.index', compact('items'));
+        $categories =  $this->categories->all();
+        return view('backend.stock.index', compact('items','categories'));
     }
 
     /**
@@ -276,7 +281,23 @@ public function addStockRow()
 }
 
 
+public function stockByCat()
+{
+    $id = $_GET['id']; 
 
+    $items = Item::select('id','name','unit_id','sub_unit_id')
+                      ->with([
+                        'stocks:item_id,unit_qty,branch_id',
+                        'unit:id,name',
+                        'subUnit:id,name', 
+                      ])
+                      ->where('branch_id',auth()->user()->branch_id) 
+                      ->whereHas('categories', function($q) use ($id){
+                            $q->where('category_id',$id);
+                      }) 
+                    ->get(); 
+    return response()->view('backend.stock.ajax-body', compact('items')); 
+}
 
 
 

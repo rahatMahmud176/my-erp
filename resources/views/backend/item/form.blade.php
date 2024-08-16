@@ -45,7 +45,7 @@
                                 
                            
                                 <label class="form-check-label">
-                                    <input type="checkbox" class="form-check-input" name="cats[]" id="" value="{{ $cat->id }}" @isset($item) @foreach($item->categories as $category) {{ $category->id == $cat->id ?'checked':'' }} @endforeach @else {{ $loop->index==0?'checked':'' }}  @endisset >
+                                    <input type="radio" class="form-check-input" name="cats[]" id="" value="{{ $cat->id }}" @isset($item) @foreach($item->categories as $category) {{ $category->id == $cat->id ?'checked':'' }} @endforeach @else {{ $loop->index==0?'checked':'' }}  @endisset >
                                     {{ $cat->name }}
                                 </label>
                                 <br>
@@ -63,7 +63,7 @@
                                 
                            
                               <label class="form-check-label">
-                                  <input type="checkbox" class="form-check-input" name="sub_cats[]" id="" value="{{ $cat->id }}" @isset($item) @foreach($item->subCats as $category) {{ $category->id == $cat->id ?'checked':'' }} @endforeach @else {{ $loop->index==0?'checked':'' }}  @endisset>
+                                  <input type="radio" class="form-check-input" name="sub_cats[]" id="" value="{{ $cat->id }}" @isset($item) @foreach($item->subCats as $category) {{ $category->id == $cat->id ?'checked':'' }} @endforeach @else {{ $loop->index==0?'checked':'' }}  @endisset>
                                   {{ $cat->name }}
                               </label>
                               <br>
