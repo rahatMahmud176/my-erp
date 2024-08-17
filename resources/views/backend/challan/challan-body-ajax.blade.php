@@ -19,7 +19,7 @@
             @endif
 
             @if ($challan->deletable == true)
-                <a href="#" class="btn btn-sm btn-secondary">
+                <a href="{{ route('admin.challans.show',$challan) }}" class="btn btn-sm btn-secondary">
                     <i class="bi bi-eye"></i>
                     View</a>
 

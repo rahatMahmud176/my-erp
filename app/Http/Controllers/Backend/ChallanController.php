@@ -52,7 +52,7 @@ class ChallanController extends Controller
      */
     public function show(Challan $challan)
     {
-        //
+        return view('backend.challan.challan-view', compact('challan'));
     }
 
     /**

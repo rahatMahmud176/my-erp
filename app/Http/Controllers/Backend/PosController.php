@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Backend;
 
 use App\Contracts\ItemInterface;
+use App\Contracts\SettingInterface;
 use App\Contracts\StockInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Pos;
@@ -12,18 +13,22 @@ use Illuminate\Http\Request;
 class PosController extends Controller
 {
      public $stocks;
+     public $settings;
 
-    public function __construct(StockInterface $stockInterface)
+    public function __construct(StockInterface $stockInterface,
+                                SettingInterface $settingInterface
+                                                            )
     {
         $this->stocks = $stockInterface;
+        $this->settings = $settingInterface;
     }
 
 
     public function index()
     {
-        $stocks =  $this->stocks->branchStocks();
-        
-        return view('backend.pos.index', compact('stocks'));
+        $stocks =  $this->stocks->branchStocks(); 
+        $settings = $this->settings->getSetting(); 
+        return view('backend.pos.index', compact('stocks','settings'));
     }
 
     /**

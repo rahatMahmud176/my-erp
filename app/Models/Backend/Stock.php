@@ -16,7 +16,9 @@ class Stock extends Model
 
     public static function branchStocks()
     {
-        return Stock::where('branch_id',auth()->user()->branch_id)->get();
+        return Stock::where('branch_id',auth()->user()->branch_id)
+                    ->where('unit_qty','!=',0)
+                        ->get();
     }
     public static function searchResult($searchKey)
     {

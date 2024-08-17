@@ -13,7 +13,7 @@ class StockRepository implements StockInterface
     }
     public function branchStocks()
     {
-        return Stock::where('branch_id',auth()->user()->branch_id)->get();
+        return Stock::branchStocks();
     }
     public function searchResult($searchKey)
     {

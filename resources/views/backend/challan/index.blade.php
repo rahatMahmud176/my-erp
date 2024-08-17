@@ -114,11 +114,11 @@
     <script>
         function challanDelete(id) {
             Swal.fire({
-                title: "Are you sure?",
-                text: "You won't be able to revert this!",
+                title: "ভেবে দেখুন !",
+                text: " এই চালানের সাথে সম্পৃক্ত যাবতীয় লেনদেন, স্টক সহ অন্য সকল কিছু মুছতে একমত ?",
                 icon: "warning",
                 showCancelButton: true,
-                confirmButtonChallan: "#3085d6",
+                confirmButtonChallan: "#3085d6", 
                 cancelButtonChallan: "#d33",
                 confirmButtonText: "Yes, delete it!"
             }).then((result) => {

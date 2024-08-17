@@ -74,7 +74,14 @@ public static function getLastChallanId()
 
 
 
-
+public function stocks()
+{
+    return $this->hasMany(Stock::class);
+}
+public function transitions()
+{
+    return $this->hasMany(Transition::class);
+} 
 
 public function supplier()
 {

@@ -28,7 +28,7 @@ class ItemRepository implements ItemInterface
                         'stocks:item_id,unit_qty,branch_id',
                         'unit:id,name',
                         'subUnit:id,name'
-                      ])
+                      ]) 
                       ->where('branch_id',auth()->user()->branch_id) 
                     ->get();
     }
