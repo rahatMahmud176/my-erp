@@ -30,4 +30,20 @@
             }
         })
     })
-</script>
+</script> 
+     
+<script>
+    $('.pos-search').on('blur', function(){
+     let searchKey = $(this).val();
+     $.ajax({
+         type: "GET",
+         url : "{{ url('admin/get-pos-search-result') }}",
+         data: {searchKey:searchKey},
+         success: function(res){
+             $('.t-body').empty();
+             $('.t-body').html(res);
+         }
+     })
+     
+    })
+ </script>

@@ -84,8 +84,9 @@ class PosController extends Controller
     public function searchResult()
     {
         $searchKey = $_GET['searchKey'];
-        $stocks = Stock::searchResult($searchKey);
-        return response()->view('backend.pos.ajax-body', compact('stocks'));
+        $stocks = Stock::searchResult($searchKey); 
+        $settings = $this->settings->getSetting(); 
+        return response()->view('backend.pos.ajax-body', compact('stocks','settings'));
     }
 
 

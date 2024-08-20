@@ -12,7 +12,29 @@ class Stock extends Model
 
     protected $guarded = ['id'];
 
-
+    public static function productHistoryBranch()
+    {
+       return Stock::select('id','supplier_id','serial','item_id','created_at')
+                ->with([
+                    'item:id,name',
+                    'supplier:id,name', 
+                ])
+                ->where('branch_id', auth()->user()->branch_id)
+                ->orderBy('id','desc')
+                ->paginate('15');
+    }
+    public static function searchProductHistoryBranch($string)
+    {
+       return Stock::select('id','supplier_id','serial','item_id','created_at')
+                ->with([
+                    'item:id,name',
+                    'supplier:id,name', 
+                ])
+                ->where('serial','LIKE', '%'.$string.'%')
+                ->where('branch_id', auth()->user()->branch_id)
+                ->orderBy('id','desc')
+                ->get();
+    }
 
     public static function branchStocks()
     {
@@ -24,6 +46,7 @@ class Stock extends Model
     {
         return Stock::where('branch_id',auth()->user()->branch_id)
                     ->where('serial', 'LIKE', '%'.$searchKey.'%')
+                    ->where('unit_qty','!=',0)
                     ->get();
     }
 
@@ -63,7 +86,7 @@ class Stock extends Model
         // dd($serial);
         Stock::create([
             'supplier_id'        =>$supplier_id,
-            'supplier_id'        =>1,
+            // 'supplier_id'        =>1,
             'item_id'            =>$request['item'],
             'color_id'           =>$request['color_id'] ?? 1,
             'size_id'            =>$request['size_id'] ?? 1,
@@ -139,6 +162,9 @@ public function user()
 {
     return $this->belongsTo(User::class);
 }
-
+public function supplier()
+{
+    return $this->belongsTo(Supplier::class);
+}   
 
 }

@@ -23,6 +23,7 @@ use App\Http\Controllers\Backend\PaymentController;
 use App\Http\Controllers\Backend\TransitionController;
 use App\Http\Controllers\Backend\SupplierTransitionController;
 use App\Http\Controllers\Backend\PosController;
+use App\Http\Controllers\Backend\ProductHistoryController;
 use App\Http\Controllers\CustomerController;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Route; 
@@ -70,7 +71,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('cart', AdminCartController::class);
     Route::get('remove-cart-item/{id}',[AdminCartController::class,'removeCartItem'])->name('remove-cart-item');
     Route::resource('invoice', InvoiceController::class); 
-    Route::resource('customers', CustomerController::class); 
+    Route::resource('customers', CustomerController::class);
+    Route::resource('product_history', ProductHistoryController::class);
 
 
     // Ajax Routes 
@@ -89,6 +91,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::get('get-this-month-supplier-transition',[SupplierTransitionController::class, 'getThisMonthSupplierTransitions'])->name('get-this-month-supplier-transition');
     Route::get('get-pos-search-result',[PosController::class, 'searchResult'])->name('get-pos-search-result');
     Route::get('get-stock-by-category',[StockController::class, 'stockByCat'])->name('get-stock-by-category');
+    Route::get('product-history-search',[ProductHistoryController::class, 'searchProductHistoryBranch'])->name('product-history-search');
 
 
 });

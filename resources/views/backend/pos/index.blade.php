@@ -65,7 +65,7 @@
             type: "GET",
             url : "{{ url('admin/get-pos-search-result') }}",
             data: {searchKey:searchKey},
-            success: function(res){
+            success: function(res){ 
                 $('.t-body').empty();
                 $('.t-body').html(res);
             }

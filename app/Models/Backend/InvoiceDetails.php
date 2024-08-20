@@ -35,6 +35,10 @@ public static function new($sale, $invoiceId)
     {
         return $this->belongsTo(Stock::class);
     }   
+    public function invoice()
+    {
+        return $this->belongsTo(Invoice::class);
+    }   
 
 
 

@@ -14,7 +14,15 @@ class StockRepository implements StockInterface
     public function branchStocks()
     {
         return Stock::branchStocks();
-    }
+    }  
+    public function productHistoryBranch()
+    {
+        return Stock::productHistoryBranch();
+    }  
+    public function searchProductHistoryBranch($string)
+    {
+        return Stock::searchProductHistoryBranch($string);
+    }  
     public function searchResult($searchKey)
     {
         return Stock::searchResult($searchKey);

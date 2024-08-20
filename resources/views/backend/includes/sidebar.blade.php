@@ -162,6 +162,11 @@
                         <i class="bi bi-circle"></i><span>Supplier Transitions</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.product_history.index') }}">
+                        <i class="bi bi-circle"></i><span>Product History</span>
+                    </a>
+                </li>
 
             </ul>
         </li><!-- End Components Nav -->
