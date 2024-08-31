@@ -19,9 +19,7 @@ class ChallanController extends Controller
         $this->challans = $challanInterface;
         $this->accounts = $accountInterface;
         
-    } 
-
-
+    }  
 
     public function index()
     {

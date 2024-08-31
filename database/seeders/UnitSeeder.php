@@ -13,10 +13,7 @@ class UnitSeeder extends Seeder
      */
     public function run(): void
     {
-        $units = ['None','kg','gm','cm','inch','pcs',
-                  'packet','ltr','m','mm','ft','bag',
-                  'btl','box','bdl','crtn','dzn','can','rol',
-                  'sqf','sqm','tbs'];  
+        $units = ['pcs'];
 
         foreach ($units as $key => $unit) {
             Unit::updateOrCreate([

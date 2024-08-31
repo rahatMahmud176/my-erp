@@ -13,10 +13,7 @@ class SubUnitSeeder extends Seeder
      */
     public function run(): void
     {
-        $subUnits =  ['None','kg','gm','cm','inch','pcs',
-                    'packet','ltr','m','mm','ft','bag',
-                    'btl','box','bdl','crtn','dzn','can','rol',
-                    'sqf','sqm','tbs'];  
+        $subUnits =  ['None'];  
  
         foreach ($subUnits as $key => $subUnit) {
             SubUnit::updateOrCreate([
