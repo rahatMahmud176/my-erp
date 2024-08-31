@@ -33,7 +33,7 @@ class Stock extends Model
                 ->where('serial','LIKE', '%'.$string.'%')
                 ->where('branch_id', auth()->user()->branch_id)
                 ->orderBy('id','desc')
-                ->get();
+                ->paginate('15');
     }
 
     public static function branchStocks()
