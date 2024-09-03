@@ -64,7 +64,10 @@ class InvoiceController extends Controller
      */
     public function show(string $id)
     {
-        $invoice = Invoice::with('transitions:id,invoice_id,deposit,created_at')->find($id);
+        $invoice = Invoice::with([
+            'transitions:id,invoice_id,deposit,created_at,account_id',
+            'transitions.account:id,ac_title'
+            ])->find($id);
         $company = $this->settings->companyInfo();
         return view('backend.invoice.invoice', compact('invoice','company'));
     }
@@ -122,6 +125,20 @@ public function getFullMonthInvoice()
     $accounts = $this->accounts->branchAccounts()->skip(1); 
     return response()->view('backend.invoice.ajax-invoice-body', compact('invoices','accounts'));
 }
+
+public function getInvoiceByDate()
+{
+    $getDate = $_GET['date'];
+    $invoices = Invoice::whereDate('created_at','=',date($getDate))
+                        ->where('branch_id', auth()->user()->branch_id)
+                        ->get();
+
+    $accounts = $this->accounts->branchAccounts()->skip(1); 
+    return response()->view('backend.invoice.ajax-invoice-body', compact('invoices','accounts'));
+}
+
+
+
 
 public function getTodayInvoice()
 {

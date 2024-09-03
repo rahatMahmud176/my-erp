@@ -10,6 +10,9 @@
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Challans</h3> 
                   <div class="form-check float-end">
+
+                    <input type="date" name="" class="date me-5" id=""> 
+
                     <label class="form-check-label">
                       <input type="checkbox" class="form-check-input" name="" id="fullMonth" value="checkedValue">
                       Full Month?
@@ -128,6 +131,24 @@
             });
         }
     </script>
+
+
+<script>
+    $('.date').on('change',function(){
+        let date = $(this).val();
+        $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-challans-by-date') }}",
+                    data: {date:date},
+                    success: function(res) {
+                        $('.challan-body-ajax').empty();
+                        $('.challan-body-ajax').html(res);
+                    }
+                });
+
+    })
+</script>
+
 
 <script>
     $('#fullMonth').on('click', function(){

@@ -95,7 +95,9 @@
                 <div class="col-sm-6">
                     <h6 class="mb-3">Payment Details:</h6> 
                     @foreach ($invoice->transitions as $transition)
-                        <span> {{ date('d-M-y', strtotime($transition->created_at)) }} : {{ number_format($transition->deposit,2) }} tk</span>
+                        <span> {{ date('d-M-y', strtotime($transition->created_at)) }} : {{ number_format($transition->deposit,2) }} tk
+                            {{ '('.$transition->account->ac_title.')' }}
+                        </span>
                         <br>
                     @endforeach
             </div>

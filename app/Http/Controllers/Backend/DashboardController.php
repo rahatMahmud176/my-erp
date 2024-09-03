@@ -4,11 +4,8 @@ namespace App\Http\Controllers\Backend;
 
 use App\Contracts\AccountInterface;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\Account;
-use App\Models\Backend\Branch;
 use App\Models\Backend\Invoice;
-use App\Models\Backend\Transition;
-use Illuminate\Http\Request;
+use App\Models\Backend\Transition; 
 use Illuminate\Support\Facades\Gate;
 
 class DashboardController extends Controller
@@ -32,11 +29,12 @@ public function dashboard()
     //                             ->get();
     $accounts = $this->accounts->branchAccounts()->skip(1); 
     $today     = date('Y-m-d') . ' 00:00:00';
+
     $todaySale = Invoice::where([['created_at','>=',$today]]) 
                         ->where('branch_id', auth()->user()->branch_id)->sum('total');
-
+ 
     $todayPayment = Transition::where([['created_at','>=',$today]]) 
-                            ->where('branch_id', auth()->user()->branch_id)->sum('pay');
+                            ->where('branch_id', auth()->user()->branch_id)->sum('pay'); 
 
     return view('dashboard', compact('accounts','todaySale','todayPayment'));
 }

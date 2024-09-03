@@ -91,6 +91,17 @@ class ChallanController extends Controller
         $challans = $this->challans->branchChallanThisMonth();
        return response()->view('backend.challan.challan-body-ajax', compact('challans','accounts'));
     }
+    public function getChallansByMonth()
+    {
+        $getDate = $_GET['date'];
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        $challans = Challan::whereDate('created_at','=', date($getDate))
+                            ->where('branch_id', auth()->user()->branch_id)
+                            ->get();
+       return response()->view('backend.challan.challan-body-ajax', compact('challans','accounts'));
+    }
+
+
 
     public function getTodayChallans()
     {

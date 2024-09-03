@@ -18,9 +18,15 @@ class TransitionController extends Controller
 
     public function index()
     {
-        $transitions = $this->transitions->branchTransitions(); 
+        $today = date('Y-m-d').' 00:00:00';
+
+        $transitions = Transition::where([['created_at','>=', $today]])
+                                  ->where('branch_id', auth()->user()->branch_id)
+                                  ->where('branch_id', auth()->user()->branch_id)->get();
+
         return view('backend.transition.index',compact('transitions'));
     }
+ 
 
     /**
      * Show the form for creating a new resource.
@@ -73,11 +79,30 @@ class TransitionController extends Controller
     }
 
     // ajax Functions 
-    public function getPreviousMonthTransitions()
+   
+    public function getTransitionsByDate()
     {
-        $transitions = $this->transitions->branchTransitionsPreviousMonth(); 
+        $getDate = $_GET['date'];
+        $transitions = Transition::whereDate('created_at','=', date($getDate))
+                                   ->where('branch_id', auth()->user()->branch_id)
+                                   ->get();
         return view('backend.transition.body-ajax',compact('transitions'));
     }
+
+    public function getTodayTransitions()
+    {
+        $today = date('Y-m-d').' 00:00:00';
+
+        $transitions = Transition::where([['created_at','>=', $today]])
+                                  ->where('branch_id', auth()->user()->branch_id)
+                                  ->where('branch_id', auth()->user()->branch_id)->get(); 
+      return view('backend.transition.body-ajax',compact('transitions'));
+    }
+
+
+
+
+
     public function getThisMonthTransitions()
     {
         $transitions = $this->transitions->branchTransitions(); 

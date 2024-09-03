@@ -84,6 +84,17 @@ public function getThisMonthSupplierTransitions()
     return view('backend.transition-supplier.ajax-body', compact('supplier_transitions'));
 }
 
+public function getSupplierTransitionsByDate()
+{ 
+    $getDate = $_GET['date'];
+    $supplier_transitions = SupplierTransition::select('id','supplier_id','challan_id','deposit','due','created_at')
+                                            ->whereDate('created_at','=',date($getDate))
+                                            ->where('branch_id', auth()->user()->branch_id) 
+                                            ->get(); 
+                                            
+    return view('backend.transition-supplier.ajax-body', compact('supplier_transitions'));
+}
+
 
 
 

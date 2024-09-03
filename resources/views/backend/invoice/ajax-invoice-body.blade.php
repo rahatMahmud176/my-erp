@@ -1,3 +1,8 @@
+@php
+    $totalSale = 0;
+    $totalProfit = 0;
+@endphp
+
 @foreach ($invoices as $key => $invoice)
     <tr>
         <td>{{ date('d-M-y', strtotime($invoice->created_at)) }}</td>
@@ -11,13 +16,15 @@
         <td scope="row">{{ number_format($due = $total - $invoice->transitions->sum('deposit'), 2) }}</td>
         <td scope="row">
             @php
-                $totalPurchasePrice = 0;
+                $totalPurchasePrice = 0; 
             @endphp
             @foreach ($invoice->details as $detail)
-                <input type="hidden" name=""
-                    value="{{ $totalPurchasePrice = $totalPurchasePrice + $detail->stock->purchase_price }}">
+                <input type="hidden" name="" value="{{ $totalPurchasePrice = $totalPurchasePrice + $detail->stock->purchase_price }}">
             @endforeach
-            {{ number_format($invoice->total - $totalPurchasePrice, 2) }}
+            {{ number_format($invoice->total - $totalPurchasePrice, 2) }} 
+            <input type="hidden" name="" value="{{ $totalProfit = $totalProfit+ $invoice->total - $totalPurchasePrice }}">
+            <input type="hidden" name="" value="{{ $totalSale = $totalSale+ $total }}">
+            
         </td>
         <td scope="row">
 
@@ -47,23 +54,35 @@
 
     </tr>
 @endforeach
+<tr>
+    <td></td>
+    <th>Total =</th>
+    <td></td>
+    <td></td>
+    <th>Sale: {{ number_format($totalSale) }}</th>
+    <td></td>
+    <th> Profit: {{ number_format($totalProfit)  }}</th>
+    <td></td>
+</tr>
 
 
- 
+
 
 <script>
-    $('.pay-invoice').on('click', function(){
+    $('.pay-invoice').on('click', function() {
         let id = $(this).attr('data-id');
-        let deu = $(this).attr('data-due');  
+        let deu = $(this).attr('data-due');
         $('#pay-amount').attr('max', deu);
-        const nFormat = new Intl.NumberFormat(undefined, {minimumFractionDigits: 2});
-        $('#invoice_id').val(id); 
+        const nFormat = new Intl.NumberFormat(undefined, {
+            minimumFractionDigits: 2
+        });
+        $('#invoice_id').val(id);
         $('#due').val(nFormat.format(deu));
         $('#exampleModalLabel').empty();
-        $('#exampleModalLabel').append('Invoice#'+id); 
+        $('#exampleModalLabel').append('Invoice#' + id);
     })
 </script>
- 
+
 <script>
     function invoiceDelete(id) {
         Swal.fire({

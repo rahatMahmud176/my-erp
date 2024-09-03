@@ -1,6 +1,6 @@
 @extends('backend.master')
 @section('title')
-   Supplier Transitions
+    Supplier Transitions
 @endsection
 @section('content')
     <div class="row">
@@ -8,26 +8,31 @@
             <div class="card-body">
 
                 <div class="mt-3 clearfix">
-                    <h3 class="float-start">#Transitions</h3>
+                    <h3 class="float-start">#Transitions (Supplier)</h3>
                     <div class="form-check float-end">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="" id="previous-month" value="checkedValue">
-                        Previous month?
-                      </label>
+
+                        <input type="date" name="" id="date" class="me-5">
+
+
+                        <label class="form-check-label">
+                            <input type="checkbox" class="form-check-input" name="" id="full-month"
+                                value="checkedValue">
+                            Full month?
+                        </label>
                     </div>
                 </div>
 
-                <div class="row"> 
+                <div class="row">
 
                     <div class="col-md-12">
                         <table class="table table-bordered ">
                             <thead class="">
-                                <tr> 
-                                    <th class="text-center" scope="col">Date</th>  
-                                    <th class="text-center" scope="col">Challan ID</th> 
-                                    <th class="text-center" scope="col">Supplier</th> 
+                                <tr>
+                                    <th class="text-center" scope="col">Date</th>
+                                    <th class="text-center" scope="col">Challan ID</th>
+                                    <th class="text-center" scope="col">Supplier</th>
                                     <th class="text-center" scope="col">Deposit</th>
-                                    <th class="text-center" scope="col">Due</th> 
+                                    <th class="text-center" scope="col">Due</th>
                                 </tr>
                             </thead>
                             <tbody class="transition-supplier-body">
@@ -70,19 +75,28 @@
     </script>
 
 
-<script>
-    $('#previous-month').on('click', function(){
-        if (this.checked) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{ url('admin/get-previous-month-supplier-transition') }}",
-                    data: '',
-                    success: function(res) {
-                        $('.transition-supplier-body').empty();
-                        $('.transition-supplier-body').html(res);
-                    }
-                });
-            } else {
+    <script>
+        $('#date').on('change', function() {
+            let date = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{ url('admin/get-supplier-transition-by-date') }}",
+                data: {
+                    date: date
+                },
+                success: function(res) {
+                    $('.transition-supplier-body').empty();
+                    $('.transition-supplier-body').html(res);
+                }
+            });
+
+        })
+    </script>
+
+
+    <script>
+        $('#full-month').on('click', function() {
+            if (this.checked) {
                 $.ajax({
                     type: "GET",
                     url: "{{ url('admin/get-this-month-supplier-transition') }}",
@@ -93,15 +107,9 @@
                         $('.transition-supplier-body').html(res);
                     }
                 });
+            } else {
+                 
             }
-    });
-</script>
-
-
-
-
-
-
-
-
+        });
+    </script>
 @endpush

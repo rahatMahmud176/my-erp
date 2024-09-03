@@ -10,28 +10,32 @@
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Transitions</h3>
                     <div class="form-check float-end">
-                      <label class="form-check-label">
-                        <input type="checkbox" class="form-check-input" name="" id="previous-month" value="checkedValue">
-                        Previous Month? 
-                      </label>
+
+                        <input type="date" name="" id="date" class=""> 
+                        
+                        <label class="form-check-label ms-4">
+                            <input type="checkbox" class="form-check-input" name="" id="full-month"
+                                value="checkedValue">
+                            Full Month?
+                        </label>
                     </div>
                 </div>
 
-                <div class="row"> 
+                <div class="row">
 
                     <div class="col-md-12">
                         <table class="table table-bordered ">
                             <thead class="">
-                                <tr> 
-                                    <th class="text-center" scope="col">Date</th> 
-                                    <th class="text-center " scope="col">A/C</th> 
-                                    <th class="text-center" scope="col">Challan / <br> Invoice ID</th> 
-                                    <th class="text-center" scope="col">Supplier /<br> Customer</th> 
+                                <tr>
+                                    <th class="text-center" scope="col">Date</th>
+                                    <th class="text-center " scope="col">A/C</th>
+                                    <th class="text-center" scope="col">Challan / <br> Invoice ID</th>
+                                    <th class="text-center" scope="col">Supplier /<br> Customer</th>
                                     <th class="text-center" scope="col">Deposit</th>
-                                    <th class="text-center" scope="col">Pay</th> 
+                                    <th class="text-center" scope="col">Pay</th>
                                 </tr>
                             </thead>
-                            <tbody class="transition-body-ajax"> 
+                            <tbody class="transition-body-ajax">
 
                                 @include('backend.transition.body-ajax')
                             </tbody>
@@ -68,32 +72,48 @@
         }
     </script>
 
+    <script>
+        $('#date').on('change', function() {
+            let date = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{ url('admin/get-transitions-by-date') }}",
+                data: {date:date},
+                success: function(res) {
+                    $('.transition-body-ajax').empty();
+                    $('.transition-body-ajax').html(res);
+                }
+            });
+        })
+    </script>
+ 
 
 <script>
-    $('#previous-month').on('click', function(){
-        if (this.checked) {
-                $.ajax({
-                    type: "GET",
-                    url: "{{ url('admin/get-previous-month-transition') }}",
-                    data: '',
-                    success: function(res) {
-                        $('.transition-body-ajax').empty();
-                        $('.transition-body-ajax').html(res);
-                    }
-                });
-            } else {
-                $.ajax({
+    $('#full-month').on('click', function(){
+    
+         if (this.checked) {
+            $.ajax({
                     type: "GET",
                     url: "{{ url('admin/get-this-month-transition') }}",
                     data: '',
                     success: function(res) {
-                        // console.log(res); 
                         $('.transition-body-ajax').empty();
                         $('.transition-body-ajax').html(res);
                     }
                 });
-            }
-    });
+         } else {
+            $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-today-transitions') }}",
+                    data: '',
+                    success: function(res) {
+                        $('.transition-body-ajax').empty();
+                        $('.transition-body-ajax').html(res);
+                    }
+                });
+         }
+    
+    })
 </script>
 
 
