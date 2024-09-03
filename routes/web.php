@@ -96,6 +96,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::get('get-this-month-supplier-transition',[SupplierTransitionController::class, 'getThisMonthSupplierTransitions'])->name('get-this-month-supplier-transition');
     Route::get('get-previous-month-supplier-transition',[SupplierTransitionController::class, 'getPreviousMonthSupplierTransitions'])->name('get-previous-month-supplier-transition');
     Route::get('get-supplier-transition-by-date',[SupplierTransitionController::class, 'getSupplierTransitionsByDate']);
+    Route::get('get-today-supplier-transition',[SupplierTransitionController::class, 'getSupplierTransitionsToday']);
    
     Route::get('get-pos-search-result',[PosController::class, 'searchResult'])->name('get-pos-search-result');
     Route::get('get-stock-by-category',[StockController::class, 'stockByCat'])->name('get-stock-by-category');

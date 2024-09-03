@@ -1,3 +1,4 @@
+
 @foreach ($supplier_transitions as $key => $transition)
     <tr>
         <td>{{ date('d-M-y', strtotime($transition->created_at)) }}</td>
@@ -7,3 +8,4 @@
         <td class="text-success text-center">{{ $transition->due != 0 ? number_format($transition->due, 2): '-' }}</td>
     </tr>
 @endforeach
+ 

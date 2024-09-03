@@ -108,7 +108,16 @@
                     }
                 });
             } else {
-                 
+                $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-today-supplier-transition') }}",
+                    data: '',
+                    success: function(res) {
+                        // console.log(res); 
+                        $('.transition-supplier-body').empty();
+                        $('.transition-supplier-body').html(res);
+                    }
+                });
             }
         });
     </script>
