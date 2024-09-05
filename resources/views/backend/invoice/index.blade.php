@@ -11,10 +11,11 @@
                     <h3 class="float-start">#Invoices</h3>
                     <div class="form-check float-end">
 
-                        <input type="date" name="" class="date me-5" id=""> 
- 
-                        <label class="form-check-label text-primary">  
-                            <input type="checkbox" class="form-check-input" name="" id="fullMonth" value="checkedValue">
+                        <input type="date" name="" class="date me-5" id="">
+
+                        <label class="form-check-label text-primary">
+                            <input type="checkbox" class="form-check-input" name="" id="fullMonth"
+                                value="checkedValue">
                             Full Month ?
                         </label>
                     </div>
@@ -137,20 +138,22 @@
     </script>
 
 
-<script>
-    $('.date').on('change', function(){
-        var date = $(this).val();
-        $.ajax({
-                    type: "GET",
-                    url: "{{ url('admin/get-invoices-by-date') }}",
-                    data: {date:date},
-                    success: function(res) {
-                        $('.invoice-body-ajax').empty();
-                        $('.invoice-body-ajax').html(res);
-                    }
-                });
-    })
-</script>
+    <script>
+        $('.date').on('change', function() {
+            var date = $(this).val();
+            $.ajax({
+                type: "GET",
+                url: "{{ url('admin/get-invoices-by-date') }}",
+                data: {
+                    date: date
+                },
+                success: function(res) {
+                    $('.invoice-body-ajax').empty();
+                    $('.invoice-body-ajax').html(res);
+                }
+            });
+        })
+    </script>
 
 
     <script>

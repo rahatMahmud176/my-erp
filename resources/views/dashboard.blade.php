@@ -50,7 +50,7 @@
                     <h4 class="card-title">Today Sale:</h4>
                     <button class="btn btn-sm btn-secondary">
                         <i class="bi bi-coin"></i>
-                        {{ $todaySale }}   
+                        {{ number_format($todaySale) }}   
                     </button>
                 </div>
             </div>
@@ -62,7 +62,7 @@
                     <h4 class="card-title">Today Payment:</h4>
                     <button class="btn btn-sm btn-secondary">
                         <i class="bi bi-coin"></i>
-                        {{ $todayPayment }}    
+                        {{ number_format($todayPayment) }}    
                     </button>
                 </div>
             </div>

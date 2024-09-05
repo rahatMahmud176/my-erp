@@ -6,7 +6,7 @@
     <div class="row">
         <div class="card text-left">
             <div class="card-body">
- 
+
 
 
                 <div class="mt-3 clearfix">
@@ -39,70 +39,86 @@
                                         @foreach ($contents as $key => $content)
                                             <tr>
                                                 <td>{{ $content->item->name }}</td>
-                                                <input name="sale[{{ $key }}][id]" type="hidden" value="{{ $content->id }}">
+                                                <input name="sale[{{ $key }}][id]" type="hidden"
+                                                    value="{{ $content->id }}">
                                                 <td>
-                                                    {{ number_format($pPrice =  $content->purchase_price, 2) }} Tk.
-                                                    <input type="hidden" class="p-price{{ $key }}" value="{{ $pPrice }}">
+                                                    {{ number_format($pPrice = $content->purchase_price, 2) }} Tk.
+                                                    <input type="hidden" class="p-price{{ $key }}"
+                                                        value="{{ $pPrice }}">
                                                 </td>
                                                 <td>
-                                                    <input type="number" name="sale[{{ $key }}][sale_price]" class="form-control my-field sale-price"
-                                                        data-id="{{ $key }}"
-                                                        placeholder="0.00" min="1">
+                                                    <input type="number" name="sale[{{ $key }}][sale_price]"
+                                                        class="form-control my-field sale-price"
+                                                        data-id="{{ $key }}" placeholder="0.00" min="1">
                                                 </td>
                                                 <td><span class="profit{{ $key }}">0.00</span> Tk</td>
                                                 <td>
-                                                    <input name="sale[{{ $key }}][unit_qty]" type="number" class="form-control my-field"
-                                                        value="{{ old("sale.$key.unit_qty") ?? $content->unit_qty }}" min="1" max="{{ $content->unit_qty }}"
-                                                            >{{ $content->item->unit->name }}
+                                                    <input name="sale[{{ $key }}][unit_qty]" type="number"
+                                                        class="form-control my-field unit_qty{{ $key }}"
+                                                        value="{{ old("sale.$key.unit_qty") ?? $content->unit_qty }}"
+                                                        min="1"
+                                                        max="{{ $content->unit_qty }}">{{ $content->item->unit->name }}
                                                 </td>
                                                 <td>
-                                                    <input name="sale[{{ $key }}][sub_unit_qty]" type="number" class="form-control my-field"
-                                                        value="{{ old("sale.$key.sub_unit_qty") ?? $content->sub_unit_qty }}" max="{{ $content->sub_unit_qty }}" min="0">
+                                                    <input name="sale[{{ $key }}][sub_unit_qty]" type="number"
+                                                        class="form-control my-field"
+                                                        value="{{ old("sale.$key.sub_unit_qty") ?? $content->sub_unit_qty }}"
+                                                        max="{{ $content->sub_unit_qty }}" min="0">
                                                     <small>{{ $content->item->subUnit->name }}</small>
                                                 </td>
                                                 <td>
-                                                    <a href="{{ route('admin.remove-cart-item',['id'=>$content->id]) }}" class="btn btn-danger btn-sm">Remove </a> 
+                                                    <a href="{{ route('admin.remove-cart-item', ['id' => $content->id]) }}"
+                                                        class="btn btn-danger btn-sm">Remove </a>
                                                 </td>
                                             </tr>
+
+                                            <input type="hidden" class="subtotal{{ $key }}"
+                                                placeholder="sub total">
                                         @endforeach
 
-                                    </tbody> 
+                                    </tbody>
                                 </table>
                             </div>
 
                             @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
+                                <div class="alert alert-danger">
+                                    <ul>
+                                        @foreach ($errors->all() as $error)
+                                            <li>{{ $error }}</li>
+                                        @endforeach
+                                    </ul>
+                                </div>
+                            @endif
 
                             <div class="col-lg-6 mt-5">
                                 <table class="table table-bordered">
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" class="thead-color">Customer Info</th>
-                                            <th scope="col" class="thead-color">Inputs</th> 
+                                            <th scope="col" class="thead-color">Inputs</th>
                                         </tr>
                                     </thead>
-                                    <tbody> 
-                                            <tr>
-                                                <td>Customer Phone Number:</td>  
-                                                <td> <input name="phone_number" class="my-field phone_number" placeholder="015********" value="{{ old('phone_number') }}" type="text"> </td>
-                                                <input type="hidden" class="customer_id" name="customer_id" value="{{ old('customer_id') }}" id="">
-                                            </tr> 
-                                            <tr>
-                                                <td>Customer Name:</td>  
-                                                <td> <input name="name" class="my-field name" placeholder="Mr. xyz" value="{{ old('name') }}" type="text"> </td>
-                                            </tr> 
-                                            <tr>
-                                                <td>Customer Address:</td>  
-                                                <td> <textarea name="address" class="my-field address">{{ old('address') }}</textarea> </td>
-                                            </tr> 
-                                    </tbody> 
+                                    <tbody>
+                                        <tr>
+                                            <td>Customer Phone Number:</td>
+                                            <td> <input name="phone_number" class="my-field phone_number"
+                                                    placeholder="015********" value="{{ old('phone_number') }}"
+                                                    type="text"> </td>
+                                            <input type="hidden" class="customer_id" name="customer_id"
+                                                value="{{ old('customer_id') }}" id="">
+                                        </tr>
+                                        <tr>
+                                            <td>Customer Name:</td>
+                                            <td> <input name="name" class="my-field name" placeholder="Mr. xyz"
+                                                    value="{{ old('name') }}" type="text"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Customer Address:</td>
+                                            <td>
+                                                <textarea name="address" class="my-field address">{{ old('address') }}</textarea>
+                                            </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
 
@@ -111,34 +127,37 @@
                                     <thead class="thead-light">
                                         <tr>
                                             <th scope="col" class="thead-color">Payment Info</th>
-                                            <th scope="col" class="thead-color">Inputs</th> 
+                                            <th scope="col" class="thead-color">Inputs</th>
                                         </tr>
                                     </thead>
-                                    <tbody> 
-                                            <tr>
-                                                <td>Account Number:</td>  
-                                                <td> 
-                                                    <select class="my-field" name="account_id" id="">
-                                                        @foreach ($accounts as $account)
-                                                            <option {{ $account->id == old('account_id') ? 'selected':'' }} value="{{ $account->id }}">{{ $account->ac_title }}</option>
-                                                        @endforeach   
-                                                    </select>    
-                                                </td> 
-                                            </tr> 
-                                            <tr>
-                                                <td>Total Due:</td>  
-                                                <td> <input name="total" class="my-field due-field" type="number" value="{{ old('total') }}"> </td>
-                                            </tr> 
-                                            <tr>
-                                                <td>Payment:</td>  
-                                                <td> <input name="deposit" class="my-field due-field" type="number" value="{{ old('deposit') }}"> </td>
-                                            </tr> 
-                                    </tbody> 
+                                    <tbody>
+                                        <tr>
+                                            <td>Account Number:</td>
+                                            <td>
+                                                <select class="my-field" name="account_id" id="">
+                                                    @foreach ($accounts as $account)
+                                                        <option {{ $account->id == old('account_id') ? 'selected' : '' }}
+                                                            value="{{ $account->id }}">{{ $account->ac_title }}</option>
+                                                    @endforeach
+                                                </select>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Total Due:</td>
+                                            <td> <input name="total" class="my-field due-field grandTotal" type="number"
+                                                    value="{{ old('total') }}"> </td>
+                                        </tr>
+                                        <tr>
+                                            <td>Payment:</td>
+                                            <td> <input name="deposit" class="my-field due-field" type="number"
+                                                    value="{{ old('deposit') }}"> </td>
+                                        </tr>
+                                    </tbody>
                                 </table>
                             </div>
 
 
-                            <div class="mt-3 clearfix"> 
+                            <div class="mt-3 clearfix">
                                 <button class="btn btn-success  float-end"> Submit</button>
                             </div>
 
@@ -149,7 +168,7 @@
                     </div>
                 </div>
 
-                
+
 
             </div>
         @endsection
@@ -157,32 +176,50 @@
 
 
         @push('script')
+            <script>
+                $('.sale-price').on('keyup', function() {
+                    let id = $(this).attr('data-id');
+                    let price = $(this).val();
+                    let pPrice = $('.p-price' + id).val();
+                    let profit = price - pPrice;
+                    $('.profit' + id).empty();
+                    $('.profit' + id).append(profit);
+                })
+            </script>
 
+            <script>
+                $('.sale-price').on('keyup', function() {
+                    let grandTotal = 0;
+                    let id = $(this).attr('data-id');
+                    let price = $(this).val();
+                    let qty = $('.unit_qty' + id).val();
+                    let subTotal = price * qty;
+                    $('.subtotal' + id).val(subTotal);
 
-        <script>
-            $('.sale-price').on('keyup', function(){
-                let id = $(this).attr('data-id');
-                let price = $(this).val();
-                let pPrice = $('.p-price'+id).val(); 
-                let profit = price - pPrice;
-                $('.profit'+id).empty();
-                $('.profit'+id).append(profit);
-            })
-        </script>
+                    $('input[class^="subtotal"]').each(function() {
+                        let currentSubtotal = parseFloat($(this).val()) || 0;
+                        grandTotal += currentSubtotal;
+                    });
+
+                    $('.grandTotal').val(grandTotal); 
+                })
+            </script>
 
 
             <script>
-                $('.phone_number').on('blur', function(){
+                $('.phone_number').on('blur', function() {
                     let number = $(this).val();
                     $.ajax({
                         type: "GET",
-                        url : "{{ url('admin/find-customer') }}",
-                        data: {number:number},
-                        success: function(res){
+                        url: "{{ url('admin/find-customer') }}",
+                        data: {
+                            number: number
+                        },
+                        success: function(res) {
 
-                            if (res.phone_number) { 
+                            if (res.phone_number) {
                                 $('.phone_number').val(res.phone_number);
-                            } 
+                            }
                             $('.name').val(res.name);
                             $('.address').val(res.address);
                             $('.customer_id').val(res.id);
@@ -190,7 +227,7 @@
                         }
                     })
                 })
-            </script>  
+            </script>
 
             <script>
                 function colorDelete(id) {
@@ -212,11 +249,11 @@
         @endpush
 
 
-@push('style')
-    <style>
-        .thead-color{
-            background: #6c757d !important;
-            color: white !important;
-        }
-    </style>
-@endpush
+        @push('style')
+            <style>
+                .thead-color {
+                    background: #6c757d !important;
+                    color: white !important;
+                }
+            </style>
+        @endpush
