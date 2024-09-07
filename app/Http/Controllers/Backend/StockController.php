@@ -15,7 +15,7 @@ use App\Contracts\SupplierInterface;
 use App\Contracts\SupplierTransitionInterface;
 use App\Contracts\TransitionInterface;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\Account;
+use App\Models\Backend\Account; 
 use App\Models\Backend\Item; 
 use App\Models\Backend\Stock; 
 use Illuminate\Http\Request;
@@ -64,9 +64,9 @@ class StockController extends Controller
     } 
 
     public function index()
-    {   
-        $items = $this->items->allStock();
-        $categories =  $this->categories->all();
+    {    
+        $items = $this->items->allStock();  
+        $categories =  $this->categories->all(); 
         return view('backend.stock.index', compact('items','categories'));
     }
 
@@ -287,11 +287,13 @@ public function stockByCat()
 
     $items = Item::select('id','name','unit_id','sub_unit_id')
                       ->with([
-                        'stocks:item_id,unit_qty,branch_id',
+                        'stocks' => function($query) {
+                            $query->where('branch_id', auth()->user()->branch_id)
+                                ->select('id', 'item_id', 'unit_qty', 'branch_id');
+                        },
                         'unit:id,name',
                         'subUnit:id,name', 
-                      ])
-                      ->where('branch_id',auth()->user()->branch_id) 
+                      ]) 
                       ->whereHas('categories', function($q) use ($id){
                             $q->where('category_id',$id);
                       }) 

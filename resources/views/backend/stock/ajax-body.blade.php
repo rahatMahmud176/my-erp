@@ -1,16 +1,18 @@
 @php
     $totalUnitQty = 0;
-    $unitName = "";
+    $unitName = '';
+    $i = 1;
 @endphp
 @foreach ($items as $key => $item)
     @if ($item->stocks->sum('unit_qty') != 0)
         <tr>
-            <th scope="row">{{ $key + 1 }}</th>
-            <td>{{ $item->name }}</td>
+            <th scope="row">{{ $i++ }}</th>
+            <td>{{ $item->name}} <small class="text-black-50">{{ '(ID:'.$item->id.')' }}</small></td>
 
             <td>
                 {{ $item->stocks->sum('unit_qty') }}
-                <input type="hidden" name="" value="{{ $totalUnitQty = $totalUnitQty+ $item->stocks->sum('unit_qty') }}">
+                <input type="hidden" name=""
+                    value="{{ $totalUnitQty = $totalUnitQty + $item->stocks->sum('unit_qty') }}">
                 @if ($item->unit_id != 1)
                     {{ $unitName = $item->unit->name }}
                 @endif
@@ -26,12 +28,13 @@
                     view
                 </a>
             </td>
-        </tr> 
-    @endif 
+        </tr>
+    @endif
 @endforeach
 <tr>
     <td></td>
     <th> Total =</th>
-    <td> {{ $totalUnitQty.' '.$unitName }} </td>
+    <td> {{ $totalUnitQty . ' ' . $unitName }} </td>
     <td></td>
 </tr>
+ 

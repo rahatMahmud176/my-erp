@@ -15,35 +15,7 @@
                 </div>
 
                 <div class="row">
-                    {{-- <div class="col-md-3">
-
-
-
-                        @if ($errors->any())
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $error)
-                                        <li>{{ $error }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        @endif
-
-
-                        <form action="{{ route('admin.items.store') }}" method="post">
-                            @csrf
-                            <div class="form-group">
-                                <label for=""></label>
-                                <input type="text" name="name" id="" class="form-control" placeholder=""
-                                    aria-describedby="helpId">
-                            </div>
-
-                            <div class="form-group">
-                                <button class="btn btn-secondary container-fluid mt-3">Submit </button>
-                            </div>
-
-                        </form>
-                    </div> --}}
+                    
 
                     <div class="col-md-12">
                         <table class="table table-bordered">
@@ -78,7 +50,7 @@
                                                 Edit
                                             </a>
                                             
-                                                <a href="#" onclick="itemDelete({{ $item->id }})"
+                                                {{-- <a href="#" onclick="itemDelete({{ $item->id }})"
                                                     class="btn btn-sm btn-danger">
                                                     <i class="bi bi-trash3-fill"></i>
                                                     Delete</a>
@@ -87,7 +59,7 @@
                                                     action="{{ route('admin.items.destroy', $item) }}" method="post">
                                                     @method('DELETE')
                                                     @csrf
-                                                </form>
+                                                </form> --}}
                                              
 
                                         </td>

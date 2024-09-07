@@ -1,6 +1,6 @@
 @foreach ($stocks as $stock)
 <tr>
-     <td>{{ $stock->item->name }}</td>
+     <td>{{ $stock->item->name.'('.$stock->item->id.')' }}</td>
      <td>{{ $stock->color->name.','. $stock->size->name.','. $stock->country->name }}</td>
      <td>{{ $stock->unit_qty.' '.$stock->item->unit->name }} 
         @if ($settings->sub_unit)

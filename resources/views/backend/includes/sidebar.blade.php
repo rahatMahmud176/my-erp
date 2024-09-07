@@ -24,16 +24,18 @@
                 </a>
             </li> 
 
-            <li class="nav-item">
-                <a class="nav-link {{ Request::is('admin/suppliers*') ? 'active' : '' }}" href="{{ route('admin.suppliers.index') }}">
-                    <i class="bi bi-people-fill"></i>
-                    <span>Supplier Manage</span>
-                </a>
-            </li>  
+            
         @endrole
         {{-- //super Admin  --}}
 
         @role('admin' && 'super-admin')
+
+        <li class="nav-item">
+            <a class="nav-link {{ Request::is('admin/suppliers*') ? 'active' : '' }}" href="{{ route('admin.suppliers.index') }}">
+                <i class="bi bi-people-fill"></i>
+                <span>Supplier Manage</span>
+            </a>
+        </li>  
 
         <li class="nav-item">
             <a class="nav-link {{ Request::is('admin/pos*') ? 'active' : '' }}" href="{{ route('admin.pos.index') }}">

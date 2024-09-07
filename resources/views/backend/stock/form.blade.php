@@ -118,7 +118,7 @@
                                         <select class="form-control select2 my-field" name="stock[1][item]" id="item">
                                             <option value="">--Select--</option>
                                             @foreach ($items as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }}</option>
+                                                <option value="{{ $item->id }}">{{ $item->name }} <small class="text-black-50">{{ '(ID:'.$item->id.')' }}</small></option>
                                             @endforeach
                                         </select>
                                     </div>
