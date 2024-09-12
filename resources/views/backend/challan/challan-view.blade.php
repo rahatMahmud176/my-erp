@@ -37,21 +37,40 @@
                         </thead>
                         <tbody>
                             
-                        @foreach ($challan->stocks as $stock)
-                           <tr>
-                            <td>{{ $loop->index +1 }}</td>
-                            <td>{{ $stock->item->name }} <br>
-                                <small> <i class="bi bi-arrow-right"></i> {{ $stock->color->name }} </small> <br>
-                                <small> <i class="bi bi-arrow-right"></i> {{ $stock->size->name }} </small> <br>
-                                <small> <i class="bi bi-arrow-right"></i> {{ $stock->country->name }} </small> <br> 
-                                <small> <i class="bi bi-arrow-right"></i> {{ $stock->serial }} </small> <br> 
-                            </td>
-                            <td>{{ $stock->unit_qty.' '.$stock->item->unit->name.' |'.$stock->sub_unit_qty.' '.$stock->item->subUnit->name }}
-                            </td>
-                            <td>{{ number_format($stock->purchase_price) }}</td>
-                            <td>{{ $stock->unit_qty * $stock->purchase_price }}</td>
-                           </tr>
-                        @endforeach 
+                            @forelse ($challan->details as $stock)
+                                <tr>
+                                    <td>{{ $loop->index +1 }}</td>
+                                    <td>{{ $stock->item->name }} <br>
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->color->name }} </small> <br>
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->size->name }} </small> <br>
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->country->name }} </small> <br> 
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->serial }} </small> <br> 
+                                    </td>
+                                    <td>{{ $stock->unit_qty.' '.$stock->item->unit->name.' |'.$stock->sub_unit_qty.' '.$stock->item->subUnit->name }}
+                                    </td>
+                                    <td>{{ number_format($stock->purchase_price) }}</td>
+                                    <td>{{ $stock->unit_qty * $stock->purchase_price }}</td>
+                                    </tr>
+                            @empty
+                                    @foreach ($challan->stocks as $stock)
+                                    <tr>
+                                    <td>{{ $loop->index +1 }}</td>
+                                    <td>{{ $stock->item->name }} <br>
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->color->name }} </small> <br>
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->size->name }} </small> <br>
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->country->name }} </small> <br> 
+                                        <small> <i class="bi bi-arrow-right"></i> {{ $stock->serial }} </small> <br> 
+                                    </td>
+                                    <td>{{ $stock->unit_qty.' '.$stock->item->unit->name.' |'.$stock->sub_unit_qty.' '.$stock->item->subUnit->name }}
+                                    </td>
+                                    <td>{{ number_format($stock->purchase_price) }}</td>
+                                    <td>{{ $stock->unit_qty * $stock->purchase_price }}</td>
+                                    </tr>
+                                @endforeach 
+                            @endforelse
+
+
+                      
                             
                         </tbody>
                     </table> 

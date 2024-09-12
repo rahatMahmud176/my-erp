@@ -67,7 +67,7 @@ class Stock extends Model
 
         Stock::create([
             'supplier_id'        =>$supplier_id,
-            'supplier_id'        =>1,
+            // 'supplier_id'        =>1,
             'item_id'            =>$request['item'],
             'color_id'           =>$request['color_id'] ?? 1,
             'size_id'            =>$request['size_id'] ?? 1,
@@ -144,6 +144,10 @@ public static function decrees($sale)
 public function item()
 {
     return $this->belongsTo(Item::class);
+}
+public function invoice_details()
+{
+    return $this->hasMany(InvoiceDetails::class);
 }
 
 public function size()

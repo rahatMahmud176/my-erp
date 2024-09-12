@@ -169,6 +169,11 @@
                         <i class="bi bi-circle"></i><span>Product History</span>
                     </a>
                 </li>
+                <li>
+                    <a href="{{ route('admin.salePurchase.index') }}">
+                        <i class="bi bi-circle"></i><span>Sale Purchase History</span>
+                    </a>
+                </li>
 
             </ul>
         </li><!-- End Components Nav -->

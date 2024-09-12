@@ -51,10 +51,9 @@
                         <div class="row">
                             <div class="form-group col-md-3 my-3">
                                 <div class="form-group">
-                                    <label for="">Supplier 
-                                        <button type="button" 
-                                                class="btn btn-sm my-btn  btn-secondary"
-                                                data-bs-toggle="modal" data-bs-target="#supplierModal">+</button></label>
+                                    <label for="">Supplier
+                                        <button type="button" class="btn btn-sm my-btn  btn-secondary"
+                                            data-bs-toggle="modal" data-bs-target="#supplierModal">+</button></label>
                                     <select class="form-control select2 my-field" name="supplier_id" id="">
                                         @foreach ($suppliers as $item)
                                             <option value="{{ $item->id }}">{{ $item->name }}</option>
@@ -80,30 +79,29 @@
                             <tr>
                                 <th>item</th>
                                 @if ($setting->color)
-                                    <th>color 
-                                        <button type="button" 
-                                        class="btn btn-sm my-btn btn-secondary"
-                                        data-bs-toggle="modal" data-bs-target="#colorModal">+</button></th>
+                                    <th>color
+                                        <button type="button" class="btn btn-sm my-btn btn-secondary"
+                                            data-bs-toggle="modal" data-bs-target="#colorModal">+</button>
+                                    </th>
                                 @endif
                                 @if ($setting->size)
                                     <th>size <button type="button" class="btn btn-sm my-btn btn-secondary"
-                                        data-bs-toggle="modal"
-                                        data-bs-target="#sizeModal">+</button></th>
+                                            data-bs-toggle="modal" data-bs-target="#sizeModal">+</button></th>
                                 @endif
                                 @if ($setting->country)
-                                    <th>country <button type="button" 
-                                                        class="btn btn-sm my-btn btn-secondary"
-                                                        data-bs-toggle="modal"
-                                                        data-bs-target="#countryModal">+</button></th>
+                                    <th>country <button type="button" class="btn btn-sm my-btn btn-secondary"
+                                            data-bs-toggle="modal" data-bs-target="#countryModal">+</button></th>
                                 @endif
 
                                 @if ($setting->qty_manage_by_serial == false)
-                                    <th>Qty (unit) <button type="button" class="btn btn-sm my-btn  btn-secondary">+</button></th>
+                                    <th>Qty (unit) <button type="button"
+                                            class="btn btn-sm my-btn  btn-secondary">+</button></th>
                                 @endif
 
 
                                 @if ($setting->sub_unit)
-                                    <th>Qty (sub-unit) <button type="button" class="btn btn-sm my-btn  btn-secondary">+</button></th>
+                                    <th>Qty (sub-unit) <button type="button"
+                                            class="btn btn-sm my-btn  btn-secondary">+</button></th>
                                 @endif
                                 <th>Purchase p.</th>
                                 @if ($setting->serial_number)
@@ -118,7 +116,8 @@
                                         <select class="form-control select2 my-field" name="stock[1][item]" id="item">
                                             <option value="">--Select--</option>
                                             @foreach ($items as $item)
-                                                <option value="{{ $item->id }}">{{ $item->name }} <small class="text-black-50">{{ '(ID:'.$item->id.')' }}</small></option>
+                                                <option value="{{ $item->id }}">{{ $item->name }} <small
+                                                        class="text-black-50">{{ '(ID:' . $item->id . ')' }}</small></option>
                                             @endforeach
                                         </select>
                                     </div>
@@ -127,7 +126,8 @@
                                 @if ($setting->color)
                                     <td>
                                         <div class="form-group">
-                                            <select class="form-control select2 my-field" name="stock[1][color_id]" id="">
+                                            <select class="form-control select2 my-field" name="stock[1][color_id]"
+                                                id="">
                                                 @foreach ($colors as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -139,7 +139,8 @@
                                 @if ($setting->size)
                                     <td>
                                         <div class="form-group">
-                                            <select class="form-control select2 my-field" name="stock[1][size_id]" id="">
+                                            <select class="form-control select2 my-field" name="stock[1][size_id]"
+                                                id="">
                                                 @foreach ($sizes as $item)
                                                     <option value="{{ $item->id }}">{{ $item->name }}</option>
                                                 @endforeach
@@ -169,35 +170,24 @@
 
                                 @if ($setting->sub_unit)
                                     <td>
-                                        <input style="width: 100px" 
-                                               name="stock[1][sub_unit_qty]" 
-                                               value="{{ old("stock.1.sub_unit_qty") }}"
-                                               id="sub_unit_qty"
-                                               type="number" 
-                                               class="my-field">
+                                        <input style="width: 100px" name="stock[1][sub_unit_qty]"
+                                            value="{{ old('stock.1.sub_unit_qty') }}" id="sub_unit_qty" type="number"
+                                            class="my-field">
 
                                     </td>
                                 @endif
 
                                 <td>
-                                    <input style="width: 100px" 
-                                            id="purchase" 
-                                            name="stock[1][purchase]" type="number"
-                                            value="{{ old("stock.1.purchase") }}"
-                                            class="my-field">
+                                    <input style="width: 100px" id="purchase" name="stock[1][purchase]" type="number"
+                                        value="{{ old('stock.1.purchase') }}" class="my-field">
                                 </td>
                                 @if ($setting->serial_number)
                                     <td>
                                         @if ($setting->qty_manage_by_serial)
-                                            <textarea name="stock[1][serial]"
-                                                      value="{{ old("stock.1.serial") }}"
-                                                      id="" 
-                                                      class="form-control my-field"></textarea>
+                                            <textarea name="stock[1][serial]" value="{{ old('stock.1.serial') }}" id="" class="form-control my-field"></textarea>
                                         @else
-                                            <input type="text" 
-                                                   name="stock[1][serial]" 
-                                                   value="{{ old("stock.1.serial") }}"
-                                                   class="my-field">
+                                            <input type="text" name="stock[1][serial]"
+                                                value="{{ old('stock.1.serial') }}" class="my-field">
                                         @endif
                                     </td>
                                 @endif
@@ -214,10 +204,12 @@
                         <div class="row">
                             <div class="form-group col-md-3 my-3">
                                 <div class="form-group">
-                                    <label for="">Payment Type <button type="button" class="btn btn-sm my-btn  btn-secondary">+</button></label>
+                                    <label for="">Payment Type <button type="button"
+                                            class="btn btn-sm my-btn  btn-secondary">+</button></label>
                                     <select class="form-control select2 my-field" name="account_id" id="accounts">
                                         @foreach ($accounts as $item)
-                                            <option {{ old('account_id') == $item->id ? 'selected':'' }} value="{{ $item->id }}">{{ $item->ac_title }}</option>
+                                            <option {{ old('account_id') == $item->id ? 'selected' : '' }}
+                                                value="{{ $item->id }}">{{ $item->ac_title }}</option>
                                         @endforeach
                                     </select>
                                 </div>
@@ -229,29 +221,19 @@
                                 <table class="table table-bordered">
                                     <tr>
                                         <th>Total =</th>
-                                        <td> <input name="total" 
-                                                    value="{{ old('total') }}"
-                                                    class="form-control my-field" 
-                                                    type="number"
-                                                    id="total"></td>
+                                        <td> <input name="total" value="{{ old('total') }}"
+                                                class="form-control my-field" type="number" id="total"></td>
                                     </tr>
                                     <tr>
                                         <th>Pay =</th>
-                                        <td><input name="pay"
-                                                   value="{{ old('pay') }}"
-                                                   type="number" 
-                                                   id="pay"
-                                                   class="form-control my-field"></td>
+                                        <td><input name="pay" value="{{ old('pay') }}" type="number"
+                                                id="pay" class="form-control my-field"></td>
                                     </tr>
                                     <tr>
                                         <th>Due =</th>
 
-                                        <td><input name="due" 
-                                                   value="{{ old('due') }}"
-                                                   type="number" 
-                                                   id="due" 
-                                                   readonly
-                                                class="form-control my-field"></td>
+                                        <td><input name="due" value="{{ old('due') }}" type="number"
+                                                id="due" readonly class="form-control my-field"></td>
                                     </tr>
                                 </table>
                             </div>
@@ -266,10 +248,10 @@
                                     Submit
                                 @endisset
                             </button>
-                        </div> 
-                    </form> 
+                        </div>
+                    </form>
 
-                </div>  
+                </div>
             </div>
         </div>
     </div>
@@ -293,130 +275,125 @@
 
 
 @push('modal')
-
-
- 
-<form action="{{ route('admin.country_variants.store') }}" method="post">
-    @csrf  
-  <div class="modal fade" id="countryModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Country Register Form</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-              <label for="">Country Name</label>
-              <input type="text" name="name" id="" class="form-control" placeholder="" aria-describedby="helpId">
-             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save </button>
-        </div>
-      </div>
-    </div>
-  </div> 
-</form>
-
- 
-<form action="{{ route('admin.sizes.store') }}" method="post">
-    @csrf  
-  <div class="modal fade" id="sizeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Size Register Form</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-              <label for="">Size Name</label>
-              <input type="text" name="name" id="" class="form-control" placeholder="" aria-describedby="helpId">
-             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save </button>
-        </div>
-      </div>
-    </div>
-  </div> 
-</form>
- 
-<form action="{{ route('admin.colors.store') }}" method="post">
-    @csrf  
-  <div class="modal fade" id="colorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h1 class="modal-title fs-5" id="exampleModalLabel">Color Register Form</h1>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-            <div class="form-group">
-              <label for="">Color Name</label>
-              <input type="text" name="name" id="" class="form-control" placeholder="" aria-describedby="helpId">
-             </div>
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" class="btn btn-primary">Save </button>
-        </div>
-      </div>
-    </div>
-  </div> 
-</form>
-
-
-
-
-
-
-
-
-
-<form action="{{ route('admin.suppliers.store') }}" method="post">
-    @csrf 
-    <div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="supplierModalLabel" aria-hidden="true">
-        <div class="modal-dialog">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h1 class="modal-title fs-5" id="supplierModalLabel">Supplier Register Form</h1>
-              <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-            </div>
-            <div class="modal-body row"> 
-                
-                <div class="form-group">
-                  <label for="">Supplier Name</label>
-                  <input type="text" 
-                         name="name" 
-                         id="" required
-                         class="form-control" 
-                         placeholder="" 
-                         aria-describedby="helpId">
+    <form action="{{ route('admin.country_variants.store') }}" method="post">
+        @csrf
+        <div class="modal fade" id="countryModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Country Register Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Country Name</label>
+                            <input type="text" name="name" id="" class="form-control" placeholder=""
+                                aria-describedby="helpId">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save </button>
+                    </div>
                 </div>
-                <div class="form-group mb-3">
-                  <label for="">Supplier Phone Number </label>
-                  <input type="text" name="phone_number" id="" class="form-control" placeholder="" aria-describedby="helpId">
-                </div>
-
-            <div class="modal-footer">
-              <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-              <button type="submit" class="btn btn-primary"> Save </button>
             </div>
-          </div>
         </div>
-      </div> 
-</form>  
- 
+    </form>
 
-     
- 
+
+    <form action="{{ route('admin.sizes.store') }}" method="post">
+        @csrf
+        <div class="modal fade" id="sizeModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Size Register Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Size Name</label>
+                            <input type="text" name="name" id="" class="form-control" placeholder=""
+                                aria-describedby="helpId">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+    <form action="{{ route('admin.colors.store') }}" method="post">
+        @csrf
+        <div class="modal fade" id="colorModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="exampleModalLabel">Color Register Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="">Color Name</label>
+                            <input type="text" name="name" id="" class="form-control" placeholder=""
+                                aria-describedby="helpId">
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Save </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </form>
+
+
+
+
+
+
+
+
+
+    <form action="{{ route('admin.suppliers.store') }}" method="post">
+        @csrf
+        <div class="modal fade" id="supplierModal" tabindex="-1" aria-labelledby="supplierModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h1 class="modal-title fs-5" id="supplierModalLabel">Supplier Register Form</h1>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body row">
+
+                        <div class="form-group">
+                            <label for="">Supplier Name</label>
+                            <input type="text" name="name" id="" required class="form-control"
+                                placeholder="" aria-describedby="helpId">
+                        </div>
+                        <div class="form-group mb-3">
+                            <label for="">Supplier Phone Number </label>
+                            <input type="text" name="phone_number" id="" class="form-control"
+                                placeholder="" aria-describedby="helpId">
+                        </div>
+
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            <button type="submit" class="btn btn-primary"> Save </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+    </form>
 @endpush
 
- 
+
 
 
 
@@ -481,14 +458,14 @@
 
     <script>
         var i = 2;
-        $('.add-row').on('click', function() { 
+        $('.add-row').on('click', function() {
             $.ajax({
                 type: "GET",
                 data: {
                     i: i
                 },
                 url: "{{ url('admin/add-stock-row') }}",
-                success: function(res) { 
+                success: function(res) {
                     $('.stock-table').append(res);
                     i++;
                 }

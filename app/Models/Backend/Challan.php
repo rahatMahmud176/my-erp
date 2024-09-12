@@ -78,6 +78,15 @@ public function stocks()
 {
     return $this->hasMany(Stock::class);
 }
+
+
+public function details()
+{
+    return $this->hasMany(ChallanDetails::class);
+}
+
+
+
 public function transitions()
 {
     return $this->hasMany(Transition::class);

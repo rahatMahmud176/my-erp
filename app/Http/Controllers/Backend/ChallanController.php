@@ -6,6 +6,7 @@ use App\Contracts\AccountInterface;
 use App\Contracts\ChallanInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Challan;
+use App\Models\Backend\Supplier;
 use Illuminate\Http\Request;
 
 class ChallanController extends Controller
@@ -26,7 +27,9 @@ class ChallanController extends Controller
      
         $accounts = $this->accounts->branchAccounts()->skip(1); 
         $challans = $this->challans->branchChallan();
-       return view('backend.challan.index', compact('challans','accounts'));
+        $suppliers = Supplier::all();
+
+       return view('backend.challan.index', compact('challans','accounts','suppliers'));
     }
 
     /**
@@ -50,6 +53,8 @@ class ChallanController extends Controller
      */
     public function show(Challan $challan)
     {
+        // return $challan->details;
+
         return view('backend.challan.challan-view', compact('challan'));
     }
 
@@ -107,6 +112,22 @@ class ChallanController extends Controller
     {
         $accounts = $this->accounts->branchAccounts()->skip(1); 
         $challans = $this->challans->branchChallan();
+        return response()->view('backend.challan.challan-body-ajax', compact('challans','accounts'));
+    }
+
+
+    public function getDueChallans()
+    { 
+
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        $challans = Challan::where('due','>','pay')->get();
+        return response()->view('backend.challan.challan-body-ajax', compact('challans','accounts'));
+    }
+    public function getChallansBySupplier()
+    { 
+        $id = $_GET['id'];  
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        $challans = Challan::where('supplier_id',$id)->get();
         return response()->view('backend.challan.challan-body-ajax', compact('challans','accounts'));
     }
 

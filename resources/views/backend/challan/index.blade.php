@@ -7,17 +7,42 @@
         <div class="card text-left">
             <div class="card-body">
 
-                <div class="mt-3 clearfix">
-                    <h3 class="float-start">#Challans</h3> 
-                  <div class="form-check float-end">
+               
 
-                    <input type="date" name="" class="date me-5" id=""> 
+                <div class="mt-3 clearfix row">
+                    <h3 class="float-star col-md-3">#Challans</h3>   
 
+                    <div class="form-group col-md-3"> 
+                        <select class="form-control select2" name="" id="supplier">
+                          <option>Select supplier</option>
+                          @foreach ($suppliers as $supplier)
+                             <option value="{{ $supplier->id }}">{{ $supplier->name }}</option>
+                          @endforeach
+                               
+                        </select>
+                      </div>
+
+
+
+                  <div class="form-check float-end col-md-6 content-end">  
+                    <input type="date" name="" class="date me-5" id="">  
                     <label class="form-check-label">
                       <input type="checkbox" class="form-check-input" name="" id="fullMonth" value="checkedValue">
                       Full Month?
                     </label>
+
+                    
+                        <label class="form-check-label ms-5">
+                          <input type="checkbox" class="form-check-input" name="" id="onlyDeu" value="">
+                          Only Due?
+                        </label>
+                     
+
                   </div>  
+                  
+
+
+
                 </div>
 
                 <div class="row"> 
@@ -176,6 +201,52 @@
             }
     });
 </script>
+
+<script>
+    $('#onlyDeu').on('click', function(){
+        if (this.checked) {
+            $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-only-due-challans') }}",
+                    data: '',
+                    success: function(res) { 
+                        $('.challan-body-ajax').empty();
+                        $('.challan-body-ajax').html(res);
+                    }
+                });
+        } else { 
+            $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-today-challans') }}",
+                    data: '',
+                    success: function(res) {
+                        // console.log(res); 
+                        $('.challan-body-ajax').empty();
+                        $('.challan-body-ajax').html(res);
+                    }
+                });
+        }
+    })
+</script>
+<script>
+    $('#supplier').on('change', function(){
+        let id = $(this).val(); 
+        $.ajax({
+                    type: "GET",
+                    url: "{{ url('admin/get-challans-by-supplier') }}",
+                    data:{id:id},
+                    success: function(res) { 
+                        console.log(res);
+                        
+                        $('.challan-body-ajax').empty();
+                        $('.challan-body-ajax').html(res);
+                    }
+                });
+    })
+</script>
+
+
+
 
 
 @endpush

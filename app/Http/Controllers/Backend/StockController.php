@@ -15,7 +15,8 @@ use App\Contracts\SupplierInterface;
 use App\Contracts\SupplierTransitionInterface;
 use App\Contracts\TransitionInterface;
 use App\Http\Controllers\Controller;
-use App\Models\Backend\Account; 
+use App\Models\Backend\Account;
+use App\Models\Backend\ChallanDetails;
 use App\Models\Backend\Item; 
 use App\Models\Backend\Stock; 
 use Illuminate\Http\Request;
@@ -161,23 +162,25 @@ class StockController extends Controller
         }
   
 
-        $challanId = $this->challan->newChallan($request);   
-        $this->newStock($challanId,$request);  
-        $this->transitions->pay($request,$challanId); 
-        $this->supplierTransitions->newSupplierTransition($request,$challanId);
+        // $challanId = $this->challan->newChallan($request); 
+        // $this->newChallanDetails($request,$challanId);  
+        // $this->newStock($challanId,$request);  
+        // $this->transitions->pay($request,$challanId); 
+        // $this->supplierTransitions->newSupplierTransition($request,$challanId);
 
-        DB::commit(); 
-        notify('Save successfully','Success');
-        return redirect()->back();
+        // DB::commit(); 
+        // notify('Save successfully','Success');
+        // return redirect()->back();
 
 
         DB::beginTransaction();
 
         try {
-                $challanId = $this->challan->newChallan($request);   
-                $this->newStock($challanId,$request);  
-                $this->transitions->pay($request,$challanId); 
-                $this->supplierTransitions->newSupplierTransition($request,$challanId);
+            $challanId = $this->challan->newChallan($request); 
+            $this->newChallanDetails($request,$challanId);  
+            $this->newStock($challanId,$request);  
+            $this->transitions->pay($request,$challanId); 
+            $this->supplierTransitions->newSupplierTransition($request,$challanId);
 
                 DB::commit(); 
                 notify('Save successfully','Success');
@@ -188,6 +191,22 @@ class StockController extends Controller
             return redirect()->back(); 
         } 
         
+}
+
+
+public function newChallanDetails($request,$challanId)
+{
+
+    foreach ($request->stock as $myStock) {   
+        if ($this->setting->getSetting()->qty_manage_by_serial==true) {
+            $serials = explode(',', $myStock['serial']); 
+            foreach ($serials as $key => $serial) {
+                ChallanDetails::newWithSerial($myStock,$challanId,$serial,$request->supplier_id);
+            } 
+        } else {
+            ChallanDetails::new($myStock,$challanId,$request->supplier_id);
+        }  
+     } //foreach 
 }
 
 

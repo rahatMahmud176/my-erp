@@ -63,6 +63,11 @@ public static function updateItem($request, $item = null)
     {
         return $this->hasMany(Stock::class);
     }
+    public function challan_details()
+    {
+        return $this->hasMany(ChallanDetails::class);
+    }
+
 
     public function categories()
     {
