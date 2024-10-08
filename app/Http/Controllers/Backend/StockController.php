@@ -236,7 +236,7 @@ public function newChallanDetails($request,$challanId)
     }
     public function stockDetails($itemId)
     {
-        $stocks = Stock::where('item_id',$itemId)->get();
+        $stocks = Stock::where([['item_id','=',$itemId],['branch_id','=',auth()->user()->branch_id]])->get();
         return view('backend.stock.details', compact('stocks'));
     }
 

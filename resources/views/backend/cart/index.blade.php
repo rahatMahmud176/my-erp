@@ -143,7 +143,7 @@
                                             </td>
                                         </tr>
                                         <tr>
-                                            <td>Total Due:</td>
+                                            <td>Total:</td>
                                             <td> <input name="total" class="my-field due-field grandTotal" type="number"
                                                     value="{{ old('total') }}"> </td>
                                         </tr>

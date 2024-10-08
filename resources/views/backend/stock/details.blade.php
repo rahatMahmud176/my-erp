@@ -47,12 +47,14 @@
 @endphp
 
 @foreach ($groupedStocks as $key => $group)
-    <tr>
-        <td scope="col">{{ $i++ }}</td>
-        <td scope="col">{{ $group['name'] }}</td>
-        <td scope="col">{{ $group['unit_qty'] . ' ' . $group['unit_name'] }}</td>
-        <td scope="col">{{ $group['sub_unit_qty'] . ' ' . $group['sub_unit_name'] }}</td>
-    </tr>
+    @if ($group['unit_qty']!=0) 
+        <tr>
+            <td scope="col">{{ $i++ }}</td>
+            <td scope="col">{{ $group['name'] }}</td>
+            <td scope="col">{{ $group['unit_qty'] . ' ' . $group['unit_name'] }}</td>
+            <td scope="col">{{ $group['sub_unit_qty'] . ' ' . $group['sub_unit_name'] }}</td>
+        </tr>
+    @endif
 @endforeach
 
 

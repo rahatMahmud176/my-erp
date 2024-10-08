@@ -55,8 +55,8 @@
                                     <th scope="col">Challan No.</th>
                                     <th class="text-center" scope="col">Supplier</th>
                                     <th class="text-center" scope="col">Total</th>
-                                    <th class="text-center" scope="col">Pay</th>
-                                    <th class="text-center" scope="col">Due</th>
+                                    {{-- <th class="text-center" scope="col">Pay</th>
+                                    <th class="text-center" scope="col">Due</th> --}}
                                     <th class="text-center" scope="col">Action</th>
                                 </tr>
                             </thead>

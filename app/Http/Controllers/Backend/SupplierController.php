@@ -2,26 +2,34 @@
 
 namespace App\Http\Controllers\Backend;
 
+use App\Contracts\AccountInterface;
 use App\Contracts\SupplierInterface;
 use App\Http\Controllers\Controller;
+use App\Models\Backend\Account;
 use App\Models\Backend\Supplier;
+use App\Models\Backend\SupplierTransition;
 use Illuminate\Http\Request;
 
 class SupplierController extends Controller
 {
      public $suppliers;
+     public $accounts;
 
 
-    public function __construct(SupplierInterface $supplierInterface = null) {
+    public function __construct(SupplierInterface $supplierInterface = null,
+                                AccountInterface $accountInterface
+    ) {
         $this->suppliers = $supplierInterface;
+        $this->accounts = $accountInterface;
     }
 
 
 
     public function index()
     {
-        $suppliers = Supplier::all();
-        return view('backend.supplier.index', compact('suppliers'));
+        $suppliers = Supplier::all();  
+        $accounts = $this->accounts->branchAccounts()->skip(1); 
+        return view('backend.supplier.index', compact('suppliers','accounts'));
     }
 
     /**
@@ -50,7 +58,12 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
-        //
+         $supplier = $supplier->with([
+            'transitions' => function($q){
+                $q->select('id','supplier_id','deposit','due','challan_id','note','created_at')->orderBy('id','DESC');
+            }
+            ])->first();
+         return view('backend.supplier.view', compact('supplier'));
     }
 
     /**

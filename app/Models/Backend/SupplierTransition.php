@@ -52,8 +52,9 @@ class SupplierTransition extends Model
             'supplier_id'   => $request->supplier_id,
             'challan_id'    => $challanId ?? 1,
             'branch_id'     => auth()->user()->branch_id,
-            'deposit'       => $request->pay,
+            'deposit'       => $request->pay ?? 0,
             'due'           => $request->due ?? 0,
+            'note'          => $request->note ?? '-'
         ]);
     }
 

@@ -7,6 +7,7 @@ use App\Contracts\SupplierTransitionInterface;
 use App\Contracts\TransitionInterface;
 use App\Http\Controllers\Controller;
 use App\Models\Backend\Challan;
+use App\Models\Backend\Transition;
 use Illuminate\Http\Request;
 
 class PaymentController extends Controller
@@ -32,10 +33,54 @@ class PaymentController extends Controller
 
 
 
+
     public function index()
     {
         //
     }
+
+
+    public function directPayInfoValidation($request)
+    {
+        $this->validate($request,[
+            'pay'         => 'required',
+            'account_id'  => 'required', 
+        ],[
+            'pay.required'  => 'Amount Field Required', 
+        ]);
+    }
+
+    public function directPayment(Request $request)
+    { 
+
+       $this->directPayInfoValidation($request);
+
+        $challanId = 1; 
+        // $this->challans->pay($request, $challanId);  
+        $this->transitions->pay($request,$challanId);  
+        $this->supplierTransitions->newSupplierTransition($request,$challanId);  
+        notify('Payment Successfully','Success');
+        return redirect()->back();
+    }
+
+    public function directDueIncrease(Request $request)
+    {
+        $this->validate($request,[
+            'due'         => 'required', 
+        ],[
+            'due.required'  => 'Amount Field Required', 
+        ]);
+
+        $challanId = 1;  
+        $this->supplierTransitions->newSupplierTransition($request,$challanId); 
+        
+        notify('Adjustment Successfully','Success');
+        return redirect()->back();
+        
+    }
+
+
+
 
     /**
      * Show the form for creating a new resource.

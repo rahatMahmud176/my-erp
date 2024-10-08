@@ -4,19 +4,20 @@
         <td scope="row">Challan#{{ $challan->id }}</td>
         <td class="text-center"><a href="#">{{ $challan->supplier->name }}</a></td>
         <td class="text-center">{{ number_format($challan->total, 2) }}</td>
-        <td class="text-success text-center">{{ number_format($challan->pay, 2) }}</td>
+        {{-- <td class="text-success text-center">{{ number_format($challan->pay, 2) }}</td>
         <td class="{{ $challan->due == 0 ? 'text-success' : 'text-danger' }} text-center">
-            {{ number_format($challan->due, 2) }}</td>
+            {{ number_format($challan->due, 2) }}
+        </td> --}}
 
         <td class="text-center">
 
-            @if ($challan->due != 0)
+            {{-- @if ($challan->due != 0)
                 <a href="#" data-id = "{{ $challan->id }}" data-due = "{{ $challan->due }}"
                     data-supplier = "{{ $challan->supplier->name }}" data-supplier_id = "{{ $challan->supplier_id }}"
                     class="btn btn-sm btn-success pay-challan" data-bs-toggle="modal" data-bs-target="#exampleModal">
                     <i class="bi bi-coin"></i>
                     Pay</a>
-            @endif
+            @endif --}}
 
             @if ($challan->deletable == true)
                 <a href="{{ route('admin.challans.show',$challan) }}" class="btn btn-sm btn-secondary">

@@ -54,10 +54,12 @@ public $items;
      */
     public function show(string $id)
     {
+        $today = date('Y-m-d') . ' 00:00:00';
+
        $item = Item::select('id','name')->with([
                             'challan_details',
                             'challan_details.challan:id,supplier_id',
-                            'challan_details.challan.supplier:id,name',
+                            'challan_details.challan.supplier:id,name', 
                             'stocks:id,item_id',
                             'stocks.invoice_details:invoice_id,unit_qty,created_at,stock_id'
                         ])->find($id);

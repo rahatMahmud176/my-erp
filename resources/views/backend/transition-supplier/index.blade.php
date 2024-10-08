@@ -29,7 +29,7 @@
                             <thead class="">
                                 <tr>
                                     <th class="text-center" scope="col">Date</th>
-                                    <th class="text-center" scope="col">Challan ID</th>
+                                    {{-- <th class="text-center" scope="col">Challan ID</th> --}}
                                     <th class="text-center" scope="col">Supplier</th>
                                     <th class="text-center" scope="col">Deposit</th>
                                     <th class="text-center" scope="col">Due</th>

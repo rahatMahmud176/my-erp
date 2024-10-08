@@ -53,6 +53,11 @@ public function challans()
     return $this->hasMany(Challan::class);
 }
 
+public function transitions()
+{
+    return $this->hasMany(SupplierTransition::class);
+}
+
 
 
 }

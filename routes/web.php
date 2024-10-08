@@ -68,6 +68,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::resource('transitions', TransitionController::class);
     Route::resource('supplier_transitions', SupplierTransitionController::class); 
     Route::resource('payments', PaymentController::class); 
+    Route::post('direct-payment',[PaymentController::class,'directPayment'])->name('direct-payment');
+    Route::post('direct-due-increase',[PaymentController::class,'directDueIncrease'])->name('direct-due-increase');
     Route::resource('pos', PosController::class); 
     Route::resource('cart', AdminCartController::class);
     Route::get('remove-cart-item/{id}',[AdminCartController::class,'removeCartItem'])->name('remove-cart-item');

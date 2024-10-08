@@ -232,8 +232,15 @@
                                     <tr>
                                         <th>Due =</th>
 
-                                        <td><input name="due" value="{{ old('due') }}" type="number"
-                                                id="due" readonly class="form-control my-field"></td>
+                                        <td><input type="hidden" name="due" value="{{ old('due') }}" type="number"
+                                                id="due" readonly class="form-control my-field">
+                                            
+                                                <input name="actual_due" value="{{ old('actual_due') }}" type="number"
+                                                id="actual_due" readonly class="form-control my-field"> 
+
+                                            </td>
+
+                                         
                                     </tr>
                                 </table>
                             </div>
@@ -428,7 +435,14 @@
             var price = $('#purchase').val();
             var total = qty * price;
             $('#total').empty();
-            $('#total').val(total);
+            $('#total').val(total); 
+        })
+    </script>
+    <script>
+        $('#total').on('keyup', function() { 
+            var myTotal = $(this).val();
+            $('#due').empty();
+            $('#due').val(myTotal); 
         })
     </script>
 
@@ -436,8 +450,8 @@
         $('#pay,#unit_qty, #purchase').on('keyup', function() {
             let pay = $('#pay').val();
             let total = $('#total').val();
-            $('#due').empty();
-            $('#due').val(total - pay);
+            $('#actual_due').empty();
+            $('#actual_due').val(total - pay);
         })
     </script>
 

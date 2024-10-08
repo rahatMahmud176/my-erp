@@ -17,7 +17,8 @@ return new class extends Migration
             $table->foreignId('challan_id')->constrained('challans')->onDelete('cascade')->default(0);
             $table->foreignId('branch_id')->constrained('branches')->onDelete('cascade');
             $table->float('deposit', 10,2)->default(0);
-            $table->float('due', 10,2)->default(0); 
+            $table->float('due', 10,2)->default(0);
+            $table->string('note')->default('-');
             $table->timestamps();
         });
     }
