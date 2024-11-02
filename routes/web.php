@@ -106,6 +106,8 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::get('get-supplier-transition-by-date',[SupplierTransitionController::class, 'getSupplierTransitionsByDate']);
     Route::get('get-today-supplier-transition',[SupplierTransitionController::class, 'getSupplierTransitionsToday']);
    
+    Route::get('supplier-search',[SupplierController::class,'search']);
+
     Route::get('get-pos-search-result',[PosController::class, 'searchResult'])->name('get-pos-search-result');
     Route::get('get-stock-by-category',[StockController::class, 'stockByCat'])->name('get-stock-by-category');
     Route::get('product-history-search',[ProductHistoryController::class, 'searchProductHistoryBranch'])->name('product-history-search');

@@ -9,7 +9,7 @@
 
                 <div class="mt-3 clearfix">
                     <h3 class="float-start">#Suppliers</h3>
-                    <input type="text" class=" float-end search-supplier" placeholder="Search by Name">
+                    <input type="text" class="float-end search-supplier" value="" placeholder="Search by Name">
                 </div>
 
                 <div class="row">
@@ -60,53 +60,9 @@
                                     <th scope="col">Action</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody class="ajax-body">
 
-                                @foreach ($suppliers as $key => $supplier)
-                                    <tr>
-                                        <th scope="row">{{ $key + 1 }}</th>
-                                        <td>{{ $supplier->name }}</td>
-                                        <td>{{ $supplier->phone_number }}</td>
-
-                                        <td>
-                                            {{ number_format($supplier->transitions->sum('due') - $supplier->transitions->sum('deposit'), 2) }}
-                                            (new) <br>
-                                            {{ number_format($supplier->challans->sum('total') - $supplier->challans->sum('pay'), 2) }}
-                                        </td>
-
-                                        <td>
-                                            <a href="#" class="btn btn-sm btn-success pay-button" data-id="{{ $supplier->id }}"
-                                                data-bs-toggle="modal" data-bs-target="#payModal"> Pay</a>
-                                            <a href="#" class="btn btn-sm btn-success adjust-button" data-id="{{ $supplier->id }}" data-bs-toggle="modal"
-                                                data-bs-target="#adjustModal"> Adjust</a>
-                                            <a href="{{ route('admin.suppliers.edit', $supplier) }}"
-                                                class="btn btn-sm btn-secondary">
-                                                <i class="bi bi-pencil-square"></i>
-                                                Edit
-                                            </a>
-
-                                            <a href="{{ route('admin.suppliers.show', $supplier) }}"
-                                                class="btn btn-sm btn-secondary">
-                                                <i class="bi bi-eye"></i>
-                                                View
-                                            </a>
-
-                                            {{-- <a href="#" onclick="supplierDelete({{ $supplier->id }})"
-                                                    class="btn btn-sm btn-danger">
-                                                    <i class="bi bi-trash3-fill"></i>
-                                                    Delete</a>
-
-                                                <form id="deleteSupplierForm{{ $supplier->id }}"
-                                                    action="{{ route('admin.suppliers.destroy', $supplier) }}" method="post">
-                                                    @method('DELETE')
-                                                    @csrf
-                                                </form> --}}
-
-
-                                        </td>
-                                    </tr>
-                                @endforeach
-
+                                @include('backend.supplier.ajax-result');
 
                             </tbody>
                         </table>
@@ -131,37 +87,38 @@
                     <h5 class="modal-title" id="exampleModalLabel">Pay</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-            <form action="{{ route('admin.direct-payment') }}" method="post"> 
-                @csrf
-                <div class="modal-body">
+                <form action="{{ route('admin.direct-payment') }}" method="post">
+                    @csrf
+                    <div class="modal-body">
 
-                    <div class="form-group">
-                      <label for="">Amount</label>
-                      <input type="text" name="pay" id="" class="form-control" placeholder="0.00" aria-describedby="helpId">
-                      <input type="hidden" name="supplier_id" id="supplier_id">
-                     </div>
+                        <div class="form-group">
+                            <label for="">Amount</label>
+                            <input type="text" name="pay" id="" class="form-control" placeholder="0.00"
+                                aria-describedby="helpId">
+                            <input type="hidden" name="supplier_id" id="supplier_id">
+                        </div>
 
-                    <div class="form-group mt-3">
-                      <label for="">From A/c:</label>
-                        <select class="form-control" name="account_id" id="">
-                            @foreach ($accounts as $account)
-                                <option value="{{ $account->id }}">{{ $account->ac_title }} </option>
-                            @endforeach
-                        </select>
+                        <div class="form-group mt-3">
+                            <label for="">From A/c:</label>
+                            <select class="form-control" name="account_id" id="">
+                                @foreach ($accounts as $account)
+                                    <option value="{{ $account->id }}">{{ $account->ac_title }} </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="form-group mt-3">
+                            <label for="">Note</label>
+                            <textarea class="form-control" placeholder="write note here......." name="note"></textarea>
+                        </div>
+
+
                     </div>
- 
-                    <div class="form-group mt-3">
-                      <label for="">Note</label>
-                        <textarea class="form-control" placeholder="write note here......." name="note"></textarea>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="submit" class="btn btn-primary">Pay</button>
                     </div>
- 
-
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                    <button type="submit" class="btn btn-primary">Pay</button>
-                </div> 
-            </form>
+                </form>
 
             </div>
         </div>
@@ -174,26 +131,27 @@
                     <h5 class="modal-title" id="exampleModalLabel">Adjustment</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
-                <form action="{{ route('admin.direct-due-increase') }}" method="post"> 
+                <form action="{{ route('admin.direct-due-increase') }}" method="post">
                     @csrf
                     <div class="modal-body">
-    
+
                         <div class="form-group">
-                          <label for="">Deu Increase</label>
-                          <input type="text" name="due" id="" class="form-control" placeholder="0.00" aria-describedby="helpId">
-                          <input type="hidden" name="supplier_id" class="supplier_id" >
-                         </div> 
-     
+                            <label for="">Deu Increase</label>
+                            <input type="text" name="due" id="" class="form-control" placeholder="0.00"
+                                aria-describedby="helpId">
+                            <input type="hidden" name="supplier_id" class="supplier_id">
+                        </div>
+
                         <div class="form-group mt-3">
-                          <label for="">Note</label>
+                            <label for="">Note</label>
                             <textarea class="form-control" placeholder="write note here......." name="note"></textarea>
-                        </div> 
-    
+                        </div>
+
                     </div>
                     <div class="modal-footer">
                         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
                         <button type="submit" class="btn btn-primary">Pay</button>
-                    </div> 
+                    </div>
                 </form>
             </div>
         </div>
@@ -205,18 +163,34 @@
 
 @push('script')
 
-<script>
-    $('.pay-button').on('click', function(){
-        let id = $(this).attr('data-id');
-        $('#supplier_id').val(id);
-    })
-</script>
-<script>
-    $('.adjust-button').on('click', function(){
-        let id = $(this).attr('data-id');
-        $('.supplier_id').val(id);
-    })
-</script>
+    <script>
+        $('.search-supplier').on('blur', function(){
+            let searchkey = $(this).val();
+            // console.log(searchkey); 
+            $.ajax({
+                type : "GET",
+                url  : "{{ url('admin/supplier-search') }}",
+                data : {searchkey:searchkey},
+                success: function(res){
+                    $('.ajax-body').html(res);
+                }
+            })
+        })
+    </script>
+
+
+    <script>
+        $('.pay-button').on('click', function() {
+            let id = $(this).attr('data-id');
+            $('#supplier_id').val(id);
+        })
+    </script>
+    <script>
+        $('.adjust-button').on('click', function() {
+            let id = $(this).attr('data-id');
+            $('.supplier_id').val(id);
+        })
+    </script>
 
 
     <script>

@@ -103,4 +103,25 @@ class SupplierController extends Controller
 
 
 
+
+// ajax functions 
+
+public function search()
+{
+    $searchkey = $_GET['searchkey'];
+    $suppliers = Supplier::where('name','like','%'.$searchkey.'%')->get(); 
+    $accounts  = $this->accounts->branchAccounts()->skip(1); 
+    return response()->view('backend.supplier.ajax-result', compact('suppliers','accounts')); 
+}
+
+
+
+
+
+
+
+
+
+
+
 }
