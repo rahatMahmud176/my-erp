@@ -58,11 +58,12 @@ class SupplierController extends Controller
      */
     public function show(Supplier $supplier)
     {
+          
          $supplier = $supplier->with([
             'transitions' => function($q){
                 $q->select('id','supplier_id','deposit','due','challan_id','note','created_at')->orderBy('id','DESC');
             }
-            ])->first();
+            ])->find($supplier->id);
          return view('backend.supplier.view', compact('supplier'));
     }
 

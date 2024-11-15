@@ -6,9 +6,9 @@
 
         <td>
             {{ number_format($supplier->transitions->sum('due') - $supplier->transitions->sum('deposit'), 2) }}
-            (new)
-            <br>
-            {{ number_format($supplier->challans->sum('total') - $supplier->challans->sum('pay'), 2) }}
+            {{-- (new) --}}
+            {{-- <br>
+            {{ number_format($supplier->challans->sum('total') - $supplier->challans->sum('pay'), 2) }} --}}
         </td>
 
         <td>
