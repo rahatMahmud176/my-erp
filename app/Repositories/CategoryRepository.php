@@ -9,16 +9,20 @@ class CategoryRepository implements CategoryInterface
 {
     public function all()
     {
-        return Category::all();
+        return Category::paginate(10);
     }
 
     public function store($request)
     {
-        Category::newCategory($request);
+        Category::create([
+            'name' => $request->name,
+        ]); 
     }
     public function update($request,$category)
     {
-        Category::catUpdate($request,$category);
+        $category->update([
+            'name'  => $request->name,
+        ]);
     }
 
 }

@@ -27,7 +27,7 @@ class SupplierController extends Controller
 
     public function index()
     {
-        $suppliers = Supplier::all();  
+        $suppliers = $this->suppliers->branchSuppliers();  
         $accounts = $this->accounts->branchAccounts()->skip(1); 
         return view('backend.supplier.index', compact('suppliers','accounts'));
     }
@@ -57,13 +57,8 @@ class SupplierController extends Controller
      * Display the specified resource.
      */
     public function show(Supplier $supplier)
-    {
-          
-         $supplier = $supplier->with([
-            'transitions' => function($q){
-                $q->select('id','supplier_id','deposit','due','challan_id','note','created_at')->orderBy('id','DESC');
-            }
-            ])->find($supplier->id);
+    { 
+         $supplier = $this->suppliers->show($supplier);
          return view('backend.supplier.view', compact('supplier'));
     }
 
@@ -109,8 +104,9 @@ class SupplierController extends Controller
 
 public function search()
 {
-    $searchkey = $_GET['searchkey'];
-    $suppliers = Supplier::where('name','like','%'.$searchkey.'%')->get(); 
+    $searchKey = $_GET['searchkey'];
+    $suppliers = $this->suppliers->search($searchKey); 
+
     $accounts  = $this->accounts->branchAccounts()->skip(1); 
     return response()->view('backend.supplier.ajax-result', compact('suppliers','accounts')); 
 }

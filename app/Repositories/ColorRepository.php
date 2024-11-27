@@ -10,15 +10,19 @@ class ColorRepository implements ColorInterface
 
     public function all()
     {
-        return Color::all();
+        return Color::orderBy('id','DESC')->paginate(10);
     }
     public function store($request)
     {
-        Color::newColor($request);
+        Color::create([
+            'name' => $request->name,
+        ]); 
     }
     public function update($request,$color)
     {
-        Color::colorUpdate($request,$color);
+        $color->update([
+            'name'  => $request->name,
+        ]);
     }
 
     

@@ -10,15 +10,19 @@ class CountryVariantRepository implements CountryVariantInterface
 
     public function all()
     {
-        return CountryVariant::all();
+        return CountryVariant::orderBy('id','DESC')->paginate(10);
     }
     public function store($request)
     {
-        CountryVariant::newCountryVariant($request);
+        CountryVariant::create([
+            'name' => $request->name,
+        ]); 
     }
     public function update($request,$countryVariant)
     {
-        CountryVariant::countryVariantUpdate($request,$countryVariant);
+        $countryVariant->update([
+            'name'  => $request->name,
+        ]);
     }
 
     

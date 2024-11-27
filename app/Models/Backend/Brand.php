@@ -27,20 +27,7 @@ class Brand extends Model
 
     public static $brand;
 
-
-    public static function newBrand($request)
-    {
-        Brand::create([
-            'name' => $request->name,
-        ]); 
-    }   
-
-    public static function brandUpdate($request,$brand)
-    {
-        $brand->update([
-            'name'  => $request->name,
-        ]);
-    }
+ 
 
 
 public function item()

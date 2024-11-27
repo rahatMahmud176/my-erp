@@ -64,10 +64,8 @@ class CategoryController extends Controller
      * Show the form for editing the specified resource.
      */
     public function edit(Category $category)
-    {
-
-        Gate::authorize('utility.edit');
-
+    { 
+        Gate::authorize('utility.edit'); 
         $category = $category;
         return view('backend.category.form', compact('category'));
     }
@@ -77,12 +75,10 @@ class CategoryController extends Controller
      */
     public function update(Request $request, Category $category)
     {
-        Gate::authorize('utility.edit');
-
+        Gate::authorize('utility.edit'); 
         $this->validate($request,[
             'name'  => 'required'
-        ]);
-
+        ]); 
         $this->categories->update($request,$category);
         notify('updated successfully','success');
         return redirect('admin/categories');
@@ -93,8 +89,7 @@ class CategoryController extends Controller
      */
     public function destroy(Category $category)
     {
-        Gate::authorize('utility.delete');
-
+        Gate::authorize('utility.delete'); 
         if($category->deletable == 1){
             $category->delete();
             notify()->success('delete Successfully','Success');

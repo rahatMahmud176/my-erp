@@ -25,21 +25,7 @@ class Category extends Model
 
     public static $category;
 
-
-    public static function newCategory($request)
-    {
-        Category::create([
-            'name' => $request->name,
-        ]); 
-    }   
-
-    public static function catUpdate($request,$category)
-    {
-        $category->update([
-            'name'  => $request->name,
-        ]);
-    }
-
+  
 
 
    public function subCategories()

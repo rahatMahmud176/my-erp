@@ -10,15 +10,19 @@ class UnitRepository implements UnitInterface
 
     public function all()
     {
-        return Unit::allUnit();
+        return Unit::orderBy('id','desc')->paginate(10);
     }
     public function store($request)
     {
-        Unit::newUnit($request);
+        Unit::create([
+            'name' => $request->name,
+        ]); 
     }
     public function update($request,$unit)
     {
-        Unit::unitUpdate($request,$unit);
+        $unit->update([
+            'name'  => $request->name,
+        ]);
     }
 
     

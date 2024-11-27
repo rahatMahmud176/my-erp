@@ -70,7 +70,8 @@
 
                 </div>
 
-
+        {{ $suppliers->links('pagination::bootstrap-5') }}  
+        {{-- // it should be write ajax result file for update after search  --}}
 
             </div>
         </div>

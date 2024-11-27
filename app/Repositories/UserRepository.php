@@ -8,6 +8,9 @@ class UserRepository implements UserInterface
 {
     public function update($user,$request)
     {
-        User::updateUser($user,$request);
+        $user->update([
+            'role_id'   => $request->role,
+            'branch_id' => $request->branch,
+    ]);
     }
 }

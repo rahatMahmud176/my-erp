@@ -88,6 +88,8 @@
                         </table>
                     </div>
 
+                    {{ $colors->links('pagination::bootstrap-5') }}
+
                 </div>
 
 

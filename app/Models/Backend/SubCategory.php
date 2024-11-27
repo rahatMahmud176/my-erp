@@ -23,23 +23,7 @@ protected $guarded = ['id'];
 
     public static $subCategory;
 
-
-    public static function newSubCategory($request)
-    {
-        SubCategory::create([
-            'name' => $request->name,
-            'category_id'  => $request->cat,
-        ]); 
-    }   
-
-    public static function subCatUpdate($request,$subCategory)
-    {
-        $subCategory->update([
-            'name'  => $request->name,
-            'category_id'  => $request->cat,
-        ]);
-    }
-
+  
 
 
     public function category()

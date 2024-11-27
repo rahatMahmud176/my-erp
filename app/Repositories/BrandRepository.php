@@ -10,15 +10,19 @@ class BrandRepository implements BrandInterface
 
     public function all()
     {
-        return Brand::all();
+        return Brand::orderBy('id','DESC')->paginate(10);
     }
     public function store($request)
     {
-        Brand::newBrand($request);
+        Brand::create([
+            'name' => $request->name,
+        ]); 
     }
-    public function update($request,$category)
+    public function update($request,$brand)
     {
-        Brand::brandUpdate($request,$category);
+        $brand->update([
+            'name'  => $request->name,
+        ]);
     }
 
     

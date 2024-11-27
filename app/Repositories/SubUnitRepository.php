@@ -10,15 +10,19 @@ class SubUnitRepository implements SubUnitInterface
 
     public function all()
     {
-        return SubUnit::all();
+        return SubUnit::orderBy('id','desc')->get();
     }
     public function store($request)
     {
-        SubUnit::newSubUnit($request);
+        SubUnit::create([
+            'name' => $request->name,
+        ]); 
     }
     public function update($request,$subUnit)
     {
-        SubUnit::subUnitUpdate($request,$subUnit);
+        $subUnit->update([
+            'name'  => $request->name,
+        ]);
     }
 
     

@@ -37,8 +37,8 @@
                                 <label for="" class="mb-2">Category</label>
                                 <select class="form-control" name="cat" id="">
                                     @foreach ($categories as $category)
-                                      <option value="{{ $category->id }}">{{ $category->name }}</option>
-                                    @endforeach 
+                                        <option value="{{ $category->id }}">{{ $category->name }}</option>
+                                    @endforeach
                                 </select>
                             </div>
 
@@ -99,6 +99,10 @@
                             </tbody>
                         </table>
                     </div>
+
+
+                    {{ $subCategories->links('pagination::bootstrap-5') }}
+
 
                 </div>
 

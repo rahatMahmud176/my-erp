@@ -87,7 +87,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    {{ $units->links('pagination::bootstrap-5') }}
                 </div>
 
 

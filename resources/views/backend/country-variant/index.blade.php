@@ -87,7 +87,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    {{ $countryVariants->links("pagination::bootstrap-5") }}
                 </div>
 
 

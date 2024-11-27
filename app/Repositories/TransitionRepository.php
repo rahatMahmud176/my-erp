@@ -8,6 +8,11 @@ use App\Models\Backend\Transition;
 class TransitionRepository implements TransitionInterface
 {
 
+   public $today;
+
+   public function __construct() {
+      $this->today = date('Y-m-d') . ' 00:00:00'; 
+   }
 
    public function allTransitions()
    {
@@ -31,6 +36,11 @@ class TransitionRepository implements TransitionInterface
       Transition::pay($request,$challanId);
    }
 
+   public function todayPayment()
+   {
+      return Transition::where([['created_at','>=',$this->today]]) 
+      ->where('branch_id', auth()->user()->branch_id)->sum('pay');
+   }
 
 
 }

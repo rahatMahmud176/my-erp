@@ -13,21 +13,7 @@ class CountryVariant extends Model
  
     public static $countryVariant;
 
-
-    public static function newCountryVariant($request)
-    {
-        CountryVariant::create([
-            'name' => $request->name,
-        ]); 
-    }   
-
-    public static function countryVariantUpdate($request,$countryVariant)
-    {
-        $countryVariant->update([
-            'name'  => $request->name,
-        ]);
-    }
-
+  
 
     public function items()
    {

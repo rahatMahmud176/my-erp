@@ -8,6 +8,7 @@ interface InvoiceInterface{
     public function branchInvoicesThisMonth();
     public function newInvoice($request, $customerId);
     public function newDetails($sale,$invoiceId);
+    public function todaySaleAmount();
 
 
 

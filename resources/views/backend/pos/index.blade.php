@@ -29,12 +29,17 @@
                                 @include('backend.pos.ajax-body')
                             </tbody>
                         </table>
+
+                       {{ $stocks->links('pagination::bootstrap-5') }}
+
                     </div> 
                 </div> 
             </div>
         </div>
     </div>
 @endsection
+
+
 
 
 

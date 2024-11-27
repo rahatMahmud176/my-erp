@@ -23,10 +23,8 @@ class SubCategoryController extends Controller
 
 
     public function index()
-    {
-
-        Gate::authorize('utility.index');
-
+    { 
+        Gate::authorize('utility.index'); 
         $subCategories = $this->subCategory->all();  
         $categories = $this->category->all();  
         return view('backend.sub-category.index', compact('subCategories','categories'));
@@ -83,8 +81,7 @@ class SubCategoryController extends Controller
         Gate::authorize('utility.edit');
         $this->validate($request,[
             'name'  => 'required'
-        ]);
-
+        ]); 
         $this->subCategory->update($request,$subCategory);
         notify('updated successfully','success');
         return redirect('admin/sub-categories');

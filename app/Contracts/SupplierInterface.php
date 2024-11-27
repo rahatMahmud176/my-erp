@@ -8,4 +8,6 @@ interface SupplierInterface
     public function branchSuppliers();
     public function store($request);
     public function update($request,$supplier);
+    public function show($supplier);
+    public function search($searchKey);
 }

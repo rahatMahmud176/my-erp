@@ -48,15 +48,7 @@ class User extends Authenticatable
     ];
 
 
-    public static function updateUser($user,$request)
-    { 
-
-        $user->update([
-                'role_id'   => $request->role,
-                'branch_id' => $request->branch,
-        ]);
-    }
-
+     
 
 
     public function role()

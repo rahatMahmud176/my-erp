@@ -10,15 +10,19 @@ class SizeRepository implements SizeInterface
 
     public function all()
     {
-        return Size::all();
+        return Size::orderBy('id','DESC')->paginate(10);
     }
     public function store($request)
     {
-        Size::newSize($request);
+        Size::create([
+            'name' => $request->name,
+        ]); 
     }
     public function update($request,$size)
     {
-        Size::sizeUpdate($request,$size);
+        $size->update([
+            'name'  => $request->name,
+        ]);
     }
 
     

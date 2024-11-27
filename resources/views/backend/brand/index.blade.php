@@ -88,6 +88,8 @@
                         </table>
                     </div>
 
+                    {{ $brands->links('pagination::bootstrap-5') }}
+
                 </div>
 
 

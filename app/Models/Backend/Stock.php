@@ -40,25 +40,14 @@ class Stock extends Model
     {
         return Stock::where('branch_id',auth()->user()->branch_id)
                     ->where('unit_qty','!=',0)
-                        ->get();
-    }
-    public static function searchResult($searchKey)
-    {
-        return Stock::where('branch_id',auth()->user()->branch_id)
-                    ->where('serial', 'LIKE', '%'.$searchKey.'%')
-                    ->where('unit_qty','!=',0)
-                    ->get();
+                        ->paginate('15');
     }
 
     public static function allStocks()
     {
         return Stock::orderBy('id','DESC')->get();
     }
-
-
-
-
-
+ 
 
 
 

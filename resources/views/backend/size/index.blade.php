@@ -87,7 +87,7 @@
                             </tbody>
                         </table>
                     </div>
-
+                    {{ $sizes->links('pagination::bootstrap-5') }}
                 </div>
 
 

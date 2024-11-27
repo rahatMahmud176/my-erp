@@ -8,6 +8,12 @@ use App\Models\Backend\InvoiceDetails;
 
 class InvoiceRepository implements InvoiceInterface
 {
+    public $today;
+    public function __construct() {
+        $this->today = date('Y-m-d') . ' 00:00:00'; 
+    }
+
+
     public function allInvoices()
     {
         return Invoice::allInvoices();
@@ -29,4 +35,15 @@ class InvoiceRepository implements InvoiceInterface
     {
         return InvoiceDetails::new($sale, $invoiceId);
     }
+
+    public function todaySaleAmount()
+    { 
+       return Invoice::where([['created_at','>=',$this->today]]) 
+                        ->where('branch_id', auth()->user()->branch_id)->sum('total'); 
+    }
+
+
+
+
+
 }

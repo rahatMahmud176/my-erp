@@ -9,6 +9,7 @@ interface TransitionInterface
     public function branchTransitionsPreviousMonth();
     public function pay($request,$challanId); 
     public function deposit($request,$invoiceId);
+    public function todayPayment();
 
 
 
