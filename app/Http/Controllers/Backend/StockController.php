@@ -268,6 +268,20 @@ public function newChallanDetails($request,$challanId)
 
  //  Ajax Functions
 
+ public function serialMatch(Request $request)
+ {
+    $serial = $request->query('serial'); 
+    $abc = explode(',',$serial);
+
+    $filtered = array_filter($abc, function($value){
+        return trim($value) !== '';
+    });
+    $filtered = array_values($filtered);
+
+    $exitsSerials = Stock::whereIn('serial',$filtered)->get('serial'); 
+    return response()->json($exitsSerials);
+ }
+
  public function itemInfo()
  {
      $id = $_GET['id'];

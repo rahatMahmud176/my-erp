@@ -184,11 +184,12 @@
                                 @if ($setting->serial_number)
                                     <td>
                                         @if ($setting->qty_manage_by_serial)
-                                            <textarea name="stock[1][serial]" value="{{ old('stock.1.serial') }}" id="" class="form-control my-field"></textarea>
+                                            <textarea name="stock[1][serial]" data-id="1" value="{{ old('stock.1.serial') }}" id="" class="form-control my-field serial"></textarea>
                                         @else
                                             <input type="text" name="stock[1][serial]"
-                                                value="{{ old('stock.1.serial') }}" class="my-field">
+                                                value="{{ old('stock.1.serial') }}" class="my-field serial" data-id="1">
                                         @endif
+                                        <small class="text-danger"><span class="exitsSerial1"></span> </small>
                                     </td>
                                 @endif
                                 <td>
@@ -411,6 +412,12 @@
 
 
 @push('script')
+
+
+
+
+ 
+
     <script>
         $('#item').on('change', function() {
             let id = $(this).val();
@@ -428,6 +435,43 @@
             })
         })
     </script>
+
+<script>
+    let debounceTimer;
+    $('.serial').on('keyup', function () {
+        let serial = $(this).val();
+        let dataId = $(this).attr('data-id');
+
+        // alert(dataId);
+
+        clearTimeout(debounceTimer); // Clear the previous timer
+        debounceTimer = setTimeout(() => {
+            $.ajax({
+                type: "GET",
+                url: "{{ url('admin/serial-match') }}",
+                data: { serial: serial },
+                success: function (res) {
+                    // Clear previous results
+                    $('.exitsSerial'+dataId).html('');
+                    
+                    // Ensure `res` is iterable if it's an array of results
+                    if (res.length) {
+                        res.forEach(item => {
+                            $('.exitsSerial'+dataId).append(`<div class="text-danger">already exist: ${item.serial}</div>`);
+                        });
+                    } else {
+                        // $('.exitsSerial'+dataId).html('<div class="text-success">No matching serials found.</div>');
+                    }
+                },
+                error: function (err) {
+                    console.error('Error:', err);
+                    $('.exitsSerial'+dataId).html('<div>Something went wrong. Please try again.</div>');
+                }
+            });
+        }, 300); // Wait for 300ms after typing stops
+    });
+</script>
+
 
     <script>
         $('#unit_qty, #purchase').on('keyup', function() {
@@ -480,6 +524,8 @@
                 },
                 url: "{{ url('admin/add-stock-row') }}",
                 success: function(res) {
+                    console.log(res);
+                    
                     $('.stock-table').append(res);
                     i++;
                 }

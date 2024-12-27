@@ -66,6 +66,7 @@
                         <small> <i class="bi bi-arrow-right"></i> {{ $details->stock->color->name }} </small> <br>
                         <small> <i class="bi bi-arrow-right"></i> {{ $details->stock->size->name }} </small> <br>
                         <small> <i class="bi bi-arrow-right"></i> {{ $details->stock->country->name }} </small> <br>
+                        <small> <i class="bi bi-arrow-right"></i> {{ $details->stock->serial }} </small> <br>
                     </td>
                     <td>
                         {{ $details->unit_qty.' ('.$details->stock->item->unit->name.')' }} <br>

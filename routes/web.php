@@ -112,6 +112,7 @@ Route::middleware('auth')->prefix('admin')->name('admin.')->group(function(){
     Route::get('get-stock-by-category',[StockController::class, 'stockByCat'])->name('get-stock-by-category');
     Route::get('product-history-search',[ProductHistoryController::class, 'searchProductHistoryBranch'])->name('product-history-search');
 
+    Route::get('serial-match',[StockController::class, 'serialMatch']);
 
 });
 
